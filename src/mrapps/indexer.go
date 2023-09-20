@@ -7,7 +7,7 @@ package main
 //
 
 import "fmt"
-import "../mr"
+import "labs-6.824/src/mr"
 
 import "strings"
 import "unicode"

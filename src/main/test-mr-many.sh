@@ -1,0 +1,1 @@
+for i in {1..200}; do bash test-mr.sh; done
