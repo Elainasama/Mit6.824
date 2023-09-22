@@ -17,7 +17,11 @@ package raft
 //   in the same server.
 //
 
-import "sync"
+import (
+	"math/rand"
+	"sync"
+	"time"
+)
 import "sync/atomic"
 import "labs-6.824/src/labrpc"
 
@@ -49,21 +53,24 @@ type Raft struct {
 	// Your data here (2A, 2B, 2C).
 	// Look at the paper's Figure 2 for a description of what
 	// state a Raft server must maintain.
-	role        RoleType // 记录节点目前状态
-	currentTerm int      // 节点当前任期
-	votedFor    int      // follower把票投给了哪个candidate
-	voteCount   int      // 记录所获选票的个数
+	role              RoleType // 记录节点目前状态
+	currentTerm       int      // 节点当前任期
+	votedFor          int      // follower把票投给了哪个candidate
+	voteCount         int      // 记录所获选票的个数
+	appendEntriesChan chan struct{}
+	LeaderMsgChan     chan struct{} // 当选Leader时发送
+	VoteMsgChan       chan struct{} // 收到选举信号时重置一下计时器，不然会出现覆盖term后计时器超时又突然自增。
 }
 
 // GetState return currentTerm and whether this server
 // believes it is the leader.
 func (rf *Raft) GetState() (int, bool) {
 	var term int
-	var isleader bool
+	var isLeader bool
 	// Your code here (2A).
 	term = rf.currentTerm
-	isleader = rf.role == Leader
-	return term, isleader
+	isLeader = rf.role == Leader
+	return term, isLeader
 }
 
 // save Raft's persistent state to stable storage,
@@ -100,53 +107,55 @@ func (rf *Raft) readPersist(data []byte) {
 	// }
 }
 
-// RequestVoteArgs example RequestVote RPC arguments structure.
+// RequestVoteArgs example RequestVoteHandler RPC arguments structure.
 // field names must start with capital letters!
 type RequestVoteArgs struct {
 	// Your data here (2A, 2B).
-	term         int //candidate’s term
-	candidateId  int //candidate requesting vote
-	lastLogIndex int //index of candidate’s last log entry (§5.4)
-	lastLogTerm  int //currentTerm of candidate’s last log entry (§5.4)
+	Term         int //candidate’s term
+	CandidateId  int //candidate requesting vote
+	LastLogIndex int //index of candidate’s last log entry (§5.4)
+	LastLogTerm  int //currentTerm of candidate’s last log entry (§5.4)
 }
 
-// RequestVoteReply example RequestVote RPC reply structure.
+// RequestVoteReply example RequestVoteHandler RPC reply structure.
 // field names must start with capital letters!
 type RequestVoteReply struct {
 	// Your data here (2A).
-	term        int  //currentTerm, for candidate to update itself
-	voteGranted bool //true means candidate received vote
+	Term        int  //currentTerm, for candidate to update itself
+	VoteGranted bool //true means candidate received vote
 }
 
-// RequestVote example RequestVote RPC handler.
-func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
+// RequestVoteHandler example RequestVoteHandler RPC handler.
+func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteReply) {
 	// Your code here (2A, 2B).
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 
-	if args.term > rf.currentTerm {
-		rf.ConvertToFollower(args.term)
-		return
+	// 设置返回的任期，投票默认返回false。
+	reply.Term = rf.currentTerm
+
+	if args.Term > rf.currentTerm {
+		rf.ConvertToFollower()
+		rf.currentTerm = args.Term
+		rf.votedFor = noVoted
+		rf.VoteMsgChan <- struct{}{}
 	}
 
 	// Reply false if currentTerm < currentTerm
 	// candidate’s log is at least as up-to-date
-	if args.term < rf.currentTerm {
-		// 设置当前任期
-		reply.term = rf.currentTerm
-		reply.voteGranted = false
+	if args.Term < rf.currentTerm {
 		return
 	}
-	// If votedFor is null or candidateId, and candidate’s log is at least as up-to-date as receiver’s log, grant vote
-	if rf.votedFor == noVoted || rf.votedFor == args.candidateId {
-		reply.voteGranted = true
-	} else {
-		reply.voteGranted = false
-	}
 
+	// If votedFor is null or candidateId, and candidate’s log is at least as up-to-date as receiver’s log, grant vote
+	if rf.role == Follower && (rf.votedFor == noVoted || rf.votedFor == args.CandidateId) {
+		rf.votedFor = args.CandidateId
+		reply.VoteGranted = true
+		rf.VoteMsgChan <- struct{}{}
+	}
 }
 
-// example code to send a RequestVote RPC to a server.
+// example code to send a RequestVoteHandler RPC to a server.
 // server is the index of the target server in rf.peers[].
 // expects RPC arguments in args.
 // fills in *reply with RPC reply, so caller should
@@ -174,27 +183,34 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 // that the caller passes the address of the reply struct with &, not
 // the struct itself.
 func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *RequestVoteReply) bool {
-	ok := rf.peers[server].Call("Raft.RequestVote", args, reply)
+	// 这里不加锁
+	// rf.mu.Lock()
+	// defer rf.mu.Unlock()
+	ok := rf.peers[server].Call("Raft.RequestVoteHandler", args, reply)
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-
 	// 发送失败直接返回
 	if !ok {
 		return false
 	}
 	// 如果已经不是candidate了，无须继续拉票。
-	if rf.role != Candidate {
+	if rf.role != Candidate || args.Term != rf.currentTerm {
 		return true
 	}
 	// 遇到了任期比自己大的节点，转为follower
-	if reply.term > rf.currentTerm {
-		rf.ConvertToFollower(reply.term)
+	if reply.Term > rf.currentTerm {
+		rf.currentTerm = reply.Term
+		rf.ConvertToFollower()
+		rf.votedFor = noVoted
+		rf.VoteMsgChan <- struct{}{}
 		return true
 	}
-	if reply.voteGranted {
+	if reply.VoteGranted && rf.role == Candidate {
 		rf.voteCount++
-		if 2*rf.voteCount > len(rf.peers) {
+		if 2*rf.voteCount > len(rf.peers) && rf.role == Candidate {
 			rf.ConvertToLeader()
+			// 超半数票 直接当选
+			rf.LeaderMsgChan <- struct{}{}
 		}
 	}
 	return true
@@ -241,7 +257,7 @@ func (rf *Raft) killed() bool {
 	return z == 1
 }
 
-// the service or tester wants to create a Raft server. the ports
+// Make the service or tester wants to create a Raft server. the ports
 // of all the Raft servers (including this one) are in peers[]. this
 // server's port is peers[me]. all the servers' peers[] arrays
 // have the same order. persister is a place for this server to
@@ -253,57 +269,150 @@ func (rf *Raft) killed() bool {
 func Make(peers []*labrpc.ClientEnd, me int,
 	persister *Persister, applyCh chan ApplyMsg) *Raft {
 	rf := &Raft{
-		mu:          sync.Mutex{},
-		peers:       peers,
-		persister:   persister,
-		me:          me,
-		dead:        0,
-		role:        Follower,
-		currentTerm: 0,
-		votedFor:    noVoted,
-		voteCount:   0,
+		mu:                sync.Mutex{},
+		peers:             peers,
+		persister:         persister,
+		me:                me,
+		dead:              0,
+		role:              Follower,
+		currentTerm:       0,
+		votedFor:          noVoted,
+		voteCount:         0,
+		appendEntriesChan: make(chan struct{}, chanLen),
+		LeaderMsgChan:     make(chan struct{}, chanLen),
+		VoteMsgChan:       make(chan struct{}, chanLen),
 	}
 	// Your initialization code here (2A, 2B, 2C).
-
 	// initialize from state persisted before a crash
 	rf.readPersist(persister.ReadRaftState())
-
+	go rf.Run()
 	return rf
 }
 
-func (rf *Raft) ConvertToFollower(term int) {
+func (rf *Raft) ConvertToFollower() {
 	rf.role = Follower
-	rf.votedFor = noVoted
-	rf.voteCount = 0
-	rf.currentTerm = term
 }
+
 func (rf *Raft) ConvertToCandidate() {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 	rf.role = Candidate
+	// 自身任期自增
+	rf.currentTerm++
 	//  投票给自己
 	rf.votedFor = rf.me
-	rf.voteCount++
+	rf.voteCount = 1
 }
 func (rf *Raft) ConvertToLeader() {
 	rf.role = Leader
-	rf.votedFor = noVoted
-	rf.voteCount = 0
 }
 
 func (rf *Raft) Run() {
 	// dead置1则退出运行
 	for rf.dead == 0 {
+		//fmt.Println(rf.me, rf.role, rf.currentTerm, rf.votedFor, rf.voteCount)
 		switch rf.role {
 		case Candidate:
+			// 重置选举状态
+			rf.ConvertToCandidate()
+			go rf.sendAllRequestVote()
+			select {
+			case <-rf.VoteMsgChan:
+				continue
+			case <-rf.appendEntriesChan:
+				rf.ConvertToFollower()
+			case <-time.After(electionTimeout + time.Duration(rand.Int31()%300)*time.Millisecond):
+				// 选举超时
+				continue
+			case <-rf.LeaderMsgChan:
+			}
 
 		case Leader:
-
+			// Leader 定期发送心跳和同步日志
+			rf.SendAppendEntries()
+			time.Sleep(HeartBeatInterval)
 		case Follower:
-
+			select {
+			case <-rf.VoteMsgChan:
+				continue
+			case <-rf.appendEntriesChan:
+				continue
+			case <-time.After(appendEntriesTimeout + time.Duration(rand.Int31()%300)*time.Millisecond):
+				// 增加扰动避免多个Candidate同时进入选举
+				rf.ConvertToCandidate()
+			}
 		}
 	}
 }
 
-// SendHeartBeat Leader节点周期性向所有其他节点发送心跳
-func (rf *Raft) SendHeartBeat() {
+type AppendEntriesArgs struct {
+	Term         int
+	LeaderId     int
+	PrevLogIndex int
+	PrevLogTerm  int
+	//entries[]  log entries to store (empty for heartbeat may send more than one for efficiency)
+	LeaderCommit int // leader’s commitIndex
+}
 
+type AppendEntriesReply struct {
+	Term    int
+	Success bool
+}
+
+// SendAppendEntries 由Leader调用来复制日志条目;也用作heartbeat
+func (rf *Raft) SendAppendEntries() {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	for server := range rf.peers {
+		if server != rf.me && rf.role == Leader {
+			go func(id int) {
+				args := &AppendEntriesArgs{
+					Term:         rf.currentTerm,
+					LeaderId:     rf.me,
+					PrevLogIndex: 0,
+					PrevLogTerm:  0,
+					LeaderCommit: 0,
+				}
+				ret := &AppendEntriesReply{
+					Term:    0,
+					Success: false,
+				}
+				rf.peers[id].Call("Raft.AppendEntriesHandler", args, ret)
+			}(server)
+		}
+	}
+}
+
+// AppendEntriesHandler 由Leader向每个其余节点发送
+func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntriesReply) {
+	// 传一个空结构体表示接收到了Leader的请求。
+	if rf.currentTerm > args.Term {
+		rf.ConvertToFollower()
+		return
+	}
+	rf.appendEntriesChan <- struct{}{}
+}
+
+func (rf *Raft) sendAllRequestVote() {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+
+	arg := &RequestVoteArgs{
+		Term:         rf.currentTerm,
+		CandidateId:  rf.me,
+		LastLogIndex: 0,
+		LastLogTerm:  0,
+	}
+
+	for i := range rf.peers {
+		if i != rf.me && rf.role == Candidate {
+			go func(id int) {
+				ret := &RequestVoteReply{
+					Term:        0,
+					VoteGranted: false,
+				}
+				rf.sendRequestVote(id, arg, ret)
+			}(i)
+		}
+	}
 }
