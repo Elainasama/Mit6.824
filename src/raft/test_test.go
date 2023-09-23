@@ -86,6 +86,14 @@ func TestReElection2A(t *testing.T) {
 	cfg.end()
 }
 
+func TestBatch2A(t *testing.T) {
+	N := 3000
+	for i := 0; i < N; i++ {
+		TestInitialElection2A(t)
+		TestReElection2A(t)
+	}
+}
+
 func TestBasicAgree2B(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false)

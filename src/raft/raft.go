@@ -53,11 +53,11 @@ type Raft struct {
 	// Your data here (2A, 2B, 2C).
 	// Look at the paper's Figure 2 for a description of what
 	// state a Raft server must maintain.
-	role              RoleType // 记录节点目前状态
-	currentTerm       int      // 节点当前任期
-	votedFor          int      // follower把票投给了哪个candidate
-	voteCount         int      // 记录所获选票的个数
-	appendEntriesChan chan struct{}
+	role              RoleType      // 记录节点目前状态
+	currentTerm       int           // 节点当前任期
+	votedFor          int           // follower把票投给了哪个candidate
+	voteCount         int           // 记录所获选票的个数
+	appendEntriesChan chan struct{} // 心跳channel
 	LeaderMsgChan     chan struct{} // 当选Leader时发送
 	VoteMsgChan       chan struct{} // 收到选举信号时重置一下计时器，不然会出现覆盖term后计时器超时又突然自增。
 }
@@ -133,11 +133,10 @@ func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteRepl
 
 	// 设置返回的任期，投票默认返回false。
 	reply.Term = rf.currentTerm
-
+	// 这里不加return 因为一个candidate一轮只发送一次选举。Follower收到了修改自己任期即可。
+	// 后面可以继续参与投票。
 	if args.Term > rf.currentTerm {
-		rf.ConvertToFollower()
-		rf.currentTerm = args.Term
-		rf.votedFor = noVoted
+		rf.ConvertToFollower(args.Term)
 		rf.VoteMsgChan <- struct{}{}
 	}
 
@@ -183,12 +182,11 @@ func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteRepl
 // that the caller passes the address of the reply struct with &, not
 // the struct itself.
 func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *RequestVoteReply) bool {
-	// 这里不加锁
-	// rf.mu.Lock()
-	// defer rf.mu.Unlock()
+	//并发下不要加锁
+	//rf.mu.Lock()
+	//defer rf.mu.Unlock()
 	ok := rf.peers[server].Call("Raft.RequestVoteHandler", args, reply)
-	rf.mu.Lock()
-	defer rf.mu.Unlock()
+
 	// 发送失败直接返回
 	if !ok {
 		return false
@@ -199,9 +197,7 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *Reques
 	}
 	// 遇到了任期比自己大的节点，转为follower
 	if reply.Term > rf.currentTerm {
-		rf.currentTerm = reply.Term
-		rf.ConvertToFollower()
-		rf.votedFor = noVoted
+		rf.ConvertToFollower(reply.Term)
 		rf.VoteMsgChan <- struct{}{}
 		return true
 	}
@@ -289,8 +285,11 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	return rf
 }
 
-func (rf *Raft) ConvertToFollower() {
+func (rf *Raft) ConvertToFollower(term int) {
 	rf.role = Follower
+	rf.currentTerm = term
+	rf.votedFor = noVoted
+	rf.voteCount = 0
 }
 
 func (rf *Raft) ConvertToCandidate() {
@@ -313,23 +312,23 @@ func (rf *Raft) Run() {
 		//fmt.Println(rf.me, rf.role, rf.currentTerm, rf.votedFor, rf.voteCount)
 		switch rf.role {
 		case Candidate:
-			// 重置选举状态
-			rf.ConvertToCandidate()
+
 			go rf.sendAllRequestVote()
 			select {
 			case <-rf.VoteMsgChan:
 				continue
 			case <-rf.appendEntriesChan:
-				rf.ConvertToFollower()
+
 			case <-time.After(electionTimeout + time.Duration(rand.Int31()%300)*time.Millisecond):
-				// 选举超时
+				// 选举超时 重置选举状态
+				rf.ConvertToCandidate()
 				continue
 			case <-rf.LeaderMsgChan:
 			}
 
 		case Leader:
 			// Leader 定期发送心跳和同步日志
-			rf.SendAppendEntries()
+			rf.SendAllAppendEntries()
 			time.Sleep(HeartBeatInterval)
 		case Follower:
 			select {
@@ -359,8 +358,8 @@ type AppendEntriesReply struct {
 	Success bool
 }
 
-// SendAppendEntries 由Leader调用来复制日志条目;也用作heartbeat
-func (rf *Raft) SendAppendEntries() {
+// SendAllAppendEntries 由Leader向其他所有节点调用来复制日志条目;也用作heartbeat
+func (rf *Raft) SendAllAppendEntries() {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	for server := range rf.peers {
@@ -373,23 +372,39 @@ func (rf *Raft) SendAppendEntries() {
 					PrevLogTerm:  0,
 					LeaderCommit: 0,
 				}
-				ret := &AppendEntriesReply{
+				reply := &AppendEntriesReply{
 					Term:    0,
 					Success: false,
 				}
-				rf.peers[id].Call("Raft.AppendEntriesHandler", args, ret)
+				rf.SendAppendEntries(id, args, reply)
 			}(server)
 		}
+	}
+}
+
+func (rf *Raft) SendAppendEntries(id int, args *AppendEntriesArgs, reply *AppendEntriesReply) {
+	rf.peers[id].Call("Raft.AppendEntriesHandler", args, reply)
+
+	if rf.role != Leader {
+		return
+	}
+
+	if reply.Term > rf.currentTerm {
+		rf.ConvertToFollower(reply.Term)
+		return
 	}
 }
 
 // AppendEntriesHandler 由Leader向每个其余节点发送
 func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntriesReply) {
 	// 传一个空结构体表示接收到了Leader的请求。
-	if rf.currentTerm > args.Term {
-		rf.ConvertToFollower()
+	// 收到Leader更高的任期时，更新自己的任期。
+	reply.Term = rf.currentTerm
+	if rf.currentTerm < args.Term {
+		rf.ConvertToFollower(args.Term)
 		return
 	}
+
 	rf.appendEntriesChan <- struct{}{}
 }
 
