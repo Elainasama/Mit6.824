@@ -89,6 +89,7 @@ func TestReElection2A(t *testing.T) {
 func TestBatch2A(t *testing.T) {
 	N := 3000
 	for i := 0; i < N; i++ {
+		fmt.Printf("第%v轮测试:\n", i)
 		TestInitialElection2A(t)
 		TestReElection2A(t)
 	}
@@ -110,7 +111,7 @@ func TestBasicAgree2B(t *testing.T) {
 
 		xindex := cfg.one(index*100, servers, false)
 		if xindex != index {
-			t.Fatalf("got index %v but expected %v", xindex, index)
+			t.Fatalf("got Index %v but expected %v", xindex, index)
 		}
 	}
 
@@ -118,7 +119,7 @@ func TestBasicAgree2B(t *testing.T) {
 }
 
 // check, based on counting bytes of RPCs, that
-// each command is sent to each peer just once.
+// each Command is sent to each peer just once.
 func TestRPCBytes2B(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false)
@@ -135,7 +136,7 @@ func TestRPCBytes2B(t *testing.T) {
 		cmd := randstring(5000)
 		xindex := cfg.one(cmd, servers, false)
 		if xindex != index {
-			t.Fatalf("got index %v but expected %v", xindex, index)
+			t.Fatalf("got Index %v but expected %v", xindex, index)
 		}
 		sent += int64(len(cmd))
 	}
@@ -204,7 +205,7 @@ func TestFailNoAgree2B(t *testing.T) {
 		t.Fatalf("leader rejected Start()")
 	}
 	if index != 2 {
-		t.Fatalf("expected index 2, got %v", index)
+		t.Fatalf("expected Index 2, got %v", index)
 	}
 
 	time.Sleep(2 * RaftElectionTimeout)
@@ -220,14 +221,14 @@ func TestFailNoAgree2B(t *testing.T) {
 	cfg.connect((leader + 3) % servers)
 
 	// the disconnected majority may have chosen a leader from
-	// among their own ranks, forgetting index 2.
+	// among their own ranks, forgetting Index 2.
 	leader2 := cfg.checkOneLeader()
 	index2, _, ok2 := cfg.rafts[leader2].Start(30)
 	if ok2 == false {
 		t.Fatalf("leader2 rejected Start()")
 	}
 	if index2 < 2 || index2 > 3 {
-		t.Fatalf("unexpected index %v", index2)
+		t.Fatalf("unexpected Index %v", index2)
 	}
 
 	cfg.one(1000, servers, true)
@@ -349,12 +350,12 @@ func TestRejoin2B(t *testing.T) {
 	leader1 := cfg.checkOneLeader()
 	cfg.disconnect(leader1)
 
-	// make old leader try to agree on some entries
+	// make old leader try to agree on some Entries
 	cfg.rafts[leader1].Start(102)
 	cfg.rafts[leader1].Start(103)
 	cfg.rafts[leader1].Start(104)
 
-	// new leader commits, also for index=2
+	// new leader commits, also for Index=2
 	cfg.one(103, 2, true)
 
 	// new leader network failure
@@ -511,7 +512,7 @@ loop:
 					// currentTerm changed -- try again
 					continue loop
 				}
-				t.Fatalf("wrong value %v committed for index %v; expected %v\n", cmd, starti+i, cmds)
+				t.Fatalf("wrong value %v committed for Index %v; expected %v\n", cmd, starti+i, cmds)
 			}
 		}
 
@@ -531,7 +532,7 @@ loop:
 		}
 
 		if total2-total1 > (iters+1+3)*3 {
-			t.Fatalf("too many RPCs (%v) for %v entries\n", total2-total1, iters)
+			t.Fatalf("too many RPCs (%v) for %v Entries\n", total2-total1, iters)
 		}
 
 		success = true
@@ -679,12 +680,12 @@ func TestPersist32C(t *testing.T) {
 }
 
 // Test the scenarios described in Figure 8 of the extended Raft paper. Each
-// iteration asks a leader, if there is one, to insert a command in the Raft
-// log.  If there is a leader, that leader will fail quickly with a high
-// probability (perhaps without committing the command), or crash after a while
-// with low probability (most likey committing the command).  If the number of
+// iteration asks a leader, if there is one, to insert a Command in the Raft
+// logs.  If there is a leader, that leader will fail quickly with a high
+// probability (perhaps without committing the Command), or crash after a while
+// with low probability (most likey committing the Command).  If the number of
 // alive servers isn't enough to form a majority, perhaps start a new server.
-// The leader in a new CurrentTerm may try to finish replicating log entries that
+// The leader in a new CurrentTerm may try to finish replicating logs Entries that
 // haven't been committed yet.
 func TestFigure82C(t *testing.T) {
 	servers := 5
@@ -874,7 +875,7 @@ func internalChurn(t *testing.T, unreliable bool) {
 								values = append(values, x)
 							}
 						} else {
-							cfg.t.Fatalf("wrong command type")
+							cfg.t.Fatalf("wrong Command type")
 						}
 						break
 					}

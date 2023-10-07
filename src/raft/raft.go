@@ -7,12 +7,12 @@ package raft
 //
 // rf = Make(...)
 //   create a new Raft server.
-// rf.Start(command interface{}) (index, currentTerm, isleader)
-//   start agreement on a new log entry
+// rf.Start(Command interface{}) (Index, currentTerm, isleader)
+//   start agreement on a new logs entry
 // rf.GetState() (currentTerm, isLeader)
 //   ask a Raft for its current currentTerm, and whether it thinks it is leader
 // ApplyMsg
-//   each time a new entry is committed to the log, each Raft peer
+//   each time a new entry is committed to the logs, each Raft peer
 //   should send an ApplyMsg to the service (or tester)
 //   in the same server.
 //
@@ -25,11 +25,11 @@ import (
 import "sync/atomic"
 import "labs-6.824/src/labrpc"
 
-// as each Raft peer becomes aware that successive log entries are
+// ApplyMsg as each Raft peer becomes aware that successive logs Entries are
 // committed, the peer should send an ApplyMsg to the service (or
 // tester) on the same server, via the applyCh passed to Make(). set
 // CommandValid to true to indicate that the ApplyMsg contains a newly
-// committed log entry.
+// committed logs entry.
 //
 // in Lab 3 you'll want to send other kinds of messages (e.g.,
 // snapshots) on the applyCh; at that point you can add fields to
@@ -40,14 +40,56 @@ type ApplyMsg struct {
 	CommandIndex int
 }
 
+// 定期将日志提交
+// 并行化处理时考虑加锁，防止资源篡改。
+func (rf *Raft) applyLog() {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	for i := rf.lastApplied + 1; i <= rf.commitIndex; i++ {
+		rf.applyChan <- ApplyMsg{
+			CommandValid: true,
+			Command:      rf.logs[i].Command,
+			CommandIndex: rf.logs[i].Index,
+		}
+	}
+	rf.lastApplied = rf.commitIndex
+}
+
+func (rf *Raft) doApplyWork() {
+	for rf.dead == 0 {
+		rf.applyLog()
+		time.Sleep(commitInterval)
+	}
+}
+
+// leader检查commitIndex并率先进行修改
+// If there exists an N such that N > commitIndex, a majority
+// of matchIndex[i] ≥ N, and log[N].term == currentTerm:
+// set commitIndex = N (§5.3, §5.4).
+func (rf *Raft) checkCommitIndex() {
+	for idx := len(rf.logs) - 1; idx >= rf.commitIndex; idx-- {
+		cnt := 1
+		for i := range rf.matchIndex {
+			if i != rf.me && rf.matchIndex[i] >= idx {
+				cnt++
+			}
+		}
+		if cnt > len(rf.peers)/2 {
+			rf.commitIndex = idx
+			break
+		}
+	}
+}
+
 // Raft
 // 2A Leader Election
+// 2B Append Log Entries
 // A Go object implementing a single Raft peer.
 type Raft struct {
 	mu        sync.Mutex          // Lock to protect shared access to this peer's state
 	peers     []*labrpc.ClientEnd // RPC end points of all peers
 	persister *Persister          // Object to hold this peer's persisted state
-	me        int                 // this peer's index into peers[]
+	me        int                 // this peer's Index into peers[]
 	dead      int32               // set by Kill()
 
 	// Your data here (2A, 2B, 2C).
@@ -60,6 +102,14 @@ type Raft struct {
 	appendEntriesChan chan struct{} // 心跳channel
 	LeaderMsgChan     chan struct{} // 当选Leader时发送
 	VoteMsgChan       chan struct{} // 收到选举信号时重置一下计时器，不然会出现覆盖term后计时器超时又突然自增。
+
+	// 2B
+	commitIndex int           // Index of highest logs entry known to be committed (initialized to 0, increases monotonically)
+	lastApplied int           // Index of highest logs entry applied to state machine (initialized to 0, increases monotonically)
+	logs        []LogEntries  // logs Entries; each entry contains Command for state machine, and Term when entry was received by leader (first Index is 1)
+	nextIndex   []int         // for each server, Index of the next logs entry to send to that server (initialized to leader last logs Index + 1)
+	matchIndex  []int         //  for each server, Index of highest logs entry known to be replicated on server (initialized to 0, increases monotonically)
+	applyChan   chan ApplyMsg // 提交给客户端已完成半数复制的log
 }
 
 // GetState return currentTerm and whether this server
@@ -111,10 +161,10 @@ func (rf *Raft) readPersist(data []byte) {
 // field names must start with capital letters!
 type RequestVoteArgs struct {
 	// Your data here (2A, 2B).
-	Term         int //candidate’s term
+	Term         int //candidate’s Term
 	CandidateId  int //candidate requesting vote
-	LastLogIndex int //index of candidate’s last log entry (§5.4)
-	LastLogTerm  int //currentTerm of candidate’s last log entry (§5.4)
+	LastLogIndex int //Index of candidate’s last logs entry (§5.4)
+	LastLogTerm  int //currentTerm of candidate’s last logs entry (§5.4)
 }
 
 // RequestVoteReply example RequestVoteHandler RPC reply structure.
@@ -141,12 +191,12 @@ func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteRepl
 	}
 
 	// Reply false if currentTerm < currentTerm
-	// candidate’s log is at least as up-to-date
-	if args.Term < rf.currentTerm {
+	// candidate’s logs is at least as up-to-date
+	if args.Term < rf.currentTerm || args.LastLogIndex+1 < len(rf.logs) {
 		return
 	}
 
-	// If votedFor is null or candidateId, and candidate’s log is at least as up-to-date as receiver’s log, grant vote
+	// If votedFor is null or candidateId, and candidate’s logs is at least as up-to-date as receiver’s logs, grant vote
 	if rf.role == Follower && (rf.votedFor == noVoted || rf.votedFor == args.CandidateId) {
 		rf.votedFor = args.CandidateId
 		reply.VoteGranted = true
@@ -155,7 +205,7 @@ func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteRepl
 }
 
 // example code to send a RequestVoteHandler RPC to a server.
-// server is the index of the target server in rf.peers[].
+// server is the Index of the target server in rf.peers[].
 // expects RPC arguments in args.
 // fills in *reply with RPC reply, so caller should
 // pass &reply.
@@ -212,15 +262,16 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *Reques
 	return true
 }
 
+// Start
 // the service using Raft (e.g. a k/v server) wants to start
-// agreement on the next command to be appended to Raft's log. if this
+// agreement on the next Command to be appended to Raft's logs. if this
 // server isn't the leader, returns false. otherwise start the
 // agreement and return immediately. there is no guarantee that this
-// command will ever be committed to the Raft log, since the leader
+// Command will ever be committed to the Raft logs, since the leader
 // may fail or lose an election. even if the Raft instance has been killed,
 // this function should return gracefully.
 //
-// the first return value is the index that the command will appear at
+// the first return value is the Index that the Command will appear at
 // if it's ever committed. the second return value is the current
 // CurrentTerm. the third return value is true if this server believes it is
 // the leader.
@@ -230,8 +281,23 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	isLeader := true
 
 	// Your code here (2B).
-
+	if rf.role != Leader {
+		return -1, -1, false
+	}
+	newLog := rf.appendLog(command)
+	term = newLog.Term
+	index = newLog.Index
 	return index, term, isLeader
+}
+
+func (rf *Raft) appendLog(command interface{}) LogEntries {
+	newLog := LogEntries{
+		Command: command,
+		Term:    rf.currentTerm,
+		Index:   len(rf.logs),
+	}
+	rf.logs = append(rf.logs, newLog)
+	return newLog
 }
 
 // Kill the tester doesn't halt goroutines created by Raft after each test,
@@ -277,11 +343,18 @@ func Make(peers []*labrpc.ClientEnd, me int,
 		appendEntriesChan: make(chan struct{}, chanLen),
 		LeaderMsgChan:     make(chan struct{}, chanLen),
 		VoteMsgChan:       make(chan struct{}, chanLen),
+		commitIndex:       0,
+		lastApplied:       0,
+		logs:              []LogEntries{{}},
+		nextIndex:         make([]int, len(peers)),
+		matchIndex:        make([]int, len(peers)),
+		applyChan:         applyCh,
 	}
 	// Your initialization code here (2A, 2B, 2C).
 	// initialize from state persisted before a crash
 	rf.readPersist(persister.ReadRaftState())
 	go rf.Run()
+	go rf.doApplyWork()
 	return rf
 }
 
@@ -304,11 +377,18 @@ func (rf *Raft) ConvertToCandidate() {
 }
 func (rf *Raft) ConvertToLeader() {
 	rf.role = Leader
+	rf.nextIndex = make([]int, len(rf.peers))
+	rf.matchIndex = make([]int, len(rf.peers))
+	// 重置nextIndex和matchIndex
+	for i := range rf.nextIndex {
+		rf.nextIndex[i] = len(rf.logs)
+	}
 }
 
 func (rf *Raft) Run() {
 	// dead置1则退出运行
 	for rf.dead == 0 {
+		//fmt.Println(rf.me, rf.role, rf.currentTerm, rf.logs)
 		//fmt.Println(rf.me, rf.role, rf.currentTerm, rf.votedFor, rf.voteCount)
 		switch rf.role {
 		case Candidate:
@@ -329,7 +409,9 @@ func (rf *Raft) Run() {
 		case Leader:
 			// Leader 定期发送心跳和同步日志
 			rf.SendAllAppendEntries()
-			time.Sleep(HeartBeatInterval)
+			// 更新commitIndex对子节点中超过半数复制的日志进行提交
+			rf.checkCommitIndex()
+			time.Sleep(heartBeatInterval)
 		case Follower:
 			select {
 			case <-rf.VoteMsgChan:
@@ -344,13 +426,23 @@ func (rf *Raft) Run() {
 	}
 }
 
+type LogEntries struct {
+	Command interface{}
+	Term    int
+	Index   int
+}
+
+// AppendEntriesArgs Tips
+// 根据raft的实现，cmd提交必须经过2次心跳leader发送新log，并收到大多数follower的确认，
+// leader更新commitIndex并提交logleader将自己的commitIndex发送给follower
+// follower更新commitIndex并提交log
 type AppendEntriesArgs struct {
 	Term         int
 	LeaderId     int
 	PrevLogIndex int
 	PrevLogTerm  int
-	//entries[]  log entries to store (empty for heartbeat may send more than one for efficiency)
-	LeaderCommit int // leader’s commitIndex
+	Entries      []LogEntries // logs Entries to store (empty for heartbeat may send more than one for efficiency)
+	LeaderCommit int          // leader’s commitIndex
 }
 
 type AppendEntriesReply struct {
@@ -360,17 +452,23 @@ type AppendEntriesReply struct {
 
 // SendAllAppendEntries 由Leader向其他所有节点调用来复制日志条目;也用作heartbeat
 func (rf *Raft) SendAllAppendEntries() {
-	rf.mu.Lock()
-	defer rf.mu.Unlock()
 	for server := range rf.peers {
 		if server != rf.me && rf.role == Leader {
 			go func(id int) {
+				// 向follower发送nextIndex最新log日志
+				// 如果无需更新 则发送心跳即可。
+				// 为了效率 可以一次发送多份
+				nxtId := rf.nextIndex[id]
+				lastLog := rf.logs[nxtId-1]
+				logs := make([]LogEntries, len(rf.logs)-nxtId)
+				copy(logs, rf.logs[nxtId:])
 				args := &AppendEntriesArgs{
 					Term:         rf.currentTerm,
 					LeaderId:     rf.me,
-					PrevLogIndex: 0,
-					PrevLogTerm:  0,
-					LeaderCommit: 0,
+					PrevLogIndex: lastLog.Index,
+					PrevLogTerm:  lastLog.Term,
+					LeaderCommit: rf.commitIndex,
+					Entries:      logs,
 				}
 				reply := &AppendEntriesReply{
 					Term:    0,
@@ -383,16 +481,27 @@ func (rf *Raft) SendAllAppendEntries() {
 }
 
 func (rf *Raft) SendAppendEntries(id int, args *AppendEntriesArgs, reply *AppendEntriesReply) {
-	rf.peers[id].Call("Raft.AppendEntriesHandler", args, reply)
+	ok := rf.peers[id].Call("Raft.AppendEntriesHandler", args, reply)
+	// 发送失败直接返回即可。
+	if !ok {
+		return
+	}
+	if reply.Term > rf.currentTerm {
+		rf.ConvertToFollower(reply.Term)
+	}
 
 	if rf.role != Leader {
 		return
 	}
-
-	if reply.Term > rf.currentTerm {
-		rf.ConvertToFollower(reply.Term)
-		return
+	// If AppendEntries fails because of log inconsistency:
+	// decrement nextIndex and retry (§5.3)
+	if !reply.Success {
+		rf.nextIndex[id]--
+	} else {
+		rf.nextIndex[id] += len(args.Entries)
+		rf.matchIndex[id] = rf.nextIndex[id] - 1
 	}
+
 }
 
 // AppendEntriesHandler 由Leader向每个其余节点发送
@@ -402,21 +511,33 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 	reply.Term = rf.currentTerm
 	if rf.currentTerm < args.Term {
 		rf.ConvertToFollower(args.Term)
+	}
+	// 发送心跳重置计时器
+	rf.appendEntriesChan <- struct{}{}
+	if args.PrevLogIndex > len(rf.logs) {
 		return
 	}
-
-	rf.appendEntriesChan <- struct{}{}
+	lastLog := rf.logs[args.PrevLogIndex]
+	// 最后的日志对不上 因此需要让Leader对该节点的nextIndex - 1。
+	if args.PrevLogTerm != lastLog.Term {
+		return
+	}
+	// 在PrevLogIndex处开始复制一份日志
+	rf.logs = append(rf.logs[:args.PrevLogIndex+1], args.Entries...)
+	rf.commitIndex = max(rf.commitIndex, args.LeaderCommit)
+	reply.Success = true
 }
 
 func (rf *Raft) sendAllRequestVote() {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 
+	lastLog := rf.logs[len(rf.logs)-1]
 	arg := &RequestVoteArgs{
 		Term:         rf.currentTerm,
 		CandidateId:  rf.me,
-		LastLogIndex: 0,
-		LastLogTerm:  0,
+		LastLogIndex: lastLog.Index,
+		LastLogTerm:  lastLog.Term,
 	}
 
 	for i := range rf.peers {
@@ -429,5 +550,13 @@ func (rf *Raft) sendAllRequestVote() {
 				rf.sendRequestVote(id, arg, ret)
 			}(i)
 		}
+	}
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	} else {
+		return b
 	}
 }
