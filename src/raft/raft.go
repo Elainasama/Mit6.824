@@ -84,6 +84,8 @@ func (rf *Raft) checkCommitIndex() {
 // Raft
 // 2A Leader Election
 // 2B Append Log Entries
+// todo figure8
+// todo 不一致的快速回退
 // A Go object implementing a single Raft peer.
 type Raft struct {
 	mu        sync.Mutex          // Lock to protect shared access to this peer's state
@@ -192,7 +194,7 @@ func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteRepl
 
 	// Reply false if currentTerm < currentTerm
 	// candidate’s logs is at least as up-to-date
-	if args.Term < rf.currentTerm || args.LastLogIndex+1 < len(rf.logs) {
+	if args.Term < rf.currentTerm || args.LastLogIndex < rf.commitIndex {
 		return
 	}
 
@@ -498,23 +500,32 @@ func (rf *Raft) SendAppendEntries(id int, args *AppendEntriesArgs, reply *Append
 	if !reply.Success {
 		rf.nextIndex[id]--
 	} else {
-		rf.nextIndex[id] += len(args.Entries)
+		rf.nextIndex[id] = max(args.PrevLogIndex+len(args.Entries)+1, rf.nextIndex[id])
 		rf.matchIndex[id] = rf.nextIndex[id] - 1
 	}
 
 }
 
-// AppendEntriesHandler 由Leader向每个其余节点发送
+// AppendEntriesHandler 除Leader以外其余节点的处理逻辑
+// 在Raft中，领导者通过强迫追随者的日志复制自己的日志来处理不一致。
+// 这意味着跟随者日志中的冲突条目将被来自领导者日志的条目覆盖。
+// 第5.4节将说明，如果加上另外一个限制，这样做是安全的。
 func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntriesReply) {
 	// 传一个空结构体表示接收到了Leader的请求。
 	// 收到Leader更高的任期时，更新自己的任期。
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 	reply.Term = rf.currentTerm
+	// 老Leader重连后Follower不接受旧信号
+	if rf.currentTerm > args.Term {
+		return
+	}
 	if rf.currentTerm < args.Term {
 		rf.ConvertToFollower(args.Term)
 	}
 	// 发送心跳重置计时器
 	rf.appendEntriesChan <- struct{}{}
-	if args.PrevLogIndex > len(rf.logs) {
+	if args.PrevLogIndex >= len(rf.logs) {
 		return
 	}
 	lastLog := rf.logs[args.PrevLogIndex]
@@ -524,7 +535,7 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 	}
 	// 在PrevLogIndex处开始复制一份日志
 	rf.logs = append(rf.logs[:args.PrevLogIndex+1], args.Entries...)
-	rf.commitIndex = max(rf.commitIndex, args.LeaderCommit)
+	rf.commitIndex = min(len(rf.logs)-1, args.LeaderCommit)
 	reply.Success = true
 }
 
@@ -532,7 +543,7 @@ func (rf *Raft) sendAllRequestVote() {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 
-	lastLog := rf.logs[len(rf.logs)-1]
+	lastLog := rf.logs[rf.commitIndex]
 	arg := &RequestVoteArgs{
 		Term:         rf.currentTerm,
 		CandidateId:  rf.me,
@@ -550,13 +561,5 @@ func (rf *Raft) sendAllRequestVote() {
 				rf.sendRequestVote(id, arg, ret)
 			}(i)
 		}
-	}
-}
-
-func max(a, b int) int {
-	if a > b {
-		return a
-	} else {
-		return b
 	}
 }
