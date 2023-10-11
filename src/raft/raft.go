@@ -45,6 +45,11 @@ type ApplyMsg struct {
 func (rf *Raft) applyLog() {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
+	// figure8 简化
+	// Leader不能直接提交不属于自己任期的日志。
+	if rf.logs[rf.commitIndex].Term < rf.currentTerm {
+		return
+	}
 	for i := rf.lastApplied + 1; i <= rf.commitIndex; i++ {
 		rf.applyChan <- ApplyMsg{
 			CommandValid: true,
@@ -67,7 +72,13 @@ func (rf *Raft) doApplyWork() {
 // of matchIndex[i] ≥ N, and log[N].term == currentTerm:
 // set commitIndex = N (§5.3, §5.4).
 func (rf *Raft) checkCommitIndex() {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+
 	for idx := len(rf.logs) - 1; idx >= rf.commitIndex; idx-- {
+		if rf.role != Leader {
+			return
+		}
 		cnt := 1
 		for i := range rf.matchIndex {
 			if i != rf.me && rf.matchIndex[i] >= idx {
@@ -75,7 +86,9 @@ func (rf *Raft) checkCommitIndex() {
 			}
 		}
 		if cnt > len(rf.peers)/2 {
-			rf.commitIndex = idx
+			if rf.role == Leader {
+				rf.commitIndex = idx
+			}
 			break
 		}
 	}
@@ -84,8 +97,10 @@ func (rf *Raft) checkCommitIndex() {
 // Raft
 // 2A Leader Election
 // 2B Append Log Entries
-// todo figure8
+// 如果不通过应该仔细翻看论文，观察细节的地方，论文条理写的很清楚。
+// done figure8
 // todo 不一致的快速回退
+// done -race 测试
 // A Go object implementing a single Raft peer.
 type Raft struct {
 	mu        sync.Mutex          // Lock to protect shared access to this peer's state
@@ -191,10 +206,16 @@ func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteRepl
 		rf.ConvertToFollower(args.Term)
 		rf.VoteMsgChan <- struct{}{}
 	}
+	// 双向影响，不接受任期小的Candidate的投票申请
+	if args.Term < rf.currentTerm {
+		return
+	}
 
 	// Reply false if currentTerm < currentTerm
 	// candidate’s logs is at least as up-to-date
-	if args.Term < rf.currentTerm || args.LastLogIndex < rf.commitIndex {
+	// 这里的比较逻辑原先理解为是commit更多的优先当选 重看一遍论文才发现原来是term更大的log更长的优先当选。
+	lastLog := rf.logs[len(rf.logs)-1]
+	if args.LastLogTerm < lastLog.Term || args.LastLogTerm == lastLog.Term && args.LastLogIndex < lastLog.Index {
 		return
 	}
 
@@ -234,15 +255,16 @@ func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteRepl
 // that the caller passes the address of the reply struct with &, not
 // the struct itself.
 func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *RequestVoteReply) bool {
-	//并发下不要加锁
-	//rf.mu.Lock()
-	//defer rf.mu.Unlock()
 	ok := rf.peers[server].Call("Raft.RequestVoteHandler", args, reply)
-
 	// 发送失败直接返回
 	if !ok {
 		return false
 	}
+
+	//并发下加锁保平安~
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+
 	// 如果已经不是candidate了，无须继续拉票。
 	if rf.role != Candidate || args.Term != rf.currentTerm {
 		return true
@@ -278,6 +300,8 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *Reques
 // CurrentTerm. the third return value is true if this server believes it is
 // the leader.
 func (rf *Raft) Start(command interface{}) (int, int, bool) {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 	index := -1
 	term := -1
 	isLeader := true
@@ -454,30 +478,33 @@ type AppendEntriesReply struct {
 
 // SendAllAppendEntries 由Leader向其他所有节点调用来复制日志条目;也用作heartbeat
 func (rf *Raft) SendAllAppendEntries() {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 	for server := range rf.peers {
 		if server != rf.me && rf.role == Leader {
-			go func(id int) {
-				// 向follower发送nextIndex最新log日志
-				// 如果无需更新 则发送心跳即可。
-				// 为了效率 可以一次发送多份
-				nxtId := rf.nextIndex[id]
-				lastLog := rf.logs[nxtId-1]
-				logs := make([]LogEntries, len(rf.logs)-nxtId)
-				copy(logs, rf.logs[nxtId:])
-				args := &AppendEntriesArgs{
-					Term:         rf.currentTerm,
-					LeaderId:     rf.me,
-					PrevLogIndex: lastLog.Index,
-					PrevLogTerm:  lastLog.Term,
-					LeaderCommit: rf.commitIndex,
-					Entries:      logs,
-				}
+			// 向follower发送nextIndex最新log日志
+			// 如果无需更新 则发送心跳即可。
+			// 为了效率 可以一次发送多份
+			// 这一段要在锁内处理，防止越界。
+			nxtId := rf.nextIndex[server]
+			lastLog := rf.logs[nxtId-1]
+			logs := make([]LogEntries, len(rf.logs)-nxtId)
+			copy(logs, rf.logs[nxtId:])
+			args := &AppendEntriesArgs{
+				Term:         rf.currentTerm,
+				LeaderId:     rf.me,
+				PrevLogIndex: lastLog.Index,
+				PrevLogTerm:  lastLog.Term,
+				LeaderCommit: rf.commitIndex,
+				Entries:      logs,
+			}
+			go func(id int, args *AppendEntriesArgs) {
 				reply := &AppendEntriesReply{
 					Term:    0,
 					Success: false,
 				}
 				rf.SendAppendEntries(id, args, reply)
-			}(server)
+			}(server, args)
 		}
 	}
 }
@@ -488,6 +515,8 @@ func (rf *Raft) SendAppendEntries(id int, args *AppendEntriesArgs, reply *Append
 	if !ok {
 		return
 	}
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 	if reply.Term > rf.currentTerm {
 		rf.ConvertToFollower(reply.Term)
 	}
@@ -515,6 +544,7 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 	// 收到Leader更高的任期时，更新自己的任期。
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
+
 	reply.Term = rf.currentTerm
 	// 老Leader重连后Follower不接受旧信号
 	if rf.currentTerm > args.Term {
@@ -543,7 +573,7 @@ func (rf *Raft) sendAllRequestVote() {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 
-	lastLog := rf.logs[rf.commitIndex]
+	lastLog := rf.logs[len(rf.logs)-1]
 	arg := &RequestVoteArgs{
 		Term:         rf.currentTerm,
 		CandidateId:  rf.me,
