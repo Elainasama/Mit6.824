@@ -18,6 +18,7 @@ package raft
 //
 
 import (
+	"fmt"
 	"math/rand"
 	"sync"
 	"time"
@@ -95,12 +96,14 @@ func (rf *Raft) checkCommitIndex() {
 }
 
 // Raft
+// 课程链接 http://nil.csail.mit.edu/6.824/2022/labs/lab-raft.html
+// 助教并行调试脚本 https://blog.josejg.com/debugging-pretty/
 // 2A Leader Election
 // 2B Append Log Entries
 // 如果不通过应该仔细翻看论文，观察细节的地方，论文条理写的很清楚。
 // done figure8
 // todo 不一致的快速回退
-// done -race 测试
+// todo -race 测试
 // A Go object implementing a single Raft peer.
 type Raft struct {
 	mu        sync.Mutex          // Lock to protect shared access to this peer's state
@@ -414,7 +417,7 @@ func (rf *Raft) ConvertToLeader() {
 func (rf *Raft) Run() {
 	// dead置1则退出运行
 	for rf.dead == 0 {
-		//fmt.Println(rf.me, rf.role, rf.currentTerm, rf.logs)
+		fmt.Println(rf.me, rf.role, rf.currentTerm, rf.logs, rf.votedFor, rf.voteCount)
 		//fmt.Println(rf.me, rf.role, rf.currentTerm, rf.votedFor, rf.voteCount)
 		switch rf.role {
 		case Candidate:
@@ -550,7 +553,7 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 	if rf.currentTerm > args.Term {
 		return
 	}
-	if rf.currentTerm < args.Term {
+	if rf.currentTerm < args.Term || (rf.currentTerm == args.Term && rf.role == Candidate) {
 		rf.ConvertToFollower(args.Term)
 	}
 	// 发送心跳重置计时器
@@ -563,10 +566,14 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 	if args.PrevLogTerm != lastLog.Term {
 		return
 	}
+	reply.Success = true
+	if args.PrevLogIndex+len(args.Entries) <= rf.commitIndex {
+		return
+	}
 	// 在PrevLogIndex处开始复制一份日志
 	rf.logs = append(rf.logs[:args.PrevLogIndex+1], args.Entries...)
 	rf.commitIndex = min(len(rf.logs)-1, args.LeaderCommit)
-	reply.Success = true
+
 }
 
 func (rf *Raft) sendAllRequestVote() {
