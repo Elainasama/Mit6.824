@@ -18,7 +18,9 @@ package raft
 //
 
 import (
-	"fmt"
+	"bytes"
+	"labs-6.824/src/labgob"
+	"log"
 	"math/rand"
 	"sync"
 	"time"
@@ -96,13 +98,12 @@ func (rf *Raft) checkCommitIndex() {
 }
 
 // Raft
-// 课程链接 http://nil.csail.mit.edu/6.824/2022/labs/lab-raft.html
-// 助教并行调试脚本 https://blog.josejg.com/debugging-pretty/
 // 2A Leader Election
 // 2B Append Log Entries
+// 2C Persistence
 // 如果不通过应该仔细翻看论文，观察细节的地方，论文条理写的很清楚。
 // done figure8
-// todo 不一致的快速回退
+// done 不一致的快速回退
 // todo -race 测试
 // A Go object implementing a single Raft peer.
 type Raft struct {
@@ -155,6 +156,15 @@ func (rf *Raft) persist() {
 	// e.Encode(rf.yyy)
 	// data := w.Bytes()
 	// rf.persister.SaveRaftState(data)
+
+	w := new(bytes.Buffer)
+	e := labgob.NewEncoder(w)
+	// 需要保存的内容
+	if e.Encode(rf.currentTerm) != nil || e.Encode(rf.votedFor) != nil || e.Encode(rf.logs) != nil {
+		log.Fatal("Errors occur when Encoder")
+	}
+	data := w.Bytes()
+	rf.persister.SaveRaftState(data)
 }
 
 // restore previously persisted state.
@@ -175,6 +185,19 @@ func (rf *Raft) readPersist(data []byte) {
 	//   rf.xxx = xxx
 	//   rf.yyy = yyy
 	// }
+
+	r := bytes.NewBuffer(data)
+	d := labgob.NewDecoder(r)
+	var currentTerm int
+	var voteFor int
+	var logs []LogEntries
+	if d.Decode(&currentTerm) != nil || d.Decode(&voteFor) != nil || d.Decode(&logs) != nil {
+		log.Fatal("errors occur when Decoder")
+	} else {
+		rf.currentTerm = currentTerm
+		rf.votedFor = voteFor
+		rf.logs = logs
+	}
 }
 
 // RequestVoteArgs example RequestVoteHandler RPC arguments structure.
@@ -200,6 +223,7 @@ func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteRepl
 	// Your code here (2A, 2B).
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
+	defer rf.persist()
 
 	// 设置返回的任期，投票默认返回false。
 	reply.Term = rf.currentTerm
@@ -209,7 +233,7 @@ func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteRepl
 		rf.ConvertToFollower(args.Term)
 		rf.VoteMsgChan <- struct{}{}
 	}
-	// 双向影响，不接受任期小的Candidate的投票申请
+	// 双向影响，不接受任期小于等于的Candidate的投票申请
 	if args.Term < rf.currentTerm {
 		return
 	}
@@ -267,6 +291,7 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *Reques
 	//并发下加锁保平安~
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
+	defer rf.persist()
 
 	// 如果已经不是candidate了，无须继续拉票。
 	if rf.role != Candidate || args.Term != rf.currentTerm {
@@ -412,12 +437,14 @@ func (rf *Raft) ConvertToLeader() {
 	for i := range rf.nextIndex {
 		rf.nextIndex[i] = len(rf.logs)
 	}
+	// 发送no-op日志
+	//rf.appendLog(nil)
 }
 
 func (rf *Raft) Run() {
 	// dead置1则退出运行
 	for rf.dead == 0 {
-		fmt.Println(rf.me, rf.role, rf.currentTerm, rf.logs, rf.votedFor, rf.voteCount)
+		//fmt.Println(rf.me, rf.role, rf.currentTerm, rf.logs, rf.votedFor, rf.voteCount)
 		//fmt.Println(rf.me, rf.role, rf.currentTerm, rf.votedFor, rf.voteCount)
 		switch rf.role {
 		case Candidate:
@@ -430,7 +457,9 @@ func (rf *Raft) Run() {
 
 			case <-time.After(electionTimeout + time.Duration(rand.Int31()%300)*time.Millisecond):
 				// 选举超时 重置选举状态
-				rf.ConvertToCandidate()
+				if rf.role == Candidate {
+					rf.ConvertToCandidate()
+				}
 				continue
 			case <-rf.LeaderMsgChan:
 			}
@@ -474,9 +503,12 @@ type AppendEntriesArgs struct {
 	LeaderCommit int          // leader’s commitIndex
 }
 
+// AppendEntriesReply 回退优化
 type AppendEntriesReply struct {
-	Term    int
-	Success bool
+	Term          int
+	Success       bool
+	ConflictTerm  int
+	ConflictIndex int
 }
 
 // SendAllAppendEntries 由Leader向其他所有节点调用来复制日志条目;也用作heartbeat
@@ -503,8 +535,10 @@ func (rf *Raft) SendAllAppendEntries() {
 			}
 			go func(id int, args *AppendEntriesArgs) {
 				reply := &AppendEntriesReply{
-					Term:    0,
-					Success: false,
+					Term:          0,
+					Success:       false,
+					ConflictTerm:  -1,
+					ConflictIndex: 0,
 				}
 				rf.SendAppendEntries(id, args, reply)
 			}(server, args)
@@ -520,6 +554,7 @@ func (rf *Raft) SendAppendEntries(id int, args *AppendEntriesArgs, reply *Append
 	}
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
+	defer rf.persist()
 	if reply.Term > rf.currentTerm {
 		rf.ConvertToFollower(reply.Term)
 	}
@@ -529,8 +564,20 @@ func (rf *Raft) SendAppendEntries(id int, args *AppendEntriesArgs, reply *Append
 	}
 	// If AppendEntries fails because of log inconsistency:
 	// decrement nextIndex and retry (§5.3)
+	// 优化
+	// 在收到一个冲突响应后，领导者首先应该搜索其日志中任期为 conflictTerm 的条目。
+	// 如果领导者在其日志中找到此任期的一个条目，则应该设置 nextIndex 为其日志中此任期的最后一个条目的索引的下一个。
+	// 如果领导者没有找到此任期的条目，则应该设置 nextIndex = conflictIndex。
 	if !reply.Success {
-		rf.nextIndex[id]--
+		rf.nextIndex[id] = reply.ConflictIndex
+		for j := rf.nextIndex[id] - 1; j >= 0; j-- {
+			if rf.logs[j].Term == reply.ConflictTerm {
+				rf.nextIndex[id] = j + 1
+				break
+			} else if rf.logs[j].Term < reply.ConflictTerm {
+				break
+			}
+		}
 	} else {
 		rf.nextIndex[id] = max(args.PrevLogIndex+len(args.Entries)+1, rf.nextIndex[id])
 		rf.matchIndex[id] = rf.nextIndex[id] - 1
@@ -547,6 +594,7 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 	// 收到Leader更高的任期时，更新自己的任期。
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
+	defer rf.persist()
 
 	reply.Term = rf.currentTerm
 	// 老Leader重连后Follower不接受旧信号
@@ -558,12 +606,24 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 	}
 	// 发送心跳重置计时器
 	rf.appendEntriesChan <- struct{}{}
+	// 如果追随者的日志中没有 preLogIndex，它应该返回 conflictIndex = len(log) 和 conflictTerm = None。
 	if args.PrevLogIndex >= len(rf.logs) {
+		reply.ConflictIndex = len(rf.logs)
 		return
 	}
 	lastLog := rf.logs[args.PrevLogIndex]
 	// 最后的日志对不上 因此需要让Leader对该节点的nextIndex - 1。
+	// 优化
+	// 如果追随者的日志中有 preLogIndex，但是任期不匹配，它应该返回 conflictTerm = log[preLogIndex].Term，
+	// 然后在它的日志中搜索任期等于 conflictTerm 的第一个条目索引。
 	if args.PrevLogTerm != lastLog.Term {
+		reply.ConflictTerm = lastLog.Term
+		for j := args.PrevLogIndex; j >= 0; j-- {
+			if rf.logs[j].Term != lastLog.Term {
+				reply.ConflictIndex = j + 1
+				break
+			}
+		}
 		return
 	}
 	reply.Success = true
