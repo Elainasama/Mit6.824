@@ -6,3 +6,4 @@ mrtmp.*
 /pbservice/x.txt
 /kvpaxos/x.txt
 *.so
+/raft/logs/x.log
