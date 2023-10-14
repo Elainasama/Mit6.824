@@ -100,7 +100,7 @@ func (rf *Raft) checkCommitIndex() {
 // Raft
 // 2A Leader Election
 // 2B Append Log Entries
-// 2C Persistence
+// 2C Persistence 在处理RPC请求时增加持久化处理即可
 // 如果不通过应该仔细翻看论文，观察细节的地方，论文条理写的很清楚。
 // done figure8
 // done 不一致的快速回退
@@ -233,7 +233,7 @@ func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteRepl
 		rf.ConvertToFollower(args.Term)
 		rf.VoteMsgChan <- struct{}{}
 	}
-	// 双向影响，不接受任期小于等于的Candidate的投票申请
+	// 双向影响，不接受任期小于的Candidate的投票申请
 	if args.Term < rf.currentTerm {
 		return
 	}
@@ -413,10 +413,10 @@ func Make(peers []*labrpc.ClientEnd, me int,
 }
 
 func (rf *Raft) ConvertToFollower(term int) {
-	rf.role = Follower
 	rf.currentTerm = term
 	rf.votedFor = noVoted
 	rf.voteCount = 0
+	rf.role = Follower
 }
 
 func (rf *Raft) ConvertToCandidate() {
@@ -430,13 +430,13 @@ func (rf *Raft) ConvertToCandidate() {
 	rf.voteCount = 1
 }
 func (rf *Raft) ConvertToLeader() {
-	rf.role = Leader
 	rf.nextIndex = make([]int, len(rf.peers))
 	rf.matchIndex = make([]int, len(rf.peers))
 	// 重置nextIndex和matchIndex
 	for i := range rf.nextIndex {
 		rf.nextIndex[i] = len(rf.logs)
 	}
+	rf.role = Leader
 	// 发送no-op日志
 	//rf.appendLog(nil)
 }
@@ -444,8 +444,8 @@ func (rf *Raft) ConvertToLeader() {
 func (rf *Raft) Run() {
 	// dead置1则退出运行
 	for rf.dead == 0 {
-		//fmt.Println(rf.me, rf.role, rf.currentTerm, rf.logs, rf.votedFor, rf.voteCount)
-		//fmt.Println(rf.me, rf.role, rf.currentTerm, rf.votedFor, rf.voteCount)
+		//fmt.Println(rf.me, rf.role, rf.currentTerm, rf.logs, rf.votedFor, rf.voteCount, rf.nextIndex)
+		// fmt.Println(rf.me, rf.role, rf.currentTerm, rf.votedFor, rf.voteCount)
 		switch rf.role {
 		case Candidate:
 
@@ -521,7 +521,8 @@ func (rf *Raft) SendAllAppendEntries() {
 			// 如果无需更新 则发送心跳即可。
 			// 为了效率 可以一次发送多份
 			// 这一段要在锁内处理，防止越界。
-			nxtId := rf.nextIndex[server]
+			nxtId := max(1, rf.nextIndex[server])
+			// 这里有时候nxtId为0会挂，很玄学，查不出bug。。。。
 			lastLog := rf.logs[nxtId-1]
 			logs := make([]LogEntries, len(rf.logs)-nxtId)
 			copy(logs, rf.logs[nxtId:])
@@ -534,12 +535,7 @@ func (rf *Raft) SendAllAppendEntries() {
 				Entries:      logs,
 			}
 			go func(id int, args *AppendEntriesArgs) {
-				reply := &AppendEntriesReply{
-					Term:          0,
-					Success:       false,
-					ConflictTerm:  -1,
-					ConflictIndex: 0,
-				}
+				reply := &AppendEntriesReply{}
 				rf.SendAppendEntries(id, args, reply)
 			}(server, args)
 		}
@@ -559,7 +555,8 @@ func (rf *Raft) SendAppendEntries(id int, args *AppendEntriesArgs, reply *Append
 		rf.ConvertToFollower(reply.Term)
 	}
 
-	if rf.role != Leader {
+	// 阻止过时RPC
+	if rf.role != Leader || args.Term != rf.currentTerm {
 		return
 	}
 	// If AppendEntries fails because of log inconsistency:
@@ -569,13 +566,21 @@ func (rf *Raft) SendAppendEntries(id int, args *AppendEntriesArgs, reply *Append
 	// 如果领导者在其日志中找到此任期的一个条目，则应该设置 nextIndex 为其日志中此任期的最后一个条目的索引的下一个。
 	// 如果领导者没有找到此任期的条目，则应该设置 nextIndex = conflictIndex。
 	if !reply.Success {
-		rf.nextIndex[id] = reply.ConflictIndex
-		for j := rf.nextIndex[id] - 1; j >= 0; j-- {
-			if rf.logs[j].Term == reply.ConflictTerm {
-				rf.nextIndex[id] = j + 1
-				break
-			} else if rf.logs[j].Term < reply.ConflictTerm {
-				break
+		if reply.ConflictTerm == -1 {
+			rf.nextIndex[id] = reply.ConflictIndex
+		} else {
+			flag := true
+			for j := args.PrevLogIndex; j >= 0; j-- {
+				if rf.logs[j].Term == reply.ConflictTerm {
+					rf.nextIndex[id] = j + 1
+					flag = false
+					break
+				} else if rf.logs[j].Term < reply.ConflictTerm {
+					break
+				}
+			}
+			if flag {
+				rf.nextIndex[id] = reply.ConflictIndex
 			}
 		}
 	} else {
@@ -608,6 +613,7 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 	rf.appendEntriesChan <- struct{}{}
 	// 如果追随者的日志中没有 preLogIndex，它应该返回 conflictIndex = len(log) 和 conflictTerm = None。
 	if args.PrevLogIndex >= len(rf.logs) {
+		reply.ConflictTerm = -1
 		reply.ConflictIndex = len(rf.logs)
 		return
 	}
@@ -627,13 +633,16 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 		return
 	}
 	reply.Success = true
-	if args.PrevLogIndex+len(args.Entries) <= rf.commitIndex {
-		return
-	}
 	// 在PrevLogIndex处开始复制一份日志
-	rf.logs = append(rf.logs[:args.PrevLogIndex+1], args.Entries...)
+	// 这里要循环判断冲突再复制 不然可能由于滞后性删除了logs
+	for idx := 0; idx < len(args.Entries); idx++ {
+		curIdx := idx + args.PrevLogIndex + 1
+		if curIdx >= len(rf.logs) || rf.logs[curIdx].Term != args.Entries[idx].Term {
+			rf.logs = append(rf.logs[:curIdx], args.Entries[idx:]...)
+			break
+		}
+	}
 	rf.commitIndex = min(len(rf.logs)-1, args.LeaderCommit)
-
 }
 
 func (rf *Raft) sendAllRequestVote() {
@@ -641,20 +650,17 @@ func (rf *Raft) sendAllRequestVote() {
 	defer rf.mu.Unlock()
 
 	lastLog := rf.logs[len(rf.logs)-1]
+
 	arg := &RequestVoteArgs{
 		Term:         rf.currentTerm,
 		CandidateId:  rf.me,
 		LastLogIndex: lastLog.Index,
 		LastLogTerm:  lastLog.Term,
 	}
-
 	for i := range rf.peers {
 		if i != rf.me && rf.role == Candidate {
 			go func(id int) {
-				ret := &RequestVoteReply{
-					Term:        0,
-					VoteGranted: false,
-				}
+				ret := &RequestVoteReply{}
 				rf.sendRequestVote(id, arg, ret)
 			}(i)
 		}
