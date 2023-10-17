@@ -1,0 +1,1089 @@
+Test (2C): basic persistence ...
+2023/10/17 11:51:10 {Node 1} starts election with RequestVoteRequest &{1 1 0 0}
+2023/10/17 11:51:10 {Node 0}'s state is {state 2,term 0,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing requestVoteRequest &{1 1 0 0} and reply requestVoteResponse &{0 true}
+2023/10/17 11:51:10 {Node 2}'s state is {state 2,term 0,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing requestVoteRequest &{1 1 0 0} and reply requestVoteResponse &{0 true}
+2023/10/17 11:51:10 {Node 1} receives RequestVoteResponse &{1 1 0 0} from {Node [0xc00006e220 0xc00006e240 0xc00006e260]} after sending RequestVoteRequest &{0 true} in term 1
+2023/10/17 11:51:10 {Node 1} receives RequestVoteResponse &{1 1 0 0} from {Node [0xc00006e220 0xc00006e240 0xc00006e260]} after sending RequestVoteRequest &{0 true} in term 1
+2023/10/17 11:51:10 {Node 0}Logs [{<nil> 0 0}]
+2023/10/17 11:51:10 {Node 0}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing AppendEntriesRequest &{1 1 0 0 [] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 {Node 2}Logs [{<nil> 0 0}]
+2023/10/17 11:51:10 {Node 2}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing AppendEntriesRequest &{1 1 0 0 [] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 AfterLogs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:10 logs Replace when curId 1 index 0 logsLen 1 
+2023/10/17 11:51:10 {Node 2}Logs [{<nil> 0 0}]
+2023/10/17 11:51:10 {Node 2}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing AppendEntriesRequest &{1 1 0 0 [{11 1 1}] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 AfterLogs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:10 logs Replace when curId 1 index 0 logsLen 1 
+2023/10/17 11:51:10 {Node 0}Logs [{<nil> 0 0}]
+2023/10/17 11:51:10 {Node 0}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing AppendEntriesRequest &{1 1 0 0 [{11 1 1}] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:10 {Node 0}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 1 1 1 [] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:10 {Node 2}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 1 1 1 [] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:10 {Node 0}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 1 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:10 {Node 2}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 1 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:10 {Node 0}'s state is {state 2,term 1,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 1 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:10 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 1 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:10 {Node 0}'s state is {state 2,term 1,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 1 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:10 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 1 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:10 {Node 0}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 1 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:10 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:10 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 1 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:11 {Node 1} starts election with RequestVoteRequest &{2 1 1 1}
+2023/10/17 11:51:11 {Node 2}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing requestVoteRequest &{2 1 1 1} and reply requestVoteResponse &{1 true}
+2023/10/17 11:51:11 {Node 1} receives RequestVoteResponse &{2 1 1 1} from {Node [0xc0001c2940 0xc0001c2960 0xc0001c2980]} after sending RequestVoteRequest &{1 true} in term 2
+2023/10/17 11:51:11 {Node 0}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing requestVoteRequest &{2 1 1 1} and reply requestVoteResponse &{1 true}
+2023/10/17 11:51:11 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:11 {Node 0}'s state is {state 2,term 2,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{2 1 1 1 [] 0} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:11 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:11 {Node 2}'s state is {state 2,term 2,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{2 1 1 1 [] 0} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:11 {Node 1} receives RequestVoteResponse &{2 1 1 1} from {Node [0xc0001c2940 0xc0001c2960 0xc0001c2980]} after sending RequestVoteRequest &{1 true} in term 2
+2023/10/17 11:51:11 AfterLogs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:11 logs Replace when curId 2 index 0 logsLen 2 
+2023/10/17 11:51:11 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:11 {Node 2}'s state is {state 2,term 2,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{2 1 1 1 [{12 2 2}] 0} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:11 AfterLogs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:11 logs Replace when curId 2 index 0 logsLen 2 
+2023/10/17 11:51:11 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:11 {Node 0}'s state is {state 2,term 2,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{2 1 1 1 [{12 2 2}] 0} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:11 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:11 {Node 0}'s state is {state 2,term 2,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 1} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:11 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:11 {Node 2}'s state is {state 2,term 2,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 1} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:11 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:11 {Node 0}'s state is {state 2,term 2,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:11 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:11 {Node 2}'s state is {state 2,term 2,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:11 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:11 {Node 0}'s state is {state 2,term 2,commitIndex 2,lastApplied 0,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:11 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:11 {Node 2}'s state is {state 2,term 2,commitIndex 2,lastApplied 0,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:11 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:11 {Node 0}'s state is {state 2,term 2,commitIndex 2,lastApplied 0,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:11 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:11 {Node 2}'s state is {state 2,term 2,commitIndex 2,lastApplied 0,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:12 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:12 {Node 0}'s state is {state 2,term 2,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:12 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:12 {Node 2}'s state is {state 2,term 2,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:12 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:12 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:12 {Node 0}'s state is {state 2,term 2,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:12 {Node 2}'s state is {state 2,term 2,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:12 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:12 {Node 0}'s state is {state 2,term 2,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:12 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:12 {Node 2}'s state is {state 2,term 2,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:12 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:12 {Node 0}'s state is {state 2,term 2,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:12 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:12 {Node 2}'s state is {state 2,term 2,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:12 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:12 {Node 2}'s state is {state 2,term 2,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:12 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:12 {Node 0}'s state is {state 2,term 2,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{2 1 2 2 [] 2} and reply AppendEntriesResponse &{2 true 0 0}
+2023/10/17 11:51:12 {Node 2} starts election with RequestVoteRequest &{3 2 2 2}
+2023/10/17 11:51:12 {Node 1}'s state is {state 2,term 2,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing requestVoteRequest &{3 2 2 2} and reply requestVoteResponse &{2 true}
+2023/10/17 11:51:12 {Node 0}'s state is {state 2,term 2,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing requestVoteRequest &{3 2 2 2} and reply requestVoteResponse &{2 true}
+2023/10/17 11:51:12 {Node 2} receives RequestVoteResponse &{3 2 2 2} from {Node [0xc0001c2c40 0xc0001c2c60 0xc0001c2c80]} after sending RequestVoteRequest &{2 true} in term 3
+2023/10/17 11:51:12 {Node 2} receives RequestVoteResponse &{3 2 2 2} from {Node [0xc0001c2c40 0xc0001c2c60 0xc0001c2c80]} after sending RequestVoteRequest &{2 true} in term 3
+2023/10/17 11:51:12 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:12 {Node 0}'s state is {state 2,term 3,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{3 2 2 2 [] 2} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:12 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:12 {Node 1}'s state is {state 2,term 3,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{3 2 2 2 [] 2} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 AfterLogs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 logs Replace when curId 3 index 0 logsLen 3 
+2023/10/17 11:51:13 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:13 {Node 0}'s state is {state 2,term 3,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{3 2 2 2 [{13 3 3}] 2} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 AfterLogs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 logs Replace when curId 3 index 0 logsLen 3 
+2023/10/17 11:51:13 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2}]
+2023/10/17 11:51:13 {Node 1}'s state is {state 2,term 3,commitIndex 2,lastApplied 0,firstLog {<nil> 0 0},lastLog {12 2 2}} before processing AppendEntriesRequest &{3 2 2 2 [{13 3 3}] 2} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 0}'s state is {state 2,term 3,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 2} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 1}'s state is {state 2,term 3,commitIndex 2,lastApplied 0,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 2} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 0}'s state is {state 2,term 3,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 1}'s state is {state 2,term 3,commitIndex 2,lastApplied 0,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 0}'s state is {state 2,term 3,commitIndex 3,lastApplied 2,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 1}'s state is {state 2,term 3,commitIndex 3,lastApplied 0,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 0}'s state is {state 2,term 3,commitIndex 3,lastApplied 2,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 1}'s state is {state 2,term 3,commitIndex 3,lastApplied 0,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 0}'s state is {state 2,term 3,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 1}'s state is {state 2,term 3,commitIndex 3,lastApplied 0,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 0}'s state is {state 2,term 3,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 1}'s state is {state 2,term 3,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 0}'s state is {state 2,term 3,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 1}'s state is {state 2,term 3,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 0}'s state is {state 2,term 3,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 1}'s state is {state 2,term 3,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 1}'s state is {state 2,term 3,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:13 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:13 {Node 0}'s state is {state 2,term 3,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:14 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:14 {Node 0}'s state is {state 2,term 3,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:14 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:14 {Node 1}'s state is {state 2,term 3,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{3 2 3 3 [] 3} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:14 {Node 0} starts election with RequestVoteRequest &{4 0 3 3}
+2023/10/17 11:51:14 {Node 1}'s state is {state 2,term 3,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing requestVoteRequest &{4 0 3 3} and reply requestVoteResponse &{3 true}
+2023/10/17 11:51:14 {Node 0} receives RequestVoteResponse &{4 0 3 3} from {Node [0xc0001c2640 0xc0001c2660 0xc0001c2680]} after sending RequestVoteRequest &{3 true} in term 4
+2023/10/17 11:51:14 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:14 {Node 1}'s state is {state 2,term 4,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{4 0 3 3 [] 3} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:14 AfterLogs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:14 logs Replace when curId 4 index 0 logsLen 4 
+2023/10/17 11:51:14 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:14 {Node 1}'s state is {state 2,term 4,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{4 0 3 3 [{14 4 4}] 3} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:14 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:14 {Node 1}'s state is {state 2,term 4,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 3} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:14 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:14 {Node 1}'s state is {state 2,term 4,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:14 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:14 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 3,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 3,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 AfterLogs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 logs Replace when curId 4 index 0 logsLen 4 
+2023/10/17 11:51:15 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3}]
+2023/10/17 11:51:15 {Node 2}'s state is {state 2,term 3,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {13 3 3}} before processing AppendEntriesRequest &{4 0 3 3 [{14 4 4}] 4} and reply AppendEntriesResponse &{3 true 0 0}
+2023/10/17 11:51:15 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:15 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:15 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:16 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:16 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:16 {Node 1}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:16 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 AfterLogs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5}]
+2023/10/17 11:51:16 logs Replace when curId 5 index 0 logsLen 5 
+2023/10/17 11:51:16 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:16 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [{15 4 5}] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5}]
+2023/10/17 11:51:16 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {15 4 5}} before processing AppendEntriesRequest &{4 0 5 4 [] 4} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5}]
+2023/10/17 11:51:16 {Node 2}'s state is {state 2,term 4,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {15 4 5}} before processing AppendEntriesRequest &{4 0 5 4 [] 5} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5}]
+2023/10/17 11:51:16 {Node 2}'s state is {state 2,term 4,commitIndex 5,lastApplied 4,firstLog {<nil> 0 0},lastLog {15 4 5}} before processing AppendEntriesRequest &{4 0 5 4 [] 5} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 AfterLogs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5} {16 4 6}]
+2023/10/17 11:51:16 logs Replace when curId 6 index 0 logsLen 6 
+2023/10/17 11:51:16 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5}]
+2023/10/17 11:51:16 {Node 2}'s state is {state 2,term 4,commitIndex 5,lastApplied 5,firstLog {<nil> 0 0},lastLog {15 4 5}} before processing AppendEntriesRequest &{4 0 5 4 [{16 4 6}] 5} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 AfterLogs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5} {16 4 6}]
+2023/10/17 11:51:16 logs Replace when curId 5 index 0 logsLen 5 
+2023/10/17 11:51:16 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4}]
+2023/10/17 11:51:16 {Node 1}'s state is {state 2,term 4,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 4 4}} before processing AppendEntriesRequest &{4 0 4 4 [{15 4 5} {16 4 6}] 5} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5} {16 4 6}]
+2023/10/17 11:51:16 {Node 1}'s state is {state 2,term 4,commitIndex 5,lastApplied 0,firstLog {<nil> 0 0},lastLog {16 4 6}} before processing AppendEntriesRequest &{4 0 6 4 [] 5} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5} {16 4 6}]
+2023/10/17 11:51:16 {Node 2}'s state is {state 2,term 4,commitIndex 5,lastApplied 5,firstLog {<nil> 0 0},lastLog {16 4 6}} before processing AppendEntriesRequest &{4 0 6 4 [] 5} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5} {16 4 6}]
+2023/10/17 11:51:16 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5} {16 4 6}]
+2023/10/17 11:51:16 {Node 2}'s state is {state 2,term 4,commitIndex 5,lastApplied 5,firstLog {<nil> 0 0},lastLog {16 4 6}} before processing AppendEntriesRequest &{4 0 6 4 [] 6} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 1}'s state is {state 2,term 4,commitIndex 5,lastApplied 0,firstLog {<nil> 0 0},lastLog {16 4 6}} before processing AppendEntriesRequest &{4 0 6 4 [] 6} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5} {16 4 6}]
+2023/10/17 11:51:16 {Node 1}'s state is {state 2,term 4,commitIndex 6,lastApplied 0,firstLog {<nil> 0 0},lastLog {16 4 6}} before processing AppendEntriesRequest &{4 0 6 4 [] 6} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:16 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5} {16 4 6}]
+2023/10/17 11:51:16 {Node 2}'s state is {state 2,term 4,commitIndex 6,lastApplied 5,firstLog {<nil> 0 0},lastLog {16 4 6}} before processing AppendEntriesRequest &{4 0 6 4 [] 6} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:17 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5} {16 4 6}]
+2023/10/17 11:51:17 {Node 1}'s state is {state 2,term 4,commitIndex 6,lastApplied 0,firstLog {<nil> 0 0},lastLog {16 4 6}} before processing AppendEntriesRequest &{4 0 6 4 [] 6} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:17 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 2 2} {13 3 3} {14 4 4} {15 4 5} {16 4 6}]
+2023/10/17 11:51:17 {Node 2}'s state is {state 2,term 4,commitIndex 6,lastApplied 5,firstLog {<nil> 0 0},lastLog {16 4 6}} before processing AppendEntriesRequest &{4 0 6 4 [] 6} and reply AppendEntriesResponse &{4 true 0 0}
+  ... Passed --   7.1  3  138   37450    6
+Test (2C): more persistence ...
+2023/10/17 11:51:17 {Node 3} starts election with RequestVoteRequest &{1 3 0 0}
+2023/10/17 11:51:17 {Node 4}'s state is {state 2,term 0,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing requestVoteRequest &{1 3 0 0} and reply requestVoteResponse &{0 true}
+2023/10/17 11:51:17 {Node 0}'s state is {state 2,term 0,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing requestVoteRequest &{1 3 0 0} and reply requestVoteResponse &{0 true}
+2023/10/17 11:51:17 {Node 1}'s state is {state 2,term 0,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing requestVoteRequest &{1 3 0 0} and reply requestVoteResponse &{0 true}
+2023/10/17 11:51:17 {Node 2}'s state is {state 2,term 0,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing requestVoteRequest &{1 3 0 0} and reply requestVoteResponse &{0 true}
+2023/10/17 11:51:17 {Node 3} receives RequestVoteResponse &{1 3 0 0} from {Node [0xc0002ae3e0 0xc0002ae400 0xc0002ae420 0xc0002ae440 0xc0002ae460]} after sending RequestVoteRequest &{0 true} in term 1
+2023/10/17 11:51:17 {Node 3} receives RequestVoteResponse &{1 3 0 0} from {Node [0xc0002ae3e0 0xc0002ae400 0xc0002ae420 0xc0002ae440 0xc0002ae460]} after sending RequestVoteRequest &{0 true} in term 1
+2023/10/17 11:51:17 {Node 3} receives RequestVoteResponse &{1 3 0 0} from {Node [0xc0002ae3e0 0xc0002ae400 0xc0002ae420 0xc0002ae440 0xc0002ae460]} after sending RequestVoteRequest &{0 true} in term 1
+2023/10/17 11:51:17 {Node 3} receives RequestVoteResponse &{1 3 0 0} from {Node [0xc0002ae3e0 0xc0002ae400 0xc0002ae420 0xc0002ae440 0xc0002ae460]} after sending RequestVoteRequest &{0 true} in term 1
+2023/10/17 11:51:17 {Node 0}Logs [{<nil> 0 0}]
+2023/10/17 11:51:17 {Node 0}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing AppendEntriesRequest &{1 3 0 0 [] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 2}Logs [{<nil> 0 0}]
+2023/10/17 11:51:17 {Node 2}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing AppendEntriesRequest &{1 3 0 0 [] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 4}Logs [{<nil> 0 0}]
+2023/10/17 11:51:17 {Node 4}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing AppendEntriesRequest &{1 3 0 0 [] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 1}Logs [{<nil> 0 0}]
+2023/10/17 11:51:17 {Node 1}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing AppendEntriesRequest &{1 3 0 0 [] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 AfterLogs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 logs Replace when curId 1 index 0 logsLen 1 
+2023/10/17 11:51:17 {Node 0}Logs [{<nil> 0 0}]
+2023/10/17 11:51:17 {Node 0}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing AppendEntriesRequest &{1 3 0 0 [{11 1 1}] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 AfterLogs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 logs Replace when curId 1 index 0 logsLen 1 
+2023/10/17 11:51:17 {Node 2}Logs [{<nil> 0 0}]
+2023/10/17 11:51:17 {Node 2}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing AppendEntriesRequest &{1 3 0 0 [{11 1 1}] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 AfterLogs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 logs Replace when curId 1 index 0 logsLen 1 
+2023/10/17 11:51:17 {Node 4}Logs [{<nil> 0 0}]
+2023/10/17 11:51:17 {Node 4}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing AppendEntriesRequest &{1 3 0 0 [{11 1 1}] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 AfterLogs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 logs Replace when curId 1 index 0 logsLen 1 
+2023/10/17 11:51:17 {Node 1}Logs [{<nil> 0 0}]
+2023/10/17 11:51:17 {Node 1}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {<nil> 0 0}} before processing AppendEntriesRequest &{1 3 0 0 [{11 1 1}] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 {Node 1}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 {Node 1}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 4}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 {Node 4}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 2}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 {Node 0}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 0} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 {Node 0}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 {Node 2}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 1}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 {Node 1}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 4}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 {Node 4}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 {Node 0}'s state is {state 2,term 1,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 4}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 {Node 4}'s state is {state 2,term 1,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:17 {Node 1}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:17 {Node 1}'s state is {state 2,term 1,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 0}'s state is {state 2,term 1,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 1}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 1}'s state is {state 2,term 1,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 4}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 4}'s state is {state 2,term 1,commitIndex 1,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 0}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 4}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 4}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 1}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 1}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 0}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 1}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 1}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 4}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 4}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 0}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 4}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 4}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 1}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 1}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 1}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 1}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 4}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 4}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 0}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 0}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 4}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 4}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 1}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 1}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:18 logs Replace when curId 2 index 0 logsLen 2 
+2023/10/17 11:51:18 {Node 1}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 1}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [{12 1 2}] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:18 logs Replace when curId 2 index 0 logsLen 2 
+2023/10/17 11:51:18 {Node 2}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:18 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{1 3 1 1 [{12 1 2}] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:18 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:18 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {12 1 2}} before processing AppendEntriesRequest &{1 3 2 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 1}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {12 1 2}} before processing AppendEntriesRequest &{1 3 2 1 [] 1} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:18 {Node 1}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {12 1 2}} before processing AppendEntriesRequest &{1 3 2 1 [] 2} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:18 {Node 2}'s state is {state 2,term 1,commitIndex 1,lastApplied 1,firstLog {<nil> 0 0},lastLog {12 1 2}} before processing AppendEntriesRequest &{1 3 2 1 [] 2} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:18 {Node 1}'s state is {state 2,term 1,commitIndex 2,lastApplied 1,firstLog {<nil> 0 0},lastLog {12 1 2}} before processing AppendEntriesRequest &{1 3 2 1 [] 2} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:18 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:18 {Node 2}'s state is {state 2,term 1,commitIndex 2,lastApplied 1,firstLog {<nil> 0 0},lastLog {12 1 2}} before processing AppendEntriesRequest &{1 3 2 1 [] 2} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:19 {Node 0} starts election with RequestVoteRequest &{2 0 1 1}
+2023/10/17 11:51:19 {Node 4} starts election with RequestVoteRequest &{2 4 1 1}
+2023/10/17 11:51:19 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:19 {Node 1}'s state is {state 2,term 1,commitIndex 2,lastApplied 1,firstLog {<nil> 0 0},lastLog {12 1 2}} before processing AppendEntriesRequest &{1 3 2 1 [] 2} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:19 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:19 {Node 2}'s state is {state 2,term 1,commitIndex 2,lastApplied 1,firstLog {<nil> 0 0},lastLog {12 1 2}} before processing AppendEntriesRequest &{1 3 2 1 [] 2} and reply AppendEntriesResponse &{1 true 0 0}
+2023/10/17 11:51:19 {Node 1} starts election with RequestVoteRequest &{2 1 2 1}
+2023/10/17 11:51:19 {Node 2} starts election with RequestVoteRequest &{2 2 2 1}
+2023/10/17 11:51:19 {Node 4} starts election with RequestVoteRequest &{2 4 1 1}
+2023/10/17 11:51:19 {Node 0}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing requestVoteRequest &{2 4 1 1} and reply requestVoteResponse &{1 true}
+2023/10/17 11:51:19 {Node 4} receives RequestVoteResponse &{2 4 1 1} from {Node [0xc000416840 0xc000416860 0xc000416880 0xc0004168a0 0xc0004168c0]} after sending RequestVoteRequest &{1 true} in term 2
+2023/10/17 11:51:19 {Node 1} starts election with RequestVoteRequest &{3 1 2 1}
+2023/10/17 11:51:19 {Node 0} starts election with RequestVoteRequest &{3 0 1 1}
+2023/10/17 11:51:19 {Node 4}'s state is {state 1,term 2,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing requestVoteRequest &{3 0 1 1} and reply requestVoteResponse &{2 true}
+2023/10/17 11:51:19 {Node 0} receives RequestVoteResponse &{3 0 1 1} from {Node [0xc000416b80 0xc000416ba0 0xc000416bc0 0xc000416be0 0xc000416c00]} after sending RequestVoteRequest &{2 true} in term 3
+2023/10/17 11:51:20 {Node 2} starts election with RequestVoteRequest &{3 2 2 1}
+2023/10/17 11:51:20 {Node 4} starts election with RequestVoteRequest &{4 4 1 1}
+2023/10/17 11:51:20 {Node 1}'s state is {state 2,term 1,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {12 1 2}} before processing requestVoteRequest &{4 4 1 1} and reply requestVoteResponse &{1 false}
+2023/10/17 11:51:20 {Node 0}'s state is {state 1,term 3,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing requestVoteRequest &{4 4 1 1} and reply requestVoteResponse &{3 true}
+2023/10/17 11:51:20 {Node 4} receives RequestVoteResponse &{4 4 1 1} from {Node [0xc000416840 0xc000416860 0xc000416880 0xc0004168a0 0xc0004168c0]} after sending RequestVoteRequest &{1 false} in term 4
+2023/10/17 11:51:20 {Node 4} receives RequestVoteResponse &{4 4 1 1} from {Node [0xc000416840 0xc000416860 0xc000416880 0xc0004168a0 0xc0004168c0]} after sending RequestVoteRequest &{3 true} in term 4
+2023/10/17 11:51:20 {Node 2} starts election with RequestVoteRequest &{4 2 2 1}
+2023/10/17 11:51:20 {Node 1} starts election with RequestVoteRequest &{5 1 2 1}
+2023/10/17 11:51:20 {Node 4}'s state is {state 1,term 4,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing requestVoteRequest &{5 1 2 1} and reply requestVoteResponse &{4 true}
+2023/10/17 11:51:20 {Node 0}'s state is {state 2,term 4,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing requestVoteRequest &{5 1 2 1} and reply requestVoteResponse &{4 true}
+2023/10/17 11:51:20 {Node 1} receives RequestVoteResponse &{5 1 2 1} from {Node [0xc000496da0 0xc000496dc0 0xc000496de0 0xc000496e00 0xc000496e20]} after sending RequestVoteRequest &{4 true} in term 5
+2023/10/17 11:51:20 {Node 1} receives RequestVoteResponse &{5 1 2 1} from {Node [0xc000496da0 0xc000496dc0 0xc000496de0 0xc000496e00 0xc000496e20]} after sending RequestVoteRequest &{4 true} in term 5
+2023/10/17 11:51:20 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:20 {Node 0}'s state is {state 2,term 5,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{5 1 2 1 [] 0} and reply AppendEntriesResponse &{5 false -1 2}
+2023/10/17 11:51:20 {Node 4}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:20 {Node 4}'s state is {state 2,term 5,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{5 1 2 1 [] 0} and reply AppendEntriesResponse &{5 false -1 2}
+2023/10/17 11:51:20 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3}]
+2023/10/17 11:51:20 logs Replace when curId 2 index 0 logsLen 2 
+2023/10/17 11:51:20 {Node 0}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:20 {Node 0}'s state is {state 2,term 5,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{5 1 1 1 [{12 1 2} {13 5 3}] 0} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:20 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3}]
+2023/10/17 11:51:20 logs Replace when curId 2 index 0 logsLen 2 
+2023/10/17 11:51:20 {Node 4}Logs [{<nil> 0 0} {11 1 1}]
+2023/10/17 11:51:20 {Node 4}'s state is {state 2,term 5,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {11 1 1}} before processing AppendEntriesRequest &{5 1 1 1 [{12 1 2} {13 5 3}] 0} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:20 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3}]
+2023/10/17 11:51:20 {Node 0}'s state is {state 2,term 5,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {13 5 3}} before processing AppendEntriesRequest &{5 1 3 5 [] 0} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:20 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3}]
+2023/10/17 11:51:20 {Node 4}'s state is {state 2,term 5,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {13 5 3}} before processing AppendEntriesRequest &{5 1 3 5 [] 0} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3}]
+2023/10/17 11:51:21 {Node 0}'s state is {state 2,term 5,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {13 5 3}} before processing AppendEntriesRequest &{5 1 3 5 [] 3} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3}]
+2023/10/17 11:51:21 {Node 4}'s state is {state 2,term 5,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {13 5 3}} before processing AppendEntriesRequest &{5 1 3 5 [] 3} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3}]
+2023/10/17 11:51:21 {Node 0}'s state is {state 2,term 5,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 5 3}} before processing AppendEntriesRequest &{5 1 3 5 [] 3} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3}]
+2023/10/17 11:51:21 {Node 4}'s state is {state 2,term 5,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 5 3}} before processing AppendEntriesRequest &{5 1 3 5 [] 3} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:21 {Node 2}'s state is {state 1,term 4,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 1 2}} before processing AppendEntriesRequest &{1 3 2 1 [] 2} and reply AppendEntriesResponse &{4 false 0 0}
+2023/10/17 11:51:21 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3}]
+2023/10/17 11:51:21 {Node 0}'s state is {state 2,term 5,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 5 3}} before processing AppendEntriesRequest &{1 3 1 1 [{12 1 2}] 2} and reply AppendEntriesResponse &{5 false 0 0}
+2023/10/17 11:51:21 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 1}'s state is {state 0,term 5,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{1 3 2 1 [] 2} and reply AppendEntriesResponse &{5 false 0 0}
+2023/10/17 11:51:21 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3}]
+2023/10/17 11:51:21 {Node 4}'s state is {state 2,term 5,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 5 3}} before processing AppendEntriesRequest &{1 3 1 1 [{12 1 2}] 2} and reply AppendEntriesResponse &{5 false 0 0}
+2023/10/17 11:51:21 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 logs Replace when curId 4 index 0 logsLen 4 
+2023/10/17 11:51:21 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3}]
+2023/10/17 11:51:21 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 logs Replace when curId 3 index 0 logsLen 3 
+2023/10/17 11:51:21 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:21 {Node 3}'s state is {state 2,term 5,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 1 2}} before processing AppendEntriesRequest &{5 1 2 1 [{13 5 3} {14 5 4}] 3} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 logs Replace when curId 3 index 0 logsLen 3 
+2023/10/17 11:51:21 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2}]
+2023/10/17 11:51:21 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 logs Replace when curId 4 index 0 logsLen 4 
+2023/10/17 11:51:21 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3}]
+2023/10/17 11:51:21 {Node 4}'s state is {state 2,term 5,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 5 3}} before processing AppendEntriesRequest &{5 1 3 5 [{14 5 4}] 3} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 2}'s state is {state 1,term 4,commitIndex 2,lastApplied 2,firstLog {<nil> 0 0},lastLog {12 1 2}} before processing AppendEntriesRequest &{5 1 2 1 [{13 5 3} {14 5 4}] 3} and reply AppendEntriesResponse &{4 true 0 0}
+2023/10/17 11:51:21 {Node 0}'s state is {state 2,term 5,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {13 5 3}} before processing AppendEntriesRequest &{5 1 3 5 [{14 5 4}] 3} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 0}'s state is {state 2,term 5,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 3} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 3}'s state is {state 2,term 5,commitIndex 3,lastApplied 2,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 3} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 4}'s state is {state 2,term 5,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 3} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 2}'s state is {state 2,term 5,commitIndex 3,lastApplied 2,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 3} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 0}'s state is {state 2,term 5,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 3}'s state is {state 2,term 5,commitIndex 3,lastApplied 2,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 2}'s state is {state 2,term 5,commitIndex 3,lastApplied 2,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 4}'s state is {state 2,term 5,commitIndex 3,lastApplied 3,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 3}'s state is {state 2,term 5,commitIndex 4,lastApplied 2,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 0}'s state is {state 2,term 5,commitIndex 4,lastApplied 3,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 4}'s state is {state 2,term 5,commitIndex 4,lastApplied 3,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 2}'s state is {state 2,term 5,commitIndex 4,lastApplied 2,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 0}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 3}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 4}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 2}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 0}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 3}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 2}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 4}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 2}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 3}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 4}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 0}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 0}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 3}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 2}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:21 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:21 {Node 4}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:22 {Node 2}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:22 {Node 0}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:22 {Node 3}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:22 {Node 4}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:22 {Node 0}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:22 {Node 4}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:22 {Node 3}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:22 {Node 2}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5}]
+2023/10/17 11:51:22 logs Replace when curId 5 index 0 logsLen 5 
+2023/10/17 11:51:22 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:22 {Node 0}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [{15 5 5}] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5}]
+2023/10/17 11:51:22 logs Replace when curId 5 index 0 logsLen 5 
+2023/10/17 11:51:22 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:22 {Node 4}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{5 1 4 5 [{15 5 5}] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5}]
+2023/10/17 11:51:22 {Node 0}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {15 5 5}} before processing AppendEntriesRequest &{5 1 5 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5}]
+2023/10/17 11:51:22 {Node 4}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {15 5 5}} before processing AppendEntriesRequest &{5 1 5 5 [] 4} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5}]
+2023/10/17 11:51:22 {Node 0}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {15 5 5}} before processing AppendEntriesRequest &{5 1 5 5 [] 5} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5}]
+2023/10/17 11:51:22 {Node 4}'s state is {state 2,term 5,commitIndex 4,lastApplied 4,firstLog {<nil> 0 0},lastLog {15 5 5}} before processing AppendEntriesRequest &{5 1 5 5 [] 5} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5}]
+2023/10/17 11:51:22 {Node 0}'s state is {state 2,term 5,commitIndex 5,lastApplied 4,firstLog {<nil> 0 0},lastLog {15 5 5}} before processing AppendEntriesRequest &{5 1 5 5 [] 5} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5}]
+2023/10/17 11:51:22 {Node 4}'s state is {state 2,term 5,commitIndex 5,lastApplied 4,firstLog {<nil> 0 0},lastLog {15 5 5}} before processing AppendEntriesRequest &{5 1 5 5 [] 5} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5}]
+2023/10/17 11:51:22 {Node 4}'s state is {state 2,term 5,commitIndex 5,lastApplied 5,firstLog {<nil> 0 0},lastLog {15 5 5}} before processing AppendEntriesRequest &{5 1 5 5 [] 5} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:22 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5}]
+2023/10/17 11:51:22 {Node 0}'s state is {state 2,term 5,commitIndex 5,lastApplied 5,firstLog {<nil> 0 0},lastLog {15 5 5}} before processing AppendEntriesRequest &{5 1 5 5 [] 5} and reply AppendEntriesResponse &{5 true 0 0}
+2023/10/17 11:51:23 {Node 3} starts election with RequestVoteRequest &{6 3 4 5}
+2023/10/17 11:51:23 {Node 2}'s state is {state 2,term 5,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing requestVoteRequest &{6 3 4 5} and reply requestVoteResponse &{5 true}
+2023/10/17 11:51:23 {Node 3} receives RequestVoteResponse &{6 3 4 5} from {Node [0xc0002af560 0xc0002af580 0xc0002af5a0 0xc0002af5c0 0xc0002af5e0]} after sending RequestVoteRequest &{5 true} in term 6
+2023/10/17 11:51:23 {Node 4} starts election with RequestVoteRequest &{6 4 5 5}
+2023/10/17 11:51:23 {Node 0} starts election with RequestVoteRequest &{6 0 5 5}
+2023/10/17 11:51:23 {Node 3} starts election with RequestVoteRequest &{7 3 4 5}
+2023/10/17 11:51:23 {Node 2}'s state is {state 2,term 6,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing requestVoteRequest &{7 3 4 5} and reply requestVoteResponse &{6 true}
+2023/10/17 11:51:23 {Node 3} receives RequestVoteResponse &{7 3 4 5} from {Node [0xc0002af560 0xc0002af580 0xc0002af5a0 0xc0002af5c0 0xc0002af5e0]} after sending RequestVoteRequest &{6 true} in term 7
+2023/10/17 11:51:23 {Node 4} starts election with RequestVoteRequest &{7 4 5 5}
+2023/10/17 11:51:23 {Node 0} starts election with RequestVoteRequest &{7 0 5 5}
+2023/10/17 11:51:23 {Node 2} starts election with RequestVoteRequest &{8 2 4 5}
+2023/10/17 11:51:23 {Node 4}'s state is {state 2,term 5,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {15 5 5}} before processing requestVoteRequest &{8 2 4 5} and reply requestVoteResponse &{5 false}
+2023/10/17 11:51:23 {Node 3}'s state is {state 1,term 7,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing requestVoteRequest &{8 2 4 5} and reply requestVoteResponse &{7 true}
+2023/10/17 11:51:23 {Node 2} receives RequestVoteResponse &{8 2 4 5} from {Node [0xc0002af220 0xc0002af240 0xc0002af260 0xc0002af280 0xc0002af2a0]} after sending RequestVoteRequest &{5 false} in term 8
+2023/10/17 11:51:23 {Node 2} receives RequestVoteResponse &{8 2 4 5} from {Node [0xc0002af220 0xc0002af240 0xc0002af260 0xc0002af280 0xc0002af2a0]} after sending RequestVoteRequest &{7 true} in term 8
+2023/10/17 11:51:24 {Node 4} starts election with RequestVoteRequest &{9 4 5 5}
+2023/10/17 11:51:24 {Node 3}'s state is {state 2,term 8,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing requestVoteRequest &{9 4 5 5} and reply requestVoteResponse &{8 true}
+2023/10/17 11:51:24 {Node 2}'s state is {state 1,term 8,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing requestVoteRequest &{9 4 5 5} and reply requestVoteResponse &{8 true}
+2023/10/17 11:51:24 {Node 4} receives RequestVoteResponse &{9 4 5 5} from {Node [0xc0005a3900 0xc0005a3920 0xc0005a3940 0xc0005a3960 0xc0005a3980]} after sending RequestVoteRequest &{8 true} in term 9
+2023/10/17 11:51:24 {Node 4} receives RequestVoteResponse &{9 4 5 5} from {Node [0xc0005a3900 0xc0005a3920 0xc0005a3940 0xc0005a3960 0xc0005a3980]} after sending RequestVoteRequest &{8 true} in term 9
+2023/10/17 11:51:24 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:24 {Node 2}'s state is {state 2,term 9,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{9 4 5 5 [] 0} and reply AppendEntriesResponse &{9 false -1 5}
+2023/10/17 11:51:24 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:24 {Node 3}'s state is {state 2,term 9,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{9 4 5 5 [] 0} and reply AppendEntriesResponse &{9 false -1 5}
+2023/10/17 11:51:24 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 logs Replace when curId 5 index 0 logsLen 5 
+2023/10/17 11:51:24 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:24 {Node 3}'s state is {state 2,term 9,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{9 4 4 5 [{15 5 5} {16 9 6}] 0} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 logs Replace when curId 5 index 0 logsLen 5 
+2023/10/17 11:51:24 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4}]
+2023/10/17 11:51:24 {Node 2}'s state is {state 2,term 9,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {14 5 4}} before processing AppendEntriesRequest &{9 4 4 5 [{15 5 5} {16 9 6}] 0} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 2}'s state is {state 2,term 9,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 0} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 3}'s state is {state 2,term 9,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 0} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 2}'s state is {state 2,term 9,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 3}'s state is {state 2,term 9,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 0} starts election with RequestVoteRequest &{8 0 5 5}
+2023/10/17 11:51:24 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 0,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 0,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{5 1 4 5 [{15 5 5} {17 5 6}] 5} and reply AppendEntriesResponse &{9 false 0 0}
+2023/10/17 11:51:24 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 4}'s state is {state 0,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{5 1 5 5 [{17 5 6}] 5} and reply AppendEntriesResponse &{9 false 0 0}
+2023/10/17 11:51:24 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{5 1 4 5 [{15 5 5} {17 5 6}] 5} and reply AppendEntriesResponse &{9 false 0 0}
+2023/10/17 11:51:24 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5}]
+2023/10/17 11:51:24 {Node 0}'s state is {state 1,term 8,commitIndex 5,lastApplied 5,firstLog {<nil> 0 0},lastLog {15 5 5}} before processing AppendEntriesRequest &{5 1 5 5 [{17 5 6}] 5} and reply AppendEntriesResponse &{8 false 0 0}
+2023/10/17 11:51:24 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 logs Replace when curId 6 index 0 logsLen 6 
+2023/10/17 11:51:24 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5}]
+2023/10/17 11:51:24 {Node 0}'s state is {state 1,term 8,commitIndex 5,lastApplied 5,firstLog {<nil> 0 0},lastLog {15 5 5}} before processing AppendEntriesRequest &{9 4 5 5 [{16 9 6}] 6} and reply AppendEntriesResponse &{8 true 0 0}
+2023/10/17 11:51:24 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 logs Replace when curId 6 index 0 logsLen 7 
+2023/10/17 11:51:24 Conflict logs {17 5 6} {16 9 6} true
+2023/10/17 11:51:24 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 1}'s state is {state 2,term 9,commitIndex 5,lastApplied 5,firstLog {<nil> 0 0},lastLog {17 5 6}} before processing AppendEntriesRequest &{9 4 5 5 [{16 9 6}] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 5,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 5,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 5,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 5,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 5,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:24 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:24 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 5,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 5,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 5,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:25 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:25 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 logs Replace when curId 7 index 0 logsLen 7 
+2023/10/17 11:51:26 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [{17 9 7}] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 logs Replace when curId 7 index 0 logsLen 7 
+2023/10/17 11:51:26 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 logs Replace when curId 7 index 0 logsLen 7 
+2023/10/17 11:51:26 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [{17 9 7}] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [{17 9 7}] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 logs Replace when curId 7 index 0 logsLen 7 
+2023/10/17 11:51:26 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6}]
+2023/10/17 11:51:26 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {16 9 6}} before processing AppendEntriesRequest &{9 4 6 9 [{17 9 7}] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 6} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 3}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 0}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 1}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 2}'s state is {state 2,term 9,commitIndex 6,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 0}'s state is {state 2,term 9,commitIndex 7,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 1}'s state is {state 2,term 9,commitIndex 7,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 2}'s state is {state 2,term 9,commitIndex 7,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:26 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:26 {Node 3}'s state is {state 2,term 9,commitIndex 7,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 0}'s state is {state 2,term 9,commitIndex 7,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 2}'s state is {state 2,term 9,commitIndex 7,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 1}'s state is {state 2,term 9,commitIndex 7,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 3}'s state is {state 2,term 9,commitIndex 7,lastApplied 6,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 0}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 3}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 2}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 1}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 2}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 0}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 1}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 3}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 0}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 2}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 3}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 1}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 0}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 1}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 2}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 3}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 0}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 1}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 3}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 2}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:27 logs Replace when curId 8 index 0 logsLen 8 
+2023/10/17 11:51:27 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 2}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [{18 9 8}] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:27 logs Replace when curId 8 index 0 logsLen 8 
+2023/10/17 11:51:27 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:27 {Node 3}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{9 4 7 9 [{18 9 8}] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:27 {Node 3}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {18 9 8}} before processing AppendEntriesRequest &{9 4 8 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:27 {Node 2}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {18 9 8}} before processing AppendEntriesRequest &{9 4 8 9 [] 7} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:27 {Node 2}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {18 9 8}} before processing AppendEntriesRequest &{9 4 8 9 [] 8} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:27 {Node 3}'s state is {state 2,term 9,commitIndex 7,lastApplied 7,firstLog {<nil> 0 0},lastLog {18 9 8}} before processing AppendEntriesRequest &{9 4 8 9 [] 8} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:27 {Node 3}'s state is {state 2,term 9,commitIndex 8,lastApplied 7,firstLog {<nil> 0 0},lastLog {18 9 8}} before processing AppendEntriesRequest &{9 4 8 9 [] 8} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:27 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:27 {Node 2}'s state is {state 2,term 9,commitIndex 8,lastApplied 7,firstLog {<nil> 0 0},lastLog {18 9 8}} before processing AppendEntriesRequest &{9 4 8 9 [] 8} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:28 {Node 0} starts election with RequestVoteRequest &{10 0 7 9}
+2023/10/17 11:51:28 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:28 {Node 3}'s state is {state 2,term 9,commitIndex 8,lastApplied 7,firstLog {<nil> 0 0},lastLog {18 9 8}} before processing AppendEntriesRequest &{9 4 8 9 [] 8} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:28 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:28 {Node 2}'s state is {state 2,term 9,commitIndex 8,lastApplied 7,firstLog {<nil> 0 0},lastLog {18 9 8}} before processing AppendEntriesRequest &{9 4 8 9 [] 8} and reply AppendEntriesResponse &{9 true 0 0}
+2023/10/17 11:51:28 {Node 1} starts election with RequestVoteRequest &{10 1 7 9}
+2023/10/17 11:51:28 {Node 0}'s state is {state 2,term 9,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing requestVoteRequest &{10 1 7 9} and reply requestVoteResponse &{9 true}
+2023/10/17 11:51:28 {Node 1} receives RequestVoteResponse &{10 1 7 9} from {Node [0xc0001c3960 0xc0001c3980 0xc0001c39a0 0xc0001c39c0 0xc0001c39e0]} after sending RequestVoteRequest &{9 true} in term 10
+2023/10/17 11:51:28 {Node 2} starts election with RequestVoteRequest &{10 2 8 9}
+2023/10/17 11:51:28 {Node 3} starts election with RequestVoteRequest &{10 3 8 9}
+2023/10/17 11:51:29 {Node 0} starts election with RequestVoteRequest &{11 0 7 9}
+2023/10/17 11:51:29 {Node 1}'s state is {state 1,term 10,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing requestVoteRequest &{11 0 7 9} and reply requestVoteResponse &{10 true}
+2023/10/17 11:51:29 {Node 0} receives RequestVoteResponse &{11 0 7 9} from {Node [0xc0001c3620 0xc0001c3640 0xc0001c3660 0xc0001c3680 0xc0001c36a0]} after sending RequestVoteRequest &{10 true} in term 11
+2023/10/17 11:51:29 {Node 3} starts election with RequestVoteRequest &{11 3 8 9}
+2023/10/17 11:51:29 {Node 1} starts election with RequestVoteRequest &{12 1 7 9}
+2023/10/17 11:51:29 {Node 0}'s state is {state 1,term 11,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing requestVoteRequest &{12 1 7 9} and reply requestVoteResponse &{11 true}
+2023/10/17 11:51:29 {Node 2}'s state is {state 2,term 9,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {18 9 8}} before processing requestVoteRequest &{12 1 7 9} and reply requestVoteResponse &{9 false}
+2023/10/17 11:51:29 {Node 1} receives RequestVoteResponse &{12 1 7 9} from {Node [0xc0001c3960 0xc0001c3980 0xc0001c39a0 0xc0001c39c0 0xc0001c39e0]} after sending RequestVoteRequest &{11 true} in term 12
+2023/10/17 11:51:29 {Node 1} receives RequestVoteResponse &{12 1 7 9} from {Node [0xc0001c3960 0xc0001c3980 0xc0001c39a0 0xc0001c39c0 0xc0001c39e0]} after sending RequestVoteRequest &{9 false} in term 12
+2023/10/17 11:51:29 {Node 2} starts election with RequestVoteRequest &{13 2 8 9}
+2023/10/17 11:51:29 {Node 0}'s state is {state 2,term 12,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing requestVoteRequest &{13 2 8 9} and reply requestVoteResponse &{12 true}
+2023/10/17 11:51:29 {Node 2} receives RequestVoteResponse &{13 2 8 9} from {Node [0xc00006f5c0 0xc00006f5e0 0xc00006f600 0xc00006f620 0xc00006f640]} after sending RequestVoteRequest &{12 true} in term 13
+2023/10/17 11:51:29 {Node 1}'s state is {state 1,term 12,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing requestVoteRequest &{13 2 8 9} and reply requestVoteResponse &{12 true}
+2023/10/17 11:51:29 {Node 2} receives RequestVoteResponse &{13 2 8 9} from {Node [0xc00006f5c0 0xc00006f5e0 0xc00006f600 0xc00006f620 0xc00006f640]} after sending RequestVoteRequest &{12 true} in term 13
+2023/10/17 11:51:29 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:29 {Node 0}'s state is {state 2,term 13,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{13 2 8 9 [] 0} and reply AppendEntriesResponse &{13 false -1 8}
+2023/10/17 11:51:29 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:29 {Node 1}'s state is {state 2,term 13,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{13 2 8 9 [] 0} and reply AppendEntriesResponse &{13 false -1 8}
+2023/10/17 11:51:29 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:29 logs Replace when curId 8 index 0 logsLen 8 
+2023/10/17 11:51:29 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:29 {Node 0}'s state is {state 2,term 13,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{13 2 7 9 [{18 9 8} {19 13 9}] 0} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:29 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:29 logs Replace when curId 8 index 0 logsLen 8 
+2023/10/17 11:51:29 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7}]
+2023/10/17 11:51:29 {Node 1}'s state is {state 2,term 13,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {17 9 7}} before processing AppendEntriesRequest &{13 2 7 9 [{18 9 8} {19 13 9}] 0} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:29 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:29 {Node 0}'s state is {state 2,term 13,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {19 13 9}} before processing AppendEntriesRequest &{13 2 9 13 [] 0} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:29 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:29 {Node 1}'s state is {state 2,term 13,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {19 13 9}} before processing AppendEntriesRequest &{13 2 9 13 [] 0} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:29 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:29 {Node 0}'s state is {state 2,term 13,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {19 13 9}} before processing AppendEntriesRequest &{13 2 9 13 [] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:29 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:29 {Node 1}'s state is {state 2,term 13,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {19 13 9}} before processing AppendEntriesRequest &{13 2 9 13 [] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:30 {Node 0}'s state is {state 2,term 13,commitIndex 9,lastApplied 0,firstLog {<nil> 0 0},lastLog {19 13 9}} before processing AppendEntriesRequest &{13 2 9 13 [] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:30 {Node 1}'s state is {state 2,term 13,commitIndex 9,lastApplied 0,firstLog {<nil> 0 0},lastLog {19 13 9}} before processing AppendEntriesRequest &{13 2 9 13 [] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 3} starts election with RequestVoteRequest &{12 3 8 9}
+2023/10/17 11:51:30 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:30 {Node 0}'s state is {state 2,term 13,commitIndex 9,lastApplied 0,firstLog {<nil> 0 0},lastLog {19 13 9}} before processing AppendEntriesRequest &{13 2 9 13 [] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:30 {Node 1}'s state is {state 2,term 13,commitIndex 9,lastApplied 0,firstLog {<nil> 0 0},lastLog {19 13 9}} before processing AppendEntriesRequest &{13 2 9 13 [] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 2}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 2}'s state is {state 0,term 13,commitIndex 9,lastApplied 9,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{9 4 8 9 [] 8} and reply AppendEntriesResponse &{13 false 0 0}
+2023/10/17 11:51:30 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:30 {Node 0}'s state is {state 2,term 13,commitIndex 9,lastApplied 9,firstLog {<nil> 0 0},lastLog {19 13 9}} before processing AppendEntriesRequest &{9 4 7 9 [{18 9 8}] 8} and reply AppendEntriesResponse &{13 false 0 0}
+2023/10/17 11:51:30 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:30 {Node 3}'s state is {state 1,term 12,commitIndex 8,lastApplied 8,firstLog {<nil> 0 0},lastLog {18 9 8}} before processing AppendEntriesRequest &{9 4 8 9 [] 8} and reply AppendEntriesResponse &{12 false 0 0}
+2023/10/17 11:51:30 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:30 {Node 1}'s state is {state 2,term 13,commitIndex 9,lastApplied 9,firstLog {<nil> 0 0},lastLog {19 13 9}} before processing AppendEntriesRequest &{9 4 7 9 [{18 9 8}] 8} and reply AppendEntriesResponse &{13 false 0 0}
+2023/10/17 11:51:30 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 logs Replace when curId 10 index 0 logsLen 10 
+2023/10/17 11:51:30 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:30 {Node 0}'s state is {state 2,term 13,commitIndex 9,lastApplied 9,firstLog {<nil> 0 0},lastLog {19 13 9}} before processing AppendEntriesRequest &{13 2 9 13 [{20 13 10}] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 logs Replace when curId 9 index 0 logsLen 9 
+2023/10/17 11:51:30 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:30 {Node 3}'s state is {state 1,term 12,commitIndex 8,lastApplied 8,firstLog {<nil> 0 0},lastLog {18 9 8}} before processing AppendEntriesRequest &{13 2 8 9 [{19 13 9} {20 13 10}] 9} and reply AppendEntriesResponse &{12 true 0 0}
+2023/10/17 11:51:30 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 logs Replace when curId 9 index 0 logsLen 9 
+2023/10/17 11:51:30 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8}]
+2023/10/17 11:51:30 {Node 4}'s state is {state 2,term 13,commitIndex 8,lastApplied 8,firstLog {<nil> 0 0},lastLog {18 9 8}} before processing AppendEntriesRequest &{13 2 8 9 [{19 13 9} {20 13 10}] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 logs Replace when curId 10 index 0 logsLen 10 
+2023/10/17 11:51:30 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9}]
+2023/10/17 11:51:30 {Node 1}'s state is {state 2,term 13,commitIndex 9,lastApplied 9,firstLog {<nil> 0 0},lastLog {19 13 9}} before processing AppendEntriesRequest &{13 2 9 13 [{20 13 10}] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 0}'s state is {state 2,term 13,commitIndex 9,lastApplied 9,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 4}'s state is {state 2,term 13,commitIndex 9,lastApplied 8,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 1}'s state is {state 2,term 13,commitIndex 9,lastApplied 9,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 3}'s state is {state 2,term 13,commitIndex 9,lastApplied 8,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 9} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 3}'s state is {state 2,term 13,commitIndex 9,lastApplied 8,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 0}'s state is {state 2,term 13,commitIndex 9,lastApplied 9,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 4}'s state is {state 2,term 13,commitIndex 9,lastApplied 8,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 1}'s state is {state 2,term 13,commitIndex 9,lastApplied 9,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 0}'s state is {state 2,term 13,commitIndex 10,lastApplied 9,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 3}'s state is {state 2,term 13,commitIndex 10,lastApplied 8,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 1}'s state is {state 2,term 13,commitIndex 10,lastApplied 9,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 4}'s state is {state 2,term 13,commitIndex 10,lastApplied 8,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 4}'s state is {state 2,term 13,commitIndex 10,lastApplied 8,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 0}'s state is {state 2,term 13,commitIndex 10,lastApplied 9,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 3}'s state is {state 2,term 13,commitIndex 10,lastApplied 8,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 1}'s state is {state 2,term 13,commitIndex 10,lastApplied 9,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 4}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 3}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 0}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 1}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 3}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 4}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 1}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 0}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 3}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 4}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:30 {Node 1}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:30 {Node 0}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:31 {Node 4}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:31 {Node 1}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:31 {Node 0}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:31 {Node 3}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:31 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:31 {Node 1}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 0}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 4}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:31 {Node 4}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:31 {Node 3}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {21 13 11}]
+2023/10/17 11:51:31 logs Replace when curId 11 index 0 logsLen 11 
+2023/10/17 11:51:31 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:31 {Node 0}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [{21 13 11}] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {21 13 11}]
+2023/10/17 11:51:31 logs Replace when curId 11 index 0 logsLen 11 
+2023/10/17 11:51:31 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:31 {Node 1}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{13 2 10 13 [{21 13 11}] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {21 13 11}]
+2023/10/17 11:51:31 {Node 0}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {21 13 11}} before processing AppendEntriesRequest &{13 2 11 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {21 13 11}]
+2023/10/17 11:51:31 {Node 1}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {21 13 11}} before processing AppendEntriesRequest &{13 2 11 13 [] 10} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {21 13 11}]
+2023/10/17 11:51:31 {Node 0}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {21 13 11}} before processing AppendEntriesRequest &{13 2 11 13 [] 11} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {21 13 11}]
+2023/10/17 11:51:31 {Node 1}'s state is {state 2,term 13,commitIndex 10,lastApplied 10,firstLog {<nil> 0 0},lastLog {21 13 11}} before processing AppendEntriesRequest &{13 2 11 13 [] 11} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {21 13 11}]
+2023/10/17 11:51:31 {Node 0}'s state is {state 2,term 13,commitIndex 11,lastApplied 10,firstLog {<nil> 0 0},lastLog {21 13 11}} before processing AppendEntriesRequest &{13 2 11 13 [] 11} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {21 13 11}]
+2023/10/17 11:51:31 {Node 1}'s state is {state 2,term 13,commitIndex 11,lastApplied 10,firstLog {<nil> 0 0},lastLog {21 13 11}} before processing AppendEntriesRequest &{13 2 11 13 [] 11} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 3} starts election with RequestVoteRequest &{14 3 10 13}
+2023/10/17 11:51:31 {Node 1}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {21 13 11}]
+2023/10/17 11:51:31 {Node 1}'s state is {state 2,term 13,commitIndex 11,lastApplied 10,firstLog {<nil> 0 0},lastLog {21 13 11}} before processing AppendEntriesRequest &{13 2 11 13 [] 11} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:31 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {21 13 11}]
+2023/10/17 11:51:31 {Node 0}'s state is {state 2,term 13,commitIndex 11,lastApplied 10,firstLog {<nil> 0 0},lastLog {21 13 11}} before processing AppendEntriesRequest &{13 2 11 13 [] 11} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:32 {Node 1} starts election with RequestVoteRequest &{14 1 11 13}
+2023/10/17 11:51:32 {Node 0} starts election with RequestVoteRequest &{14 0 11 13}
+2023/10/17 11:51:32 {Node 3} starts election with RequestVoteRequest &{14 3 10 13}
+2023/10/17 11:51:32 {Node 4}'s state is {state 2,term 13,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing requestVoteRequest &{14 3 10 13} and reply requestVoteResponse &{13 true}
+2023/10/17 11:51:32 {Node 3} receives RequestVoteResponse &{14 3 10 13} from {Node [0xc00006f8e0 0xc00006f900 0xc00006f920 0xc00006f940 0xc00006f960]} after sending RequestVoteRequest &{13 true} in term 14
+2023/10/17 11:51:32 {Node 4} starts election with RequestVoteRequest &{15 4 10 13}
+2023/10/17 11:51:32 {Node 3}'s state is {state 1,term 14,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing requestVoteRequest &{15 4 10 13} and reply requestVoteResponse &{14 true}
+2023/10/17 11:51:32 {Node 4} starts election with RequestVoteRequest &{15 4 10 13}
+2023/10/17 11:51:32 {Node 4} receives RequestVoteResponse &{15 4 10 13} from {Node [0xc00006fc20 0xc00006fc40 0xc00006fc60 0xc00006fc80 0xc00006fca0]} after sending RequestVoteRequest &{14 true} in term 15
+2023/10/17 11:51:32 {Node 3}'s state is {state 2,term 15,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing requestVoteRequest &{15 4 10 13} and reply requestVoteResponse &{15 true}
+2023/10/17 11:51:32 {Node 4} receives RequestVoteResponse &{15 4 10 13} from {Node [0xc00006fc20 0xc00006fc40 0xc00006fc60 0xc00006fc80 0xc00006fca0]} after sending RequestVoteRequest &{15 true} in term 15
+2023/10/17 11:51:32 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:32 {Node 3}'s state is {state 2,term 15,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{15 4 10 13 [] 0} and reply AppendEntriesResponse &{15 true 0 0}
+2023/10/17 11:51:32 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:32 {Node 3}'s state is {state 2,term 15,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{15 4 10 13 [] 0} and reply AppendEntriesResponse &{15 true 0 0}
+2023/10/17 11:51:32 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:32 {Node 3}'s state is {state 2,term 15,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{15 4 10 13 [] 0} and reply AppendEntriesResponse &{15 true 0 0}
+2023/10/17 11:51:32 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:32 {Node 3}'s state is {state 2,term 15,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{15 4 10 13 [] 0} and reply AppendEntriesResponse &{15 true 0 0}
+2023/10/17 11:51:32 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:32 {Node 3}'s state is {state 2,term 15,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{15 4 10 13 [] 0} and reply AppendEntriesResponse &{15 true 0 0}
+2023/10/17 11:51:32 {Node 1} starts election with RequestVoteRequest &{15 1 11 13}
+2023/10/17 11:51:32 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {22 15 11}]
+2023/10/17 11:51:32 logs Replace when curId 11 index 0 logsLen 12 
+2023/10/17 11:51:32 Conflict logs {21 13 11} {22 15 11} true
+2023/10/17 11:51:32 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {22 15 11}]
+2023/10/17 11:51:32 {Node 0}'s state is {state 2,term 13,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {21 13 11}} before processing AppendEntriesRequest &{15 4 10 13 [{22 15 11}] 0} and reply AppendEntriesResponse &{13 true 0 0}
+2023/10/17 11:51:32 AfterLogs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {22 15 11}]
+2023/10/17 11:51:32 logs Replace when curId 11 index 0 logsLen 11 
+2023/10/17 11:51:32 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10}]
+2023/10/17 11:51:32 {Node 3}'s state is {state 2,term 15,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {20 13 10}} before processing AppendEntriesRequest &{15 4 10 13 [{22 15 11}] 0} and reply AppendEntriesResponse &{15 true 0 0}
+2023/10/17 11:51:32 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {22 15 11}]
+2023/10/17 11:51:32 {Node 0}'s state is {state 2,term 15,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {22 15 11}} before processing AppendEntriesRequest &{15 4 11 15 [] 0} and reply AppendEntriesResponse &{15 true 0 0}
+2023/10/17 11:51:32 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {22 15 11}]
+2023/10/17 11:51:32 {Node 3}'s state is {state 2,term 15,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {22 15 11}} before processing AppendEntriesRequest &{15 4 11 15 [] 0} and reply AppendEntriesResponse &{15 true 0 0}
+2023/10/17 11:51:32 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {22 15 11}]
+2023/10/17 11:51:32 {Node 0}'s state is {state 2,term 15,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {22 15 11}} before processing AppendEntriesRequest &{15 4 11 15 [] 11} and reply AppendEntriesResponse &{15 true 0 0}
+2023/10/17 11:51:32 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {22 15 11}]
+2023/10/17 11:51:32 {Node 3}'s state is {state 2,term 15,commitIndex 0,lastApplied 0,firstLog {<nil> 0 0},lastLog {22 15 11}} before processing AppendEntriesRequest &{15 4 11 15 [] 11} and reply AppendEntriesResponse &{15 true 0 0}
+2023/10/17 11:51:33 {Node 0}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {22 15 11}]
+2023/10/17 11:51:33 {Node 0}'s state is {state 2,term 15,commitIndex 11,lastApplied 0,firstLog {<nil> 0 0},lastLog {22 15 11}} before processing AppendEntriesRequest &{15 4 11 15 [] 11} and reply AppendEntriesResponse &{15 true 0 0}
+2023/10/17 11:51:33 {Node 3}Logs [{<nil> 0 0} {11 1 1} {12 1 2} {13 5 3} {14 5 4} {15 5 5} {16 9 6} {17 9 7} {18 9 8} {19 13 9} {20 13 10} {22 15 11}]
+2023/10/17 11:51:33 {Node 3}'s state is {state 2,term 15,commitIndex 11,lastApplied 0,firstLog {<nil> 0 0},lastLog {22 15 11}} before processing AppendEntriesRequest &{15 4 11 15 [] 11} and reply AppendEntriesResponse &{15 true 0 0}
+2023/10/17 11:51:33 apply error: commit Index=11 server=0 22 != server=2 21
+exit status 1
+FAIL	labs-6.824/src/raft	23.185s

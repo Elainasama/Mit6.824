@@ -1,0 +1,3 @@
+# labs-6.824/src/raft [labs-6.824/src/raft.test]
+./raft.go:650:105: invalid operation: rf.logs[curIdx].Term != args.Entries[idx] (mismatched types int and LogEntries)
+FAIL	labs-6.824/src/raft [build failed]

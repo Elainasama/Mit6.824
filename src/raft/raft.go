@@ -48,11 +48,6 @@ type ApplyMsg struct {
 func (rf *Raft) applyLog() {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	// figure8 简化
-	// Leader不能直接提交不属于自己任期的日志。
-	if rf.logs[rf.commitIndex].Term < rf.currentTerm {
-		return
-	}
 	for i := rf.lastApplied + 1; i <= rf.commitIndex; i++ {
 		rf.applyChan <- ApplyMsg{
 			CommandValid: true,
@@ -64,7 +59,7 @@ func (rf *Raft) applyLog() {
 }
 
 func (rf *Raft) doApplyWork() {
-	for rf.dead == 0 {
+	for !rf.killed() {
 		rf.applyLog()
 		time.Sleep(commitInterval)
 	}
@@ -79,7 +74,9 @@ func (rf *Raft) checkCommitIndex() {
 	defer rf.mu.Unlock()
 
 	for idx := len(rf.logs) - 1; idx >= rf.commitIndex; idx-- {
-		if rf.role != Leader {
+		// figure8 简化
+		// Leader不能直接提交不属于自己任期的日志。
+		if rf.logs[idx].Term < rf.currentTerm || rf.role != Leader {
 			return
 		}
 		cnt := 1
@@ -169,6 +166,8 @@ func (rf *Raft) persist() {
 
 // restore previously persisted state.
 func (rf *Raft) readPersist(data []byte) {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 	if data == nil || len(data) < 1 { // bootstrap without any state?
 		return
 	}
@@ -224,6 +223,7 @@ func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteRepl
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	defer rf.persist()
+	defer DPrintf("{Node %v}'s state is {state %v,term %v,commitIndex %v,lastApplied %v,firstLog %v,lastLog %v} before processing requestVoteRequest %v and reply requestVoteResponse %v", rf.me, rf.role, rf.currentTerm, rf.commitIndex, rf.lastApplied, rf.logs[0], rf.logs[len(rf.logs)-1], args, reply)
 
 	// 设置返回的任期，投票默认返回false。
 	reply.Term = rf.currentTerm
@@ -231,7 +231,8 @@ func (rf *Raft) RequestVoteHandler(args *RequestVoteArgs, reply *RequestVoteRepl
 	// 后面可以继续参与投票。
 	if args.Term > rf.currentTerm {
 		rf.ConvertToFollower(args.Term)
-		rf.VoteMsgChan <- struct{}{}
+		// 重置选票
+		rf.votedFor = noVoted
 	}
 	// 双向影响，不接受任期小于的Candidate的投票申请
 	if args.Term < rf.currentTerm {
@@ -292,6 +293,7 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *Reques
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	defer rf.persist()
+	defer DPrintf("{Node %v} receives RequestVoteResponse %v from {Node %v} after sending RequestVoteRequest %v in term %v", rf.me, args, server, reply, rf.currentTerm)
 
 	// 如果已经不是candidate了，无须继续拉票。
 	if rf.role != Candidate || args.Term != rf.currentTerm {
@@ -414,8 +416,6 @@ func Make(peers []*labrpc.ClientEnd, me int,
 
 func (rf *Raft) ConvertToFollower(term int) {
 	rf.currentTerm = term
-	rf.votedFor = noVoted
-	rf.voteCount = 0
 	rf.role = Follower
 }
 
@@ -443,24 +443,24 @@ func (rf *Raft) ConvertToLeader() {
 
 func (rf *Raft) Run() {
 	// dead置1则退出运行
-	for rf.dead == 0 {
-		//fmt.Println(rf.me, rf.role, rf.currentTerm, rf.logs, rf.votedFor, rf.voteCount, rf.nextIndex)
+	for !rf.killed() {
+		// fmt.Println(rf.me, rf.role, rf.currentTerm, rf.logs, rf.votedFor, rf.voteCount, rf.nextIndex)
 		// fmt.Println(rf.me, rf.role, rf.currentTerm, rf.votedFor, rf.voteCount)
 		switch rf.role {
 		case Candidate:
 
-			go rf.sendAllRequestVote()
 			select {
 			case <-rf.VoteMsgChan:
-				continue
+
 			case <-rf.appendEntriesChan:
 
 			case <-time.After(electionTimeout + time.Duration(rand.Int31()%300)*time.Millisecond):
 				// 选举超时 重置选举状态
 				if rf.role == Candidate {
 					rf.ConvertToCandidate()
+					go rf.sendAllRequestVote()
 				}
-				continue
+
 			case <-rf.LeaderMsgChan:
 			}
 
@@ -468,17 +468,18 @@ func (rf *Raft) Run() {
 			// Leader 定期发送心跳和同步日志
 			rf.SendAllAppendEntries()
 			// 更新commitIndex对子节点中超过半数复制的日志进行提交
-			rf.checkCommitIndex()
+			go rf.checkCommitIndex()
 			time.Sleep(heartBeatInterval)
 		case Follower:
 			select {
 			case <-rf.VoteMsgChan:
-				continue
+
 			case <-rf.appendEntriesChan:
-				continue
+
 			case <-time.After(appendEntriesTimeout + time.Duration(rand.Int31()%300)*time.Millisecond):
 				// 增加扰动避免多个Candidate同时进入选举
 				rf.ConvertToCandidate()
+				go rf.sendAllRequestVote()
 			}
 		}
 	}
@@ -515,13 +516,14 @@ type AppendEntriesReply struct {
 func (rf *Raft) SendAllAppendEntries() {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
+	defer DPrintf("Term %v Leader %v Send all AppendEntries Log : %v", rf.currentTerm, rf.me, rf.logs)
 	for server := range rf.peers {
 		if server != rf.me && rf.role == Leader {
 			// 向follower发送nextIndex最新log日志
 			// 如果无需更新 则发送心跳即可。
 			// 为了效率 可以一次发送多份
 			// 这一段要在锁内处理，防止越界。
-			nxtId := max(1, rf.nextIndex[server])
+			nxtId := rf.nextIndex[server]
 			// 这里有时候nxtId为0会挂，很玄学，查不出bug。。。。
 			lastLog := rf.logs[nxtId-1]
 			logs := make([]LogEntries, len(rf.logs)-nxtId)
@@ -551,12 +553,16 @@ func (rf *Raft) SendAppendEntries(id int, args *AppendEntriesArgs, reply *Append
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	defer rf.persist()
+	// 阻止过时RPC
+	if args.Term != rf.currentTerm {
+		return
+	}
+
 	if reply.Term > rf.currentTerm {
 		rf.ConvertToFollower(reply.Term)
 	}
 
-	// 阻止过时RPC
-	if rf.role != Leader || args.Term != rf.currentTerm {
+	if rf.role != Leader {
 		return
 	}
 	// If AppendEntries fails because of log inconsistency:
@@ -585,7 +591,7 @@ func (rf *Raft) SendAppendEntries(id int, args *AppendEntriesArgs, reply *Append
 		}
 	} else {
 		rf.nextIndex[id] = max(args.PrevLogIndex+len(args.Entries)+1, rf.nextIndex[id])
-		rf.matchIndex[id] = rf.nextIndex[id] - 1
+		rf.matchIndex[id] = max(args.PrevLogIndex+len(args.Entries), rf.matchIndex[id])
 	}
 
 }
@@ -600,7 +606,8 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	defer rf.persist()
-
+	defer DPrintf("{Node %v}'s state is {state %v,term %v,commitIndex %v,lastApplied %v,firstLog %v,lastLog %v} before processing AppendEntriesRequest %v and reply AppendEntriesResponse %v", rf.me, rf.role, rf.currentTerm, rf.commitIndex, rf.lastApplied, rf.logs[0], rf.logs[len(rf.logs)-1], args, reply)
+	//defer DPrintf("{Node %v}Logs %v", rf.me, rf.logs)
 	reply.Term = rf.currentTerm
 	// 老Leader重连后Follower不接受旧信号
 	if rf.currentTerm > args.Term {
@@ -638,30 +645,39 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 	for idx := 0; idx < len(args.Entries); idx++ {
 		curIdx := idx + args.PrevLogIndex + 1
 		if curIdx >= len(rf.logs) || rf.logs[curIdx].Term != args.Entries[idx].Term {
+			//if curIdx < len(rf.logs) {
+			//	defer DPrintf("Conflict logs %v %v %v", rf.logs[curIdx], args.Entries[idx], rf.logs[curIdx].Term != args.Entries[idx].Term)
+			//}
+			//defer DPrintf("logs Replace when curId %v index %v logsLen %v ", curIdx, idx, len(rf.logs))
 			rf.logs = append(rf.logs[:curIdx], args.Entries[idx:]...)
+			//defer DPrintf("AfterLogs %v", rf.logs)
 			break
 		}
 	}
-	rf.commitIndex = min(len(rf.logs)-1, args.LeaderCommit)
+	if args.LeaderCommit > rf.commitIndex {
+		rf.commitIndex = min(len(rf.logs)-1, args.LeaderCommit)
+	}
 }
 
 func (rf *Raft) sendAllRequestVote() {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-
 	lastLog := rf.logs[len(rf.logs)-1]
 
-	arg := &RequestVoteArgs{
+	args := &RequestVoteArgs{
 		Term:         rf.currentTerm,
 		CandidateId:  rf.me,
 		LastLogIndex: lastLog.Index,
 		LastLogTerm:  lastLog.Term,
 	}
+
+	defer DPrintf("{Node %v} starts election with RequestVoteRequest %v", rf.me, args)
+
 	for i := range rf.peers {
 		if i != rf.me && rf.role == Candidate {
 			go func(id int) {
 				ret := &RequestVoteReply{}
-				rf.sendRequestVote(id, arg, ret)
+				rf.sendRequestVote(id, args, ret)
 			}(i)
 		}
 	}
