@@ -1,7 +1,7 @@
 package kvraft
 
-import "../porcupine"
-import "../models"
+import "labs-6.824/src/porcupine"
+import "labs-6.824/src/models"
 import "testing"
 import "strconv"
 import "time"
@@ -610,12 +610,10 @@ func TestPersistPartitionUnreliableLinearizable3A(t *testing.T) {
 	GenericTestLinearizability(t, "3A", 15, 7, true, true, true, -1)
 }
 
-//
 // if one server falls behind, then rejoins, does it
 // recover by using the InstallSnapshot RPC?
 // also checks that majority discards committed log entries
 // even if minority doesn't respond.
-//
 func TestSnapshotRPC3B(t *testing.T) {
 	const nservers = 3
 	maxraftstate := 1000

@@ -41,6 +41,12 @@ type ApplyMsg struct {
 	CommandValid bool
 	Command      interface{}
 	CommandIndex int
+
+	// For 2D:
+	SnapshotValid bool
+	Snapshot      []byte
+	SnapshotTerm  int
+	SnapshotIndex int
 }
 
 // 定期将日志提交
@@ -161,7 +167,7 @@ func (rf *Raft) persist() {
 		log.Fatal("Errors occur when Encoder")
 	}
 	data := w.Bytes()
-	rf.persister.SaveRaftState(data)
+	rf.persister.Save(data, nil)
 }
 
 // restore previously persisted state.
@@ -681,4 +687,13 @@ func (rf *Raft) sendAllRequestVote() {
 			}(i)
 		}
 	}
+}
+
+// the service says it has created a snapshot that has
+// all info up to and including index. this means the
+// service no longer needs the log through (and including)
+// that index. Raft should now trim its log as much as possible.
+func (rf *Raft) Snapshot(index int, snapshot []byte) {
+	// Your code here (2D).
+
 }
