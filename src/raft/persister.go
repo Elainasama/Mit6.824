@@ -57,6 +57,13 @@ func (ps *Persister) Save(raftstate []byte, snapshot []byte) {
 	ps.snapshot = clone(snapshot)
 }
 
+// SaveRaftState 只保留Raft状态机的状态
+func (ps *Persister) SaveRaftState(raftstate []byte) {
+	ps.mu.Lock()
+	defer ps.mu.Unlock()
+	ps.raftstate = clone(raftstate)
+}
+
 func (ps *Persister) ReadSnapshot() []byte {
 	ps.mu.Lock()
 	defer ps.mu.Unlock()
