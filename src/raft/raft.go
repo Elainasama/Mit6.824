@@ -770,13 +770,12 @@ func (rf *Raft) SendInstallSnapshotRpc(id int, args *InstallSnapshotArgs, reply 
 	}
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	if args.Term != rf.currentTerm {
-		return
-	}
 	if reply.Term > rf.currentTerm {
 		rf.ConvertToFollower(reply.Term)
 	}
-	if rf.currentTerm != args.Term || rf.role != Leader {
+	snapshotIndex := rf.getFirstLog().Index
+	// RPC任期不匹配、或者退位、或者快照下标对不上直接返回即可。
+	if rf.currentTerm != args.Term || rf.role != Leader || args.LastIncludedIndex != snapshotIndex {
 		return
 	}
 	rf.nextIndex[id] = max(rf.nextIndex[id], args.LastIncludedIndex+1)
@@ -796,10 +795,10 @@ func (rf *Raft) InstallSnapshotHandler(args *InstallSnapshotArgs, reply *Install
 	if rf.currentTerm < args.Term || (rf.currentTerm == args.Term && rf.role == Candidate) {
 		rf.ConvertToFollower(args.Term)
 	}
+	rf.HeartBeatChan <- struct{}{}
 	if args.LastIncludedIndex <= rf.commitIndex {
 		return
 	}
-	rf.HeartBeatChan <- struct{}{}
 	// 全盘接受快照文件
 	rf.commitIndex = args.LastIncludedIndex
 	rf.lastApplied = args.LastIncludedIndex
