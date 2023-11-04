@@ -3,10 +3,11 @@ package raft
 import "time"
 
 // RoleType 记录节点的三种状态
-type RoleType int
+// 别名类型好像很难用atomic操作
+type RoleType int32
 
 // chan缓冲区长度
-var chanLen = 10
+var chanLen = 100
 
 // 选举超时时间为0.3s
 var electionTimeout = 300 * time.Millisecond
@@ -18,11 +19,11 @@ var appendEntriesTimeout = 300 * time.Millisecond
 var heartBeatInterval = 100 * time.Millisecond
 
 // commitInterval rf节点提交日志的间隔时间
-var commitInterval = 100 * time.Millisecond
+var commitInterval = 10 * time.Millisecond
 
 const noVoted = -1
 const (
-	Leader RoleType = iota
+	Leader int32 = iota
 	Candidate
 	Follower
 )

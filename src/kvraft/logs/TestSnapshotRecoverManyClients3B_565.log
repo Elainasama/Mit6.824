@@ -1,0 +1,1349 @@
+Test: restarts, snapshots, many clients (3B) ...
+SIGQUIT: quit
+PC=0x46f341 m=0 sigcode=0
+
+goroutine 0 [idle]:
+runtime.futex()
+	/usr/local/go/src/runtime/sys_linux_amd64.s:559 +0x21 fp=0x7fffaade70b0 sp=0x7fffaade70a8 pc=0x46f341
+runtime.futexsleep(0x0?, 0x5a305b?, 0x100072065?)
+	/usr/local/go/src/runtime/os_linux.go:69 +0x36 fp=0x7fffaade7100 sp=0x7fffaade70b0 pc=0x4358f6
+runtime.notesleep(0x7cf0a8)
+	/usr/local/go/src/runtime/lock_futex.go:160 +0x87 fp=0x7fffaade7138 sp=0x7fffaade7100 pc=0x40db27
+runtime.mPark(...)
+	/usr/local/go/src/runtime/proc.go:1457
+runtime.stopm()
+	/usr/local/go/src/runtime/proc.go:2247 +0x8c fp=0x7fffaade7168 sp=0x7fffaade7138 pc=0x4401ec
+runtime.gcstopm()
+	/usr/local/go/src/runtime/proc.go:2505 +0xaa fp=0x7fffaade7190 sp=0x7fffaade7168 pc=0x440cca
+runtime.findRunnable()
+	/usr/local/go/src/runtime/proc.go:2571 +0x4f fp=0x7fffaade7280 sp=0x7fffaade7190 pc=0x440eef
+runtime.schedule()
+	/usr/local/go/src/runtime/proc.go:3214 +0xbe fp=0x7fffaade72b8 sp=0x7fffaade7280 pc=0x4426be
+runtime.goschedImpl(0xc0003a6ea0)
+	/usr/local/go/src/runtime/proc.go:3378 +0xc5 fp=0x7fffaade72f0 sp=0x7fffaade72b8 pc=0x442ce5
+runtime.gopreempt_m(0xc0003a6ea0?)
+	/usr/local/go/src/runtime/proc.go:3406 +0x55 fp=0x7fffaade7330 sp=0x7fffaade72f0 pc=0x442fd5
+runtime.mcall()
+	/usr/local/go/src/runtime/asm_amd64.s:448 +0x43 fp=0x7fffaade7340 sp=0x7fffaade7330 pc=0x46b203
+
+goroutine 1 [chan receive, 1336 minutes]:
+runtime.gopark(0x7fe1a0?, 0xc0000e9aa8?, 0x1f?, 0xf3?, 0x7fb658f125b8?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0000e9a28 sp=0xc0000e9a08 pc=0x43c3d6
+runtime.chanrecv(0xc000100070, 0xc0000e9b27, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc0000e9ab8 sp=0xc0000e9a28 pc=0x40891b
+runtime.chanrecv1(0xc0000a4d20?, 0x1?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc0000e9ae0 sp=0xc0000e9ab8 pc=0x408418
+testing.(*T).Run(0xc00008b520, {0x63e788?, 0x4ffd05?}, 0x64e950)
+	/usr/local/go/src/testing/testing.go:1494 +0x37a fp=0xc0000e9b80 sp=0xc0000e9ae0 pc=0x50111a
+testing.runTests.func1(0xc00008b520?)
+	/usr/local/go/src/testing/testing.go:1846 +0x6e fp=0xc0000e9bd0 sp=0xc0000e9b80 pc=0x50306e
+testing.tRunner(0xc00008b520, 0xc0000e9cd8)
+	/usr/local/go/src/testing/testing.go:1446 +0x10b fp=0xc0000e9c20 sp=0xc0000e9bd0 pc=0x50032b
+testing.runTests(0xc0000c40a0?, {0x7ca5e0, 0x17, 0x17}, {0x7fb658f125b8?, 0x40?, 0x7ce720?})
+	/usr/local/go/src/testing/testing.go:1844 +0x456 fp=0xc0000e9d08 sp=0xc0000e9c20 pc=0x502f16
+testing.(*M).Run(0xc0000c40a0)
+	/usr/local/go/src/testing/testing.go:1726 +0x5d9 fp=0xc0000e9f00 sp=0xc0000e9d08 pc=0x5019f9
+main.main()
+	_testmain.go:91 +0x1aa fp=0xc0000e9f80 sp=0xc0000e9f00 pc=0x5d844a
+runtime.main()
+	/usr/local/go/src/runtime/proc.go:250 +0x212 fp=0xc0000e9fe0 sp=0xc0000e9f80 pc=0x43c012
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0000e9fe8 sp=0xc0000e9fe0 pc=0x46d441
+
+goroutine 2 [running]:
+	goroutine running on other thread; stack unavailable
+created by runtime.init.6
+	/usr/local/go/src/runtime/proc.go:290 +0x25
+
+goroutine 3 [GC sweep wait]:
+runtime.gopark(0x7ce601?, 0x7ce600?, 0xc?, 0x14?, 0x1?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000053790 sp=0xc000053770 pc=0x43c3d6
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:369
+runtime.bgsweep(0x0?)
+	/usr/local/go/src/runtime/mgcsweep.go:297 +0xd7 fp=0xc0000537c8 sp=0xc000053790 pc=0x426d57
+runtime.gcenable.func1()
+	/usr/local/go/src/runtime/mgc.go:178 +0x26 fp=0xc0000537e0 sp=0xc0000537c8 pc=0x41b9c6
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0000537e8 sp=0xc0000537e0 pc=0x46d441
+created by runtime.gcenable
+	/usr/local/go/src/runtime/mgc.go:178 +0x6b
+
+goroutine 4 [runnable]:
+runtime.gopark(0xc00007e000?, 0x5223ec0074d7?, 0x0?, 0x0?, 0x64eaf8?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000053f30 sp=0xc000053f10 pc=0x43c3d6
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:369
+runtime.(*scavengerState).sleep(0x7ce7a0, 0x411a3ba000000000)
+	/usr/local/go/src/runtime/mgcscavenge.go:468 +0x125 fp=0xc000053fa0 sp=0xc000053f30 pc=0x424fc5
+runtime.bgscavenge(0x0?)
+	/usr/local/go/src/runtime/mgcscavenge.go:626 +0x7f fp=0xc000053fc8 sp=0xc000053fa0 pc=0x4253bf
+runtime.gcenable.func2()
+	/usr/local/go/src/runtime/mgc.go:179 +0x26 fp=0xc000053fe0 sp=0xc000053fc8 pc=0x41b966
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000053fe8 sp=0xc000053fe0 pc=0x46d441
+created by runtime.gcenable
+	/usr/local/go/src/runtime/mgc.go:179 +0xaa
+
+goroutine 18 [finalizer wait, 1336 minutes]:
+runtime.gopark(0x7cef60?, 0xc00008a4e0?, 0x0?, 0x0?, 0xc000052770?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000052628 sp=0xc000052608 pc=0x43c3d6
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:369
+runtime.runfinq()
+	/usr/local/go/src/runtime/mfinal.go:180 +0x10f fp=0xc0000527e0 sp=0xc000052628 pc=0x41aacf
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0000527e8 sp=0xc0000527e0 pc=0x46d441
+created by runtime.createfing
+	/usr/local/go/src/runtime/mfinal.go:157 +0x45
+
+goroutine 19 [runnable]:
+runtime.mallocgc(0x50?, 0x5f2740?, 0x1?)
+	/usr/local/go/src/runtime/malloc.go:842 +0x8d1 fp=0xc000332c08 sp=0xc000332c00 pc=0x40f551
+runtime.makeslice(0xc00040fb80?, 0xc000332c60?, 0xc000332c60?)
+	/usr/local/go/src/runtime/slice.go:103 +0x52 fp=0xc000332c30 sp=0xc000332c08 pc=0x451532
+labs-6.824/src/kvraft.(*config).StartServer(0xc00010e000, 0x0)
+	/home/linn/6.824/src/kvraft/config.go:291 +0x6e fp=0xc000332cc0 sp=0xc000332c30 pc=0x5cec4e
+labs-6.824/src/kvraft.GenericTest(0xc00008b6c0, {0x63600d, 0x2}, 0x14, 0x5, 0x0, 0x1, 0x0, 0x3e8, 0x0)
+	/home/linn/6.824/src/kvraft/test_test.go:332 +0xeae fp=0xc000332f20 sp=0xc000332cc0 pc=0x5d4fee
+labs-6.824/src/kvraft.TestSnapshotRecoverManyClients3B(0x0?)
+	/home/linn/6.824/src/kvraft/test_test.go:699 +0x45 fp=0xc000332f70 sp=0xc000332f20 pc=0x5d7c05
+testing.tRunner(0xc00008b6c0, 0x64e950)
+	/usr/local/go/src/testing/testing.go:1446 +0x10b fp=0xc000332fc0 sp=0xc000332f70 pc=0x50032b
+testing.(*T).Run.func1()
+	/usr/local/go/src/testing/testing.go:1493 +0x2a fp=0xc000332fe0 sp=0xc000332fc0 pc=0x5011ca
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000332fe8 sp=0xc000332fe0 pc=0x46d441
+created by testing.(*T).Run
+	/usr/local/go/src/testing/testing.go:1493 +0x35f
+
+goroutine 20 [select]:
+runtime.gopark(0xc000065ec0?, 0x2?, 0x6b?, 0x8e?, 0xc000065eac?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000065d38 sp=0xc000065d18 pc=0x43c3d6
+runtime.selectgo(0xc000065ec0, 0xc000065ea8, 0xc000065f80?, 0x0, 0x2?, 0x1)
+	/usr/local/go/src/runtime/select.go:328 +0x7bc fp=0xc000065e78 sp=0xc000065d38 pc=0x44c27c
+labs-6.824/src/labrpc.MakeNetwork.func1()
+	/home/linn/6.824/src/labrpc/labrpc.go:151 +0xb8 fp=0xc000065fe0 sp=0xc000065e78 pc=0x5b9338
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000065fe8 sp=0xc000065fe0 pc=0x46d441
+created by labs-6.824/src/labrpc.MakeNetwork
+	/home/linn/6.824/src/labrpc/labrpc.go:149 +0x17c
+
+goroutine 45078 [chan receive, 1336 minutes]:
+runtime.gopark(0x5d2360?, 0x5f1d80?, 0x48?, 0x2c?, 0x5f1d80?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0008a2e08 sp=0xc0008a2de8 pc=0x43c3d6
+runtime.chanrecv(0xc000481560, 0xc0008a2f68, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc0008a2e98 sp=0xc0008a2e08 pc=0x40891b
+runtime.chanrecv2(0x1?, 0x621940?)
+	/usr/local/go/src/runtime/chan.go:447 +0x18 fp=0xc0008a2ec0 sp=0xc0008a2e98 pc=0x408458
+labs-6.824/src/kvraft.(*KVServer).Run(0xc0000de070)
+	/home/linn/6.824/src/kvraft/server.go:163 +0x66 fp=0xc0008a2fc8 sp=0xc0008a2ec0 pc=0x5d0a46
+labs-6.824/src/kvraft.StartKVServer.func1()
+	/home/linn/6.824/src/kvraft/server.go:200 +0x26 fp=0xc0008a2fe0 sp=0xc0008a2fc8 pc=0x5d0e26
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0008a2fe8 sp=0xc0008a2fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.StartKVServer
+	/home/linn/6.824/src/kvraft/server.go:200 +0x205
+
+goroutine 24 [chan receive, 1336 minutes]:
+runtime.gopark(0x5d2360?, 0x5f1d80?, 0x48?, 0x4c?, 0x5f1d80?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0005a4e08 sp=0xc0005a4de8 pc=0x43c3d6
+runtime.chanrecv(0xc0000aa180, 0xc0005a4f68, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc0005a4e98 sp=0xc0005a4e08 pc=0x40891b
+runtime.chanrecv2(0x1?, 0x621940?)
+	/usr/local/go/src/runtime/chan.go:447 +0x18 fp=0xc0005a4ec0 sp=0xc0005a4e98 pc=0x408458
+labs-6.824/src/kvraft.(*KVServer).Run(0xc0000de2a0)
+	/home/linn/6.824/src/kvraft/server.go:163 +0x66 fp=0xc0005a4fc8 sp=0xc0005a4ec0 pc=0x5d0a46
+labs-6.824/src/kvraft.StartKVServer.func1()
+	/home/linn/6.824/src/kvraft/server.go:200 +0x26 fp=0xc0005a4fe0 sp=0xc0005a4fc8 pc=0x5d0e26
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0005a4fe8 sp=0xc0005a4fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.StartKVServer
+	/home/linn/6.824/src/kvraft/server.go:200 +0x205
+
+goroutine 29 [chan receive, 1336 minutes]:
+runtime.gopark(0x5d2360?, 0x5f1d80?, 0x48?, 0xc?, 0x5f1d80?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000680e08 sp=0xc000680de8 pc=0x43c3d6
+runtime.chanrecv(0xc0000aaae0, 0xc000680f68, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000680e98 sp=0xc000680e08 pc=0x40891b
+runtime.chanrecv2(0x1?, 0x621940?)
+	/usr/local/go/src/runtime/chan.go:447 +0x18 fp=0xc000680ec0 sp=0xc000680e98 pc=0x408458
+labs-6.824/src/kvraft.(*KVServer).Run(0xc0000de3f0)
+	/home/linn/6.824/src/kvraft/server.go:163 +0x66 fp=0xc000680fc8 sp=0xc000680ec0 pc=0x5d0a46
+labs-6.824/src/kvraft.StartKVServer.func1()
+	/home/linn/6.824/src/kvraft/server.go:200 +0x26 fp=0xc000680fe0 sp=0xc000680fc8 pc=0x5d0e26
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000680fe8 sp=0xc000680fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.StartKVServer
+	/home/linn/6.824/src/kvraft/server.go:200 +0x205
+
+goroutine 50 [chan receive, 1336 minutes]:
+runtime.gopark(0x5d2360?, 0x5f1d80?, 0x48?, 0xdc?, 0x5f1d80?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc00043de08 sp=0xc00043dde8 pc=0x43c3d6
+runtime.chanrecv(0xc0000ab440, 0xc00043df68, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc00043de98 sp=0xc00043de08 pc=0x40891b
+runtime.chanrecv2(0x1?, 0x621940?)
+	/usr/local/go/src/runtime/chan.go:447 +0x18 fp=0xc00043dec0 sp=0xc00043de98 pc=0x408458
+labs-6.824/src/kvraft.(*KVServer).Run(0xc0000de460)
+	/home/linn/6.824/src/kvraft/server.go:163 +0x66 fp=0xc00043dfc8 sp=0xc00043dec0 pc=0x5d0a46
+labs-6.824/src/kvraft.StartKVServer.func1()
+	/home/linn/6.824/src/kvraft/server.go:200 +0x26 fp=0xc00043dfe0 sp=0xc00043dfc8 pc=0x5d0e26
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00043dfe8 sp=0xc00043dfe0 pc=0x46d441
+created by labs-6.824/src/kvraft.StartKVServer
+	/home/linn/6.824/src/kvraft/server.go:200 +0x205
+
+goroutine 122887 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x40?, 0x97?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0006e1cc0 sp=0xc0006e1ca0 pc=0x43c3d6
+runtime.chanrecv(0xc000668240, 0xc0006e1e18, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc0006e1d50 sp=0xc0006e1cc0 pc=0x40891b
+runtime.chanrecv1(0xc0006e1df8?, 0xc0006e1db8?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc0006e1d78 sp=0xc0006e1d50 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000292200, {0x63bfec?, 0x100c0006ac440?}, {0x5eab60, 0xc000169740}, {0x5eaba0, 0xc0008fe220})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc0006e1ee8 sp=0xc0006e1d78 pc=0x5b8f46
+labs-6.824/src/raft.(*Raft).SendAppendEntries(0xc0000f08c0, 0x2, 0xc000169740, 0xc0008fe220)
+	/home/linn/6.824/src/raft/raft.go:601 +0x92 fp=0xc0006e1f78 sp=0xc0006e1ee8 pc=0x5c5c12
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func1(0xc00040b6e0?, 0xc0000c21e0?)
+	/home/linn/6.824/src/raft/raft.go:580 +0x4a fp=0xc0006e1fc0 sp=0xc0006e1f78 pc=0x5c5aea
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func4()
+	/home/linn/6.824/src/raft/raft.go:581 +0x2e fp=0xc0006e1fe0 sp=0xc0006e1fc0 pc=0x5c5a6e
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0006e1fe8 sp=0xc0006e1fe0 pc=0x46d441
+created by labs-6.824/src/raft.(*Raft).SendAllAppendEntries
+	/home/linn/6.824/src/raft/raft.go:578 +0x2f9
+
+goroutine 122906 [runnable]:
+labs-6.824/src/labrpc.(*Network).processReq.func4()
+	/home/linn/6.824/src/labrpc/labrpc.go:302 fp=0xc000062fe0 sp=0xc000062fd8 pc=0x5ba260
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000062fe8 sp=0xc000062fe0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 55 [chan receive, 1336 minutes]:
+runtime.gopark(0x5d2360?, 0x5f1d80?, 0x48?, 0x7c?, 0x5f1d80?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000687e08 sp=0xc000687de8 pc=0x43c3d6
+runtime.chanrecv(0xc0000abda0, 0xc000687f68, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000687e98 sp=0xc000687e08 pc=0x40891b
+runtime.chanrecv2(0x1?, 0x621940?)
+	/usr/local/go/src/runtime/chan.go:447 +0x18 fp=0xc000687ec0 sp=0xc000687e98 pc=0x408458
+labs-6.824/src/kvraft.(*KVServer).Run(0xc0000de4d0)
+	/home/linn/6.824/src/kvraft/server.go:163 +0x66 fp=0xc000687fc8 sp=0xc000687ec0 pc=0x5d0a46
+labs-6.824/src/kvraft.StartKVServer.func1()
+	/home/linn/6.824/src/kvraft/server.go:200 +0x26 fp=0xc000687fe0 sp=0xc000687fc8 pc=0x5d0e26
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000687fe8 sp=0xc000687fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.StartKVServer
+	/home/linn/6.824/src/kvraft/server.go:200 +0x205
+
+goroutine 122858 [runnable]:
+labs-6.824/src/labrpc.(*Network).processReq.func4()
+	/home/linn/6.824/src/labrpc/labrpc.go:302 fp=0xc00043cfe0 sp=0xc00043cfd8 pc=0x5ba260
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00043cfe8 sp=0xc00043cfe0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 60 [chan receive, 1336 minutes]:
+runtime.gopark(0x5d2360?, 0x5f1d80?, 0x48?, 0xcc?, 0x5f1d80?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc00095ce08 sp=0xc00095cde8 pc=0x43c3d6
+runtime.chanrecv(0xc000142720, 0xc00095cf68, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc00095ce98 sp=0xc00095ce08 pc=0x40891b
+runtime.chanrecv2(0x1?, 0x621940?)
+	/usr/local/go/src/runtime/chan.go:447 +0x18 fp=0xc00095cec0 sp=0xc00095ce98 pc=0x408458
+labs-6.824/src/kvraft.(*KVServer).Run(0xc0000de540)
+	/home/linn/6.824/src/kvraft/server.go:163 +0x66 fp=0xc00095cfc8 sp=0xc00095cec0 pc=0x5d0a46
+labs-6.824/src/kvraft.StartKVServer.func1()
+	/home/linn/6.824/src/kvraft/server.go:200 +0x26 fp=0xc00095cfe0 sp=0xc00095cfc8 pc=0x5d0e26
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00095cfe8 sp=0xc00095cfe0 pc=0x46d441
+created by labs-6.824/src/kvraft.StartKVServer
+	/home/linn/6.824/src/kvraft/server.go:200 +0x205
+
+goroutine 87519 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0xc0?, 0xe0?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc00072ba88 sp=0xc00072ba68 pc=0x43c3d6
+runtime.chanrecv(0xc00002a8a0, 0xc00072bbe0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc00072bb18 sp=0xc00072ba88 pc=0x40891b
+runtime.chanrecv1(0xc00072bbc0?, 0xc00072bb80?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc00072bb40 sp=0xc00072bb18 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000248fe0, {0x639a1f?, 0x0?}, {0x5ea6a0, 0xc00092e0c0}, {0x5ea6e0, 0xc000375dc0})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc00072bcb0 sp=0xc00072bb40 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).PutAppend(0xc0000a5e90, {0x63fef0, 0x1}, {0xc000583ac8, 0x8}, {0x63664b, 0x6})
+	/home/linn/6.824/src/kvraft/client.go:91 +0x152 fp=0xc00072bd08 sp=0xc00072bcb0 pc=0x5cd0d2
+labs-6.824/src/kvraft.(*Clerk).Append(...)
+	/home/linn/6.824/src/kvraft/client.go:109
+labs-6.824/src/kvraft.Append(0xc00010e000, 0x2?, {0x63fef0, 0x1}, {0xc000583ac8, 0x8}, 0xc0000ec6a0, 0x5)
+	/home/linn/6.824/src/kvraft/test_test.go:83 +0xc5 fp=0xc00072bde0 sp=0xc00072bd08 pc=0x5d2ee5
+labs-6.824/src/kvraft.GenericTest.func1(0x5, 0xc0000c7f50?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:278 +0x578 fp=0xc00072bf38 sp=0xc00072bde0 pc=0x5d57d8
+labs-6.824/src/kvraft.run_client(0xc0002d3400?, 0xc00010e000, 0x200?, 0xc000859320?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc00072bfa8 sp=0xc00072bf38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc00072bfe0 sp=0xc00072bfa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00072bfe8 sp=0xc00072bfe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 122773 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0xc0?, 0x9c?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000771cc0 sp=0xc000771ca0 pc=0x43c3d6
+runtime.chanrecv(0xc00040bb60, 0xc000771e18, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000771d50 sp=0xc000771cc0 pc=0x40891b
+runtime.chanrecv1(0xc000771df8?, 0xc000771db8?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc000771d78 sp=0xc000771d50 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000292220, {0x63bfec?, 0x100c0003c2fc0?}, {0x5eab60, 0xc0008a9cc0}, {0x5eaba0, 0xc0000e3a60})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc000771ee8 sp=0xc000771d78 pc=0x5b8f46
+labs-6.824/src/raft.(*Raft).SendAppendEntries(0xc0000f08c0, 0x3, 0xc0008a9cc0, 0xc0000e3a60)
+	/home/linn/6.824/src/raft/raft.go:601 +0x92 fp=0xc000771f78 sp=0xc000771ee8 pc=0x5c5c12
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func1(0xc0004daba0?, 0xc0000c21e0?)
+	/home/linn/6.824/src/raft/raft.go:580 +0x4a fp=0xc000771fc0 sp=0xc000771f78 pc=0x5c5aea
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func4()
+	/home/linn/6.824/src/raft/raft.go:581 +0x2e fp=0xc000771fe0 sp=0xc000771fc0 pc=0x5c5a6e
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000771fe8 sp=0xc000771fe0 pc=0x46d441
+created by labs-6.824/src/raft.(*Raft).SendAllAppendEntries
+	/home/linn/6.824/src/raft/raft.go:578 +0x2f9
+
+goroutine 85848 [runnable]:
+runtime.gopark(0x5223af346986?, 0x5d1160?, 0xb0?, 0xc4?, 0x5c1cc0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0007eff70 sp=0xc0007eff50 pc=0x43c3d6
+time.Sleep(0xbebc200)
+	/usr/local/go/src/runtime/time.go:195 +0x135 fp=0xc0007effb0 sp=0xc0007eff70 pc=0x46a2b5
+labs-6.824/src/kvraft.(*KVServer).doSnapShotCheck(0xc0000de770)
+	/home/linn/6.824/src/kvraft/server.go:208 +0x2f fp=0xc0007effc8 sp=0xc0007effb0 pc=0x5d0e8f
+labs-6.824/src/kvraft.StartKVServer.func2()
+	/home/linn/6.824/src/kvraft/server.go:201 +0x26 fp=0xc0007effe0 sp=0xc0007effc8 pc=0x5d0dc6
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0007effe8 sp=0xc0007effe0 pc=0x46d441
+created by labs-6.824/src/kvraft.StartKVServer
+	/home/linn/6.824/src/kvraft/server.go:201 +0x245
+
+goroutine 122886 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x0?, 0x97?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000793cc0 sp=0xc000793ca0 pc=0x43c3d6
+runtime.chanrecv(0xc0006682a0, 0xc000793e18, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000793d50 sp=0xc000793cc0 pc=0x40891b
+runtime.chanrecv1(0xc000793df8?, 0xc000793db8?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc000793d78 sp=0xc000793d50 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc0002921e0, {0x63bfec?, 0x100c000473380?}, {0x5eab60, 0xc000169700}, {0x5eaba0, 0xc0008fe260})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc000793ee8 sp=0xc000793d78 pc=0x5b8f46
+labs-6.824/src/raft.(*Raft).SendAppendEntries(0xc0000f08c0, 0x1, 0xc000169700, 0xc0008fe260)
+	/home/linn/6.824/src/raft/raft.go:601 +0x92 fp=0xc000793f78 sp=0xc000793ee8 pc=0x5c5c12
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func1(0xc000668660?, 0xc0000c21e0?)
+	/home/linn/6.824/src/raft/raft.go:580 +0x4a fp=0xc000793fc0 sp=0xc000793f78 pc=0x5c5aea
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func4()
+	/home/linn/6.824/src/raft/raft.go:581 +0x2e fp=0xc000793fe0 sp=0xc000793fc0 pc=0x5c5a6e
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000793fe8 sp=0xc000793fe0 pc=0x46d441
+created by labs-6.824/src/raft.(*Raft).SendAllAppendEntries
+	/home/linn/6.824/src/raft/raft.go:578 +0x2f9
+
+goroutine 122855 [runnable]:
+labs-6.824/src/labrpc.(*Network).processReq.func4()
+	/home/linn/6.824/src/labrpc/labrpc.go:302 fp=0xc000126fe0 sp=0xc000126fd8 pc=0x5ba260
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000126fe8 sp=0xc000126fe0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 122881 [runnable]:
+labs-6.824/src/labrpc.(*Network).processReq.func4()
+	/home/linn/6.824/src/labrpc/labrpc.go:302 fp=0xc000436fe0 sp=0xc000436fd8 pc=0x5ba260
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000436fe8 sp=0xc000436fe0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 122888 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x80?, 0x97?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0000e7cc0 sp=0xc0000e7ca0 pc=0x43c3d6
+runtime.chanrecv(0xc000668300, 0xc0000e7e18, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc0000e7d50 sp=0xc0000e7cc0 pc=0x40891b
+runtime.chanrecv1(0xc0000e7df8?, 0xc0000e7db8?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc0000e7d78 sp=0xc0000e7d50 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000292220, {0x63bfec?, 0x100c0002f8720?}, {0x5eab60, 0xc000169780}, {0x5eaba0, 0xc0008fe2a0})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc0000e7ee8 sp=0xc0000e7d78 pc=0x5b8f46
+labs-6.824/src/raft.(*Raft).SendAppendEntries(0xc0000f08c0, 0x3, 0xc000169780, 0xc0008fe2a0)
+	/home/linn/6.824/src/raft/raft.go:601 +0x92 fp=0xc0000e7f78 sp=0xc0000e7ee8 pc=0x5c5c12
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func1(0xc0006da360?, 0xc0000c21e0?)
+	/home/linn/6.824/src/raft/raft.go:580 +0x4a fp=0xc0000e7fc0 sp=0xc0000e7f78 pc=0x5c5aea
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func4()
+	/home/linn/6.824/src/raft/raft.go:581 +0x2e fp=0xc0000e7fe0 sp=0xc0000e7fc0 pc=0x5c5a6e
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0000e7fe8 sp=0xc0000e7fe0 pc=0x46d441
+created by labs-6.824/src/raft.(*Raft).SendAllAppendEntries
+	/home/linn/6.824/src/raft/raft.go:578 +0x2f9
+
+goroutine 122784 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x0?, 0xe4?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000a41cc0 sp=0xc000a41ca0 pc=0x43c3d6
+runtime.chanrecv(0xc00040bd40, 0xc000a41e18, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000a41d50 sp=0xc000a41cc0 pc=0x40891b
+runtime.chanrecv1(0xc000a41df8?, 0xc000a41db8?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc000a41d78 sp=0xc000a41d50 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000292220, {0x63bfec?, 0x100c00017d440?}, {0x5eab60, 0xc00040e400}, {0x5eaba0, 0xc0000e3b00})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc000a41ee8 sp=0xc000a41d78 pc=0x5b8f46
+labs-6.824/src/raft.(*Raft).SendAppendEntries(0xc0000f08c0, 0x3, 0xc00040e400, 0xc0000e3b00)
+	/home/linn/6.824/src/raft/raft.go:601 +0x92 fp=0xc000a41f78 sp=0xc000a41ee8 pc=0x5c5c12
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func1(0xc0007cc840?, 0xc0000c21e0?)
+	/home/linn/6.824/src/raft/raft.go:580 +0x4a fp=0xc000a41fc0 sp=0xc000a41f78 pc=0x5c5aea
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func4()
+	/home/linn/6.824/src/raft/raft.go:581 +0x2e fp=0xc000a41fe0 sp=0xc000a41fc0 pc=0x5c5a6e
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000a41fe8 sp=0xc000a41fe0 pc=0x46d441
+created by labs-6.824/src/raft.(*Raft).SendAllAppendEntries
+	/home/linn/6.824/src/raft/raft.go:578 +0x2f9
+
+goroutine 122862 [runnable]:
+labs-6.824/src/labrpc.(*Network).processReq.func4()
+	/home/linn/6.824/src/labrpc/labrpc.go:302 fp=0xc000061fe0 sp=0xc000061fd8 pc=0x5ba260
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000061fe8 sp=0xc000061fe0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 87514 [runnable]:
+runtime.asyncPreempt2()
+	/usr/local/go/src/runtime/preempt.go:308 +0x3f fp=0xc0007afb28 sp=0xc0007afb08 pc=0x43aaff
+runtime.asyncPreempt()
+	/usr/local/go/src/runtime/preempt_amd64.s:50 +0xdb fp=0xc0007afcb0 sp=0xc0007afb28 pc=0x46ea7b
+labs-6.824/src/kvraft.(*Clerk).PutAppend(0xc00088a7b0, {0x63feeb, 0x1}, {0xc0000bb580, 0x8}, {0x63664b, 0x6})
+	/home/linn/6.824/src/kvraft/client.go:91 +0x10b fp=0xc0007afd08 sp=0xc0007afcb0 pc=0x5cd08b
+labs-6.824/src/kvraft.(*Clerk).Append(...)
+	/home/linn/6.824/src/kvraft/client.go:109
+labs-6.824/src/kvraft.Append(0xc00010e000, 0x2?, {0x63feeb, 0x1}, {0xc0000bb580, 0x8}, 0xc0000ec6a0, 0x0)
+	/home/linn/6.824/src/kvraft/test_test.go:83 +0xc5 fp=0xc0007afde0 sp=0xc0007afd08 pc=0x5d2ee5
+labs-6.824/src/kvraft.GenericTest.func1(0x0, 0xc0000c6630?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:278 +0x578 fp=0xc0007aff38 sp=0xc0007afde0 pc=0x5d57d8
+labs-6.824/src/kvraft.run_client(0xc00045ec40?, 0xc00010e000, 0x5c5a6e?, 0x0?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc0007affa8 sp=0xc0007aff38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc0007affe0 sp=0xc0007affa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0007affe8 sp=0xc0007affe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 122863 [runnable]:
+labs-6.824/src/labrpc.(*Network).processReq.func4()
+	/home/linn/6.824/src/labrpc/labrpc.go:302 fp=0xc00020cfe0 sp=0xc00020cfd8 pc=0x5ba260
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00020cfe8 sp=0xc00020cfe0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 447 [GC worker (idle)]:
+runtime.gopark(0x5223aec4a6fa?, 0xc00044e960?, 0x18?, 0x14?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000355f50 sp=0xc000355f30 pc=0x43c3d6
+runtime.gcBgMarkWorker()
+	/usr/local/go/src/runtime/mgc.go:1235 +0xf1 fp=0xc000355fe0 sp=0xc000355f50 pc=0x41db11
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000355fe8 sp=0xc000355fe0 pc=0x46d441
+created by runtime.gcBgMarkStartWorkers
+	/usr/local/go/src/runtime/mgc.go:1159 +0x25
+
+goroutine 448 [GC worker (idle)]:
+runtime.gopark(0x5223af1bea0a?, 0x1?, 0x40?, 0x99?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000352f50 sp=0xc000352f30 pc=0x43c3d6
+runtime.gcBgMarkWorker()
+	/usr/local/go/src/runtime/mgc.go:1235 +0xf1 fp=0xc000352fe0 sp=0xc000352f50 pc=0x41db11
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000352fe8 sp=0xc000352fe0 pc=0x46d441
+created by runtime.gcBgMarkStartWorkers
+	/usr/local/go/src/runtime/mgc.go:1159 +0x25
+
+goroutine 122845 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x80?, 0x87?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000741cc0 sp=0xc000741ca0 pc=0x43c3d6
+runtime.chanrecv(0xc000858600, 0xc000741e18, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000741d50 sp=0xc000741cc0 pc=0x40891b
+runtime.chanrecv1(0xc000741df8?, 0xc000741db8?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc000741d78 sp=0xc000741d50 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc0002921e0, {0x63bfec?, 0x100c0002f8420?}, {0x5eab60, 0xc000168780}, {0x5eaba0, 0xc000590580})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc000741ee8 sp=0xc000741d78 pc=0x5b8f46
+labs-6.824/src/raft.(*Raft).SendAppendEntries(0xc0000f08c0, 0x1, 0xc000168780, 0xc000590580)
+	/home/linn/6.824/src/raft/raft.go:601 +0x92 fp=0xc000741f78 sp=0xc000741ee8 pc=0x5c5c12
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func1(0xc0006da2a0?, 0xc0000c21e0?)
+	/home/linn/6.824/src/raft/raft.go:580 +0x4a fp=0xc000741fc0 sp=0xc000741f78 pc=0x5c5aea
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func4()
+	/home/linn/6.824/src/raft/raft.go:581 +0x2e fp=0xc000741fe0 sp=0xc000741fc0 pc=0x5c5a6e
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000741fe8 sp=0xc000741fe0 pc=0x46d441
+created by labs-6.824/src/raft.(*Raft).SendAllAppendEntries
+	/home/linn/6.824/src/raft/raft.go:578 +0x2f9
+
+goroutine 446 [GC worker (idle), 1336 minutes]:
+runtime.gopark(0x52239542aa04?, 0x1?, 0x10?, 0xc1?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000356f50 sp=0xc000356f30 pc=0x43c3d6
+runtime.gcBgMarkWorker()
+	/usr/local/go/src/runtime/mgc.go:1235 +0xf1 fp=0xc000356fe0 sp=0xc000356f50 pc=0x41db11
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000356fe8 sp=0xc000356fe0 pc=0x46d441
+created by runtime.gcBgMarkStartWorkers
+	/usr/local/go/src/runtime/mgc.go:1159 +0x25
+
+goroutine 122885 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x80?, 0x96?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0005fbcc0 sp=0xc0005fbca0 pc=0x43c3d6
+runtime.chanrecv(0xc000668060, 0xc0005fbe18, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc0005fbd50 sp=0xc0005fbcc0 pc=0x40891b
+runtime.chanrecv1(0xc0005fbdf8?, 0xc0005fbdb8?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc0005fbd78 sp=0xc0005fbd50 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000292240, {0x63bfec?, 0x1000000600aa0?}, {0x5eab60, 0xc000169680}, {0x5eaba0, 0xc0008fe100})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc0005fbee8 sp=0xc0005fbd78 pc=0x5b8f46
+labs-6.824/src/raft.(*Raft).SendAppendEntries(0xc0000f08c0, 0x4, 0xc000169680, 0xc0008fe100)
+	/home/linn/6.824/src/raft/raft.go:601 +0x92 fp=0xc0005fbf78 sp=0xc0005fbee8 pc=0x5c5c12
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func1(0x5c48c6?, 0xc0000f08c0?)
+	/home/linn/6.824/src/raft/raft.go:580 +0x4a fp=0xc0005fbfc0 sp=0xc0005fbf78 pc=0x5c5aea
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func4()
+	/home/linn/6.824/src/raft/raft.go:581 +0x2e fp=0xc0005fbfe0 sp=0xc0005fbfc0 pc=0x5c5a6e
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0005fbfe8 sp=0xc0005fbfe0 pc=0x46d441
+created by labs-6.824/src/raft.(*Raft).SendAllAppendEntries
+	/home/linn/6.824/src/raft/raft.go:578 +0x2f9
+
+goroutine 122833 [chan receive]:
+runtime.gopark(0xc0008f7540?, 0xc000546000?, 0xc0?, 0x8?, 0xc000180000?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc00082a708 sp=0xc00082a6e8 pc=0x43c3d6
+runtime.chanrecv(0xc0006da060, 0x0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc00082a798 sp=0xc00082a708 pc=0x40891b
+runtime.chanrecv1(0x0?, 0x2?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc00082a7c0 sp=0xc00082a798 pc=0x408418
+labs-6.824/src/labrpc.(*Network).processReq.func2()
+	/home/linn/6.824/src/labrpc/labrpc.go:256 +0x1f fp=0xc00082a7e0 sp=0xc00082a7c0 pc=0x5ba35f
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00082a7e8 sp=0xc00082a7e0 pc=0x46d441
+created by labs-6.824/src/labrpc.(*Network).processReq
+	/home/linn/6.824/src/labrpc/labrpc.go:255 +0x4c5
+
+goroutine 552 [GC worker (idle), 1336 minutes]:
+runtime.gopark(0x5223acd349fa?, 0x1?, 0xd4?, 0x18?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000150750 sp=0xc000150730 pc=0x43c3d6
+runtime.gcBgMarkWorker()
+	/usr/local/go/src/runtime/mgc.go:1235 +0xf1 fp=0xc0001507e0 sp=0xc000150750 pc=0x41db11
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0001507e8 sp=0xc0001507e0 pc=0x46d441
+created by runtime.gcBgMarkStartWorkers
+	/usr/local/go/src/runtime/mgc.go:1159 +0x25
+
+goroutine 87529 [runnable]:
+runtime.gopark(0x5223af3822a6?, 0x5ea6a0?, 0xa0?, 0x65?, 0x76?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000791c70 sp=0xc000791c50 pc=0x43c3d6
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:195 +0x135 fp=0xc000791cb0 sp=0xc000791c70 pc=0x46a2b5
+labs-6.824/src/kvraft.(*Clerk).PutAppend(0xc000156e70, {0x646c9d, 0x2}, {0xc0001a81c0, 0x9}, {0x63664b, 0x6})
+	/home/linn/6.824/src/kvraft/client.go:100 +0x1b3 fp=0xc000791d08 sp=0xc000791cb0 pc=0x5cd133
+labs-6.824/src/kvraft.(*Clerk).Append(...)
+	/home/linn/6.824/src/kvraft/client.go:109
+labs-6.824/src/kvraft.Append(0xc00010e000, 0x2?, {0x646c9d, 0x2}, {0xc0001a81c0, 0x9}, 0xc0000ec6a0, 0xf)
+	/home/linn/6.824/src/kvraft/test_test.go:83 +0xc5 fp=0xc000791de0 sp=0xc000791d08 pc=0x5d2ee5
+labs-6.824/src/kvraft.GenericTest.func1(0xf, 0xc000a02b10?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:278 +0x578 fp=0xc000791f38 sp=0xc000791de0 pc=0x5d57d8
+labs-6.824/src/kvraft.run_client(0xc000669800?, 0xc00010e000, 0xc000308060?, 0xc0003095f0?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc000791fa8 sp=0xc000791f38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc000791fe0 sp=0xc000791fa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000791fe8 sp=0xc000791fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 87530 [runnable]:
+runtime.asyncPreempt2()
+	/usr/local/go/src/runtime/preempt.go:308 +0x3f fp=0xc0007759b8 sp=0xc000775998 pc=0x43aaff
+runtime.asyncPreempt()
+	/usr/local/go/src/runtime/preempt_amd64.s:50 +0xdb fp=0xc000775b40 sp=0xc0007759b8 pc=0x46ea7b
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000249940, {0x639a1f?, 0x0?}, {0x5ea6a0, 0xc000981b00}, {0x5ea6e0, 0xc0002afc60})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc000775cb0 sp=0xc000775b40 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).PutAppend(0xc000156fc0, {0x646c9f, 0x2}, {0xc0005829b0, 0x9}, {0x63664b, 0x6})
+	/home/linn/6.824/src/kvraft/client.go:91 +0x152 fp=0xc000775d08 sp=0xc000775cb0 pc=0x5cd0d2
+labs-6.824/src/kvraft.(*Clerk).Append(...)
+	/home/linn/6.824/src/kvraft/client.go:109
+labs-6.824/src/kvraft.Append(0xc00010e000, 0x2?, {0x646c9f, 0x2}, {0xc0005829b0, 0x9}, 0xc0000ec6a0, 0x10)
+	/home/linn/6.824/src/kvraft/test_test.go:83 +0xc5 fp=0xc000775de0 sp=0xc000775d08 pc=0x5d2ee5
+labs-6.824/src/kvraft.GenericTest.func1(0x10, 0xc000a02c30?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:278 +0x578 fp=0xc000775f38 sp=0xc000775de0 pc=0x5d57d8
+labs-6.824/src/kvraft.run_client(0xc0008599e0?, 0xc00010e000, 0x400?, 0xc00058e060?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc000775fa8 sp=0xc000775f38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc000775fe0 sp=0xc000775fa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000775fe8 sp=0xc000775fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 87533 [runnable]:
+runtime.gopark(0x5223af37c4e6?, 0x5ea6a0?, 0xa0?, 0x60?, 0x76?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0005fdc70 sp=0xc0005fdc50 pc=0x43c3d6
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:195 +0x135 fp=0xc0005fdcb0 sp=0xc0005fdc70 pc=0x46a2b5
+labs-6.824/src/kvraft.(*Clerk).PutAppend(0xc0003087e0, {0x646ca5, 0x2}, {0xc0000ba902, 0x9}, {0x63664b, 0x6})
+	/home/linn/6.824/src/kvraft/client.go:100 +0x1b3 fp=0xc0005fdd08 sp=0xc0005fdcb0 pc=0x5cd133
+labs-6.824/src/kvraft.(*Clerk).Append(...)
+	/home/linn/6.824/src/kvraft/client.go:109
+labs-6.824/src/kvraft.Append(0xc00010e000, 0x2?, {0x646ca5, 0x2}, {0xc0000ba902, 0x9}, 0xc0000ec6a0, 0x13)
+	/home/linn/6.824/src/kvraft/test_test.go:83 +0xc5 fp=0xc0005fdde0 sp=0xc0005fdd08 pc=0x5d2ee5
+labs-6.824/src/kvraft.GenericTest.func1(0x13, 0xc0002e31a0?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:278 +0x578 fp=0xc0005fdf38 sp=0xc0005fdde0 pc=0x5d57d8
+labs-6.824/src/kvraft.run_client(0xc0008585a0?, 0xc00010e000, 0x200?, 0xc00060ff80?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc0005fdfa8 sp=0xc0005fdf38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc0005fdfe0 sp=0xc0005fdfa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0005fdfe8 sp=0xc0005fdfe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 45084 [chan receive, 1336 minutes]:
+runtime.gopark(0x5d2360?, 0x5f1d80?, 0x48?, 0x5c?, 0x5f1d80?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000125e08 sp=0xc000125de8 pc=0x43c3d6
+runtime.chanrecv(0xc000481f80, 0xc000125f68, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000125e98 sp=0xc000125e08 pc=0x40891b
+runtime.chanrecv2(0x1?, 0x621940?)
+	/usr/local/go/src/runtime/chan.go:447 +0x18 fp=0xc000125ec0 sp=0xc000125e98 pc=0x408458
+labs-6.824/src/kvraft.(*KVServer).Run(0xc0000df260)
+	/home/linn/6.824/src/kvraft/server.go:163 +0x66 fp=0xc000125fc8 sp=0xc000125ec0 pc=0x5d0a46
+labs-6.824/src/kvraft.StartKVServer.func1()
+	/home/linn/6.824/src/kvraft/server.go:200 +0x26 fp=0xc000125fe0 sp=0xc000125fc8 pc=0x5d0e26
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000125fe8 sp=0xc000125fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.StartKVServer
+	/home/linn/6.824/src/kvraft/server.go:200 +0x205
+
+goroutine 87523 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x20?, 0x45?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000777a78 sp=0xc000777a58 pc=0x43c3d6
+runtime.chanrecv(0xc000668000, 0xc000777bd0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000777b08 sp=0xc000777a78 pc=0x40891b
+runtime.chanrecv1(0xc000777bb0?, 0xc000777b70?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc000777b30 sp=0xc000777b08 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000249320, {0x638001?, 0x0?}, {0x5ea5e0, 0xc000384520}, {0x5ea620, 0xc000072000})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc000777ca0 sp=0xc000777b30 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).Get(0xc000156480, {0x63fef4, 0x1})
+	/home/linn/6.824/src/kvraft/client.go:56 +0xe6 fp=0xc000777cf8 sp=0xc000777ca0 pc=0x5ccea6
+labs-6.824/src/kvraft.Get(0xc00010e000, 0x2?, {0x63fef4, 0x1}, 0xc0000ec6a0, 0x9)
+	/home/linn/6.824/src/kvraft/test_test.go:49 +0x95 fp=0xc000777de0 sp=0xc000777cf8 pc=0x5d2975
+labs-6.824/src/kvraft.GenericTest.func1(0x9, 0xc000a02420?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:290 +0x3e5 fp=0xc000777f38 sp=0xc000777de0 pc=0x5d5645
+labs-6.824/src/kvraft.run_client(0xc000666100?, 0xc00010e000, 0x5c5a6e?, 0x5d0e26?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc000777fa8 sp=0xc000777f38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc000777fe0 sp=0xc000777fa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000777fe8 sp=0xc000777fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 122907 [runnable]:
+labs-6.824/src/labrpc.(*Network).processReq.func4()
+	/home/linn/6.824/src/labrpc/labrpc.go:302 fp=0xc000066fe0 sp=0xc000066fd8 pc=0x5ba260
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000066fe8 sp=0xc000066fe0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 122899 [runnable]:
+labs-6.824/src/labrpc.(*Network).processReq.func4()
+	/home/linn/6.824/src/labrpc/labrpc.go:302 fp=0xc00013cfe0 sp=0xc00013cfd8 pc=0x5ba260
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00013cfe8 sp=0xc00013cfe0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 122905 [runnable]:
+labs-6.824/src/labrpc.(*Network).processReq.func4()
+	/home/linn/6.824/src/labrpc/labrpc.go:302 fp=0xc000438fe0 sp=0xc000438fd8 pc=0x5ba260
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000438fe8 sp=0xc000438fe0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 87527 [chan receive, 1336 minutes]:
+runtime.gopark(0x0?, 0x2?, 0xc0?, 0x9e?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000727a88 sp=0xc000727a68 pc=0x43c3d6
+runtime.chanrecv(0xc0007248a0, 0xc00077bbe0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000727b18 sp=0xc000727a88 pc=0x40891b
+runtime.chanrecv1(0xc00077bbc0?, 0xc00077bb80?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc000727b40 sp=0xc000727b18 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000249620, {0x639a1f?, 0x0?}, {0x5ea6a0, 0xc0004f9ec0}, {0x5ea6e0, 0xc000545910})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc000727cb0 sp=0xc000727b40 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).PutAppend(0xc000156c60, {0x646c99, 0x2}, {0xc0001a90e2, 0x9}, {0x63664b, 0x6})
+	/home/linn/6.824/src/kvraft/client.go:91 +0x152 fp=0xc000727d08 sp=0xc000727cb0 pc=0x5cd0d2
+labs-6.824/src/kvraft.(*Clerk).Append(...)
+	/home/linn/6.824/src/kvraft/client.go:109
+labs-6.824/src/kvraft.Append(0xc00010e000, 0x2?, {0x646c99, 0x2}, {0xc0001a90e2, 0x9}, 0xc0000ec6a0, 0xd)
+	/home/linn/6.824/src/kvraft/test_test.go:83 +0xc5 fp=0xc000727de0 sp=0xc000727d08 pc=0x5d2ee5
+labs-6.824/src/kvraft.GenericTest.func1(0xd, 0xc000a028d0?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:278 +0x578 fp=0xc000727f38 sp=0xc000727de0 pc=0x5d57d8
+labs-6.824/src/kvraft.run_client(0xc000322660?, 0xc00010e000, 0xc0004f22d0?, 0xc000322a80?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc000727fa8 sp=0xc000727f38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc000727fe0 sp=0xc000727fa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000727fe8 sp=0xc000727fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 87531 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x0?, 0x21?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0005a1a88 sp=0xc0005a1a68 pc=0x43c3d6
+runtime.chanrecv(0xc000858540, 0xc0005a1be0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc0005a1b18 sp=0xc0005a1a88 pc=0x40891b
+runtime.chanrecv1(0xc0005a1bc0?, 0xc0005a1b80?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc0005a1b40 sp=0xc0005a1b18 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc0002499e0, {0x639a1f?, 0x0?}, {0x5ea6a0, 0xc000192100}, {0x5ea6e0, 0xc0004469e0})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc0005a1cb0 sp=0xc0005a1b40 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).PutAppend(0xc000157110, {0x646ca1, 0x2}, {0xc000170162, 0x9}, {0x63664b, 0x6})
+	/home/linn/6.824/src/kvraft/client.go:91 +0x152 fp=0xc0005a1d08 sp=0xc0005a1cb0 pc=0x5cd0d2
+labs-6.824/src/kvraft.(*Clerk).Append(...)
+	/home/linn/6.824/src/kvraft/client.go:109
+labs-6.824/src/kvraft.Append(0xc00010e000, 0x2?, {0x646ca1, 0x2}, {0xc000170162, 0x9}, 0xc0000ec6a0, 0x11)
+	/home/linn/6.824/src/kvraft/test_test.go:83 +0xc5 fp=0xc0005a1de0 sp=0xc0005a1d08 pc=0x5d2ee5
+labs-6.824/src/kvraft.GenericTest.func1(0x11, 0xc000a02d50?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:278 +0x578 fp=0xc0005a1f38 sp=0xc0005a1de0 pc=0x5d57d8
+labs-6.824/src/kvraft.run_client(0xc000208c00?, 0xc00010e000, 0x200?, 0xc0004dad20?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc0005a1fa8 sp=0xc0005a1f38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc0005a1fe0 sp=0xc0005a1fa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0005a1fe8 sp=0xc0005a1fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 122859 [runnable]:
+labs-6.824/src/labrpc.(*Network).processReq.func4()
+	/home/linn/6.824/src/labrpc/labrpc.go:302 fp=0xc000208fe0 sp=0xc000208fd8 pc=0x5ba260
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000208fe8 sp=0xc000208fe0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 122798 [chan receive]:
+runtime.gopark(0xc0004173a0?, 0xc0003456c0?, 0x30?, 0xe2?, 0x5f1d80?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc00021cf08 sp=0xc00021cee8 pc=0x43c3d6
+runtime.chanrecv(0xc0007cde60, 0x0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc00021cf98 sp=0xc00021cf08 pc=0x40891b
+runtime.chanrecv1(0xc0007cdaa0?, 0xc0000c21e0?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc00021cfc0 sp=0xc00021cf98 pc=0x408418
+labs-6.824/src/labrpc.(*Network).processReq.func2()
+	/home/linn/6.824/src/labrpc/labrpc.go:256 +0x1f fp=0xc00021cfe0 sp=0xc00021cfc0 pc=0x5ba35f
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00021cfe8 sp=0xc00021cfe0 pc=0x46d441
+created by labs-6.824/src/labrpc.(*Network).processReq
+	/home/linn/6.824/src/labrpc/labrpc.go:255 +0x4c5
+
+goroutine 122207 [runnable]:
+runtime.gopark(0x5223b068f4a3?, 0x450d23ae2?, 0xc0?, 0x4?, 0xc000318090?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0005f1298 sp=0xc0005f1278 pc=0x43c3d6
+time.Sleep(0x989680)
+	/usr/local/go/src/runtime/time.go:195 +0x135 fp=0xc0005f12d8 sp=0xc0005f1298 pc=0x46a2b5
+labs-6.824/src/kvraft.(*KVServer).Get(0xc000386a10, 0xc0004004c0, 0xc0004004e0)
+	/home/linn/6.824/src/kvraft/server.go:97 +0x419 fp=0xc0005f1478 sp=0xc0005f12d8 pc=0x5cff99
+runtime.call32(0xc0005ecae0, 0xc0000a8ae0, 0x0, 0x0, 0x0, 0x18, 0xc0005f19b8)
+	/usr/local/go/src/runtime/asm_amd64.s:725 +0x49 fp=0xc0005f14a8 sp=0xc0005f1478 pc=0x46b809
+runtime.reflectcall(0x5ea620?, 0xc0004004e0?, 0x4?, 0x639ca7?, 0x0?, 0x12?, 0x5ea620?)
+	<autogenerated>:1 +0x3c fp=0xc0005f14e8 sp=0xc0005f14a8 pc=0x46fbfc
+reflect.Value.call({0xc0000aa240?, 0xc0000a8ae0?, 0xc0005f1b10?}, {0x636221, 0x4}, {0xc0005f1c68, 0x3, 0xc0005f1b40?})
+	/usr/local/go/src/reflect/value.go:584 +0x8c5 fp=0xc0005f1ad8 sp=0xc0005f14e8 pc=0x4c8965
+reflect.Value.Call({0xc0000aa240?, 0xc0000a8ae0?, 0xc0004c44b0?}, {0xc0005f1c68?, 0x62bd20?, 0x4049b6?})
+	/usr/local/go/src/reflect/value.go:368 +0xbc fp=0xc0005f1b50 sp=0xc0005f1ad8 pc=0x4c7e5c
+labs-6.824/src/labrpc.(*Service).dispatch(0xc00094c680, {0x63800a, 0x3}, {{0x5f2740, 0xc000277680}, {0x638001, 0xc}, {0x68f7c0, 0x5ea5e0}, {0xc0003fe100, ...}, ...})
+	/home/linn/6.824/src/labrpc/labrpc.go:492 +0x38e fp=0xc0005f1dc0 sp=0xc0005f1b50 pc=0x5bbbae
+labs-6.824/src/labrpc.(*Server).dispatch(0xc0007c6678, {{0x5f2740, 0xc000277680}, {0x638001, 0xc}, {0x68f7c0, 0x5ea5e0}, {0xc0003fe100, 0x4b, 0x80}, ...})
+	/home/linn/6.824/src/labrpc/labrpc.go:416 +0x1fe fp=0xc0005f1f50 sp=0xc0005f1dc0 pc=0x5bb1be
+labs-6.824/src/labrpc.(*Network).processReq.func1()
+	/home/linn/6.824/src/labrpc/labrpc.go:238 +0x58 fp=0xc0005f1fe0 sp=0xc0005f1f50 pc=0x5ba3d8
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0005f1fe8 sp=0xc0005f1fe0 pc=0x46d441
+created by labs-6.824/src/labrpc.(*Network).processReq
+	/home/linn/6.824/src/labrpc/labrpc.go:237 +0x1dd
+
+goroutine 122884 [chan receive, 1336 minutes]:
+runtime.gopark(0x0?, 0x2?, 0x40?, 0x96?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000208cc0 sp=0xc000208ca0 pc=0x43c3d6
+runtime.chanrecv(0xc0006681e0, 0xc0006e3e18, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000208d50 sp=0xc000208cc0 pc=0x40891b
+runtime.chanrecv1(0xc0006e3df8?, 0xc0006e3db8?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc000208d78 sp=0xc000208d50 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000292220, {0x63bfec?, 0x100c00017d440?}, {0x5eab60, 0xc000169640}, {0x5eaba0, 0xc0008fe1e0})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc000208ee8 sp=0xc000208d78 pc=0x5b8f46
+labs-6.824/src/raft.(*Raft).SendAppendEntries(0xc0000f08c0, 0x3, 0xc000169640, 0xc0008fe1e0)
+	/home/linn/6.824/src/raft/raft.go:601 +0x92 fp=0xc000208f78 sp=0xc000208ee8 pc=0x5c5c12
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func1(0xc0007cc840?, 0xc0000c21e0?)
+	/home/linn/6.824/src/raft/raft.go:580 +0x4a fp=0xc000208fc0 sp=0xc000208f78 pc=0x5c5aea
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func4()
+	/home/linn/6.824/src/raft/raft.go:581 +0x2e fp=0xc000208fe0 sp=0xc000208fc0 pc=0x5c5a6e
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000208fe8 sp=0xc000208fe0 pc=0x46d441
+created by labs-6.824/src/raft.(*Raft).SendAllAppendEntries
+	/home/linn/6.824/src/raft/raft.go:578 +0x2f9
+
+goroutine 85853 [chan receive, 1336 minutes]:
+runtime.gopark(0x5d2360?, 0x5f1d80?, 0x48?, 0x4c?, 0x5f1d80?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000334e08 sp=0xc000334de8 pc=0x43c3d6
+runtime.chanrecv(0xc00036b3e0, 0xc000334f68, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000334e98 sp=0xc000334e08 pc=0x40891b
+runtime.chanrecv2(0x1?, 0x621940?)
+	/usr/local/go/src/runtime/chan.go:447 +0x18 fp=0xc000334ec0 sp=0xc000334e98 pc=0x408458
+labs-6.824/src/kvraft.(*KVServer).Run(0xc0000df7a0)
+	/home/linn/6.824/src/kvraft/server.go:163 +0x66 fp=0xc000334fc8 sp=0xc000334ec0 pc=0x5d0a46
+labs-6.824/src/kvraft.StartKVServer.func1()
+	/home/linn/6.824/src/kvraft/server.go:200 +0x26 fp=0xc000334fe0 sp=0xc000334fc8 pc=0x5d0e26
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000334fe8 sp=0xc000334fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.StartKVServer
+	/home/linn/6.824/src/kvraft/server.go:200 +0x205
+
+goroutine 87517 [chan receive, 1336 minutes]:
+runtime.gopark(0x0?, 0x2?, 0x80?, 0x65?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc00076fa88 sp=0xc00076fa68 pc=0x43c3d6
+runtime.chanrecv(0xc0007181e0, 0xc000655be0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc00076fb18 sp=0xc00076fa88 pc=0x40891b
+runtime.chanrecv1(0xc000655bc0?, 0xc000655b80?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc00076fb40 sp=0xc00076fb18 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000248e20, {0x639a1f?, 0x0?}, {0x5ea6a0, 0xc0008f6580}, {0x5ea6e0, 0xc000374260})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc00076fcb0 sp=0xc00076fb40 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).PutAppend(0xc0000a5890, {0x63feee, 0x1}, {0xc0001701a0, 0x8}, {0x63664b, 0x6})
+	/home/linn/6.824/src/kvraft/client.go:91 +0x152 fp=0xc00076fd08 sp=0xc00076fcb0 pc=0x5cd0d2
+labs-6.824/src/kvraft.(*Clerk).Append(...)
+	/home/linn/6.824/src/kvraft/client.go:109
+labs-6.824/src/kvraft.Append(0xc00010e000, 0x2?, {0x63feee, 0x1}, {0xc0001701a0, 0x8}, 0xc0000ec6a0, 0x3)
+	/home/linn/6.824/src/kvraft/test_test.go:83 +0xc5 fp=0xc00076fde0 sp=0xc00076fd08 pc=0x5d2ee5
+labs-6.824/src/kvraft.GenericTest.func1(0x3, 0xc0000c7d10?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:278 +0x578 fp=0xc00076ff38 sp=0xc00076fde0 pc=0x5d57d8
+labs-6.824/src/kvraft.run_client(0xc000859380?, 0xc00010e000, 0x5c5a6e?, 0xc00058f440?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc00076ffa8 sp=0xc00076ff38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc00076ffe0 sp=0xc00076ffa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00076ffe8 sp=0xc00076ffe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 122797 [chan receive, 1336 minutes]:
+runtime.gopark(0xc0003a4540?, 0x5eaba0?, 0x0?, 0x14?, 0xc000180000?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc00069c708 sp=0xc00069c6e8 pc=0x43c3d6
+runtime.chanrecv(0xc0007cdc80, 0x0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc00069c798 sp=0xc00069c708 pc=0x40891b
+runtime.chanrecv1(0xc000719a40?, 0xc0000c21e0?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc00069c7c0 sp=0xc00069c798 pc=0x408418
+labs-6.824/src/labrpc.(*Network).processReq.func2()
+	/home/linn/6.824/src/labrpc/labrpc.go:256 +0x1f fp=0xc00069c7e0 sp=0xc00069c7c0 pc=0x5ba35f
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00069c7e8 sp=0xc00069c7e0 pc=0x46d441
+created by labs-6.824/src/labrpc.(*Network).processReq
+	/home/linn/6.824/src/labrpc/labrpc.go:255 +0x4c5
+
+goroutine 122573 [runnable]:
+runtime.gopark(0xc0009c4f28?, 0x2?, 0x0?, 0x30?, 0xc0009c4ee4?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0009c4d48 sp=0xc0009c4d28 pc=0x43c3d6
+runtime.selectgo(0xc0009c4f28, 0xc0009c4ee0, 0xc0009c4f78?, 0x0, 0x7bc410?, 0x1)
+	/usr/local/go/src/runtime/select.go:328 +0x7bc fp=0xc0009c4e88 sp=0xc0009c4d48 pc=0x44c27c
+labs-6.824/src/labrpc.(*Network).processReq(0xc0000c21e0, {{0x5f2740, 0xc0003a86f0}, {0x639a1f, 0x12}, {0x68f7c0, 0x5ea6a0}, {0xc000536640, 0x76, 0xa0}, ...})
+	/home/linn/6.824/src/labrpc/labrpc.go:249 +0x416 fp=0xc0009c4f78 sp=0xc0009c4e88 pc=0x5b9ed6
+labs-6.824/src/labrpc.MakeNetwork.func1.1()
+	/home/linn/6.824/src/labrpc/labrpc.go:155 +0x45 fp=0xc0009c4fe0 sp=0xc0009c4f78 pc=0x5b94a5
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0009c4fe8 sp=0xc0009c4fe0 pc=0x46d441
+created by labs-6.824/src/labrpc.MakeNetwork.func1
+	/home/linn/6.824/src/labrpc/labrpc.go:155 +0x39
+
+goroutine 122194 [runnable]:
+runtime.gopark(0x5223b06653fb?, 0x44e030102?, 0xc0?, 0x4?, 0xc000318090?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0006b5298 sp=0xc0006b5278 pc=0x43c3d6
+time.Sleep(0x989680)
+	/usr/local/go/src/runtime/time.go:195 +0x135 fp=0xc0006b52d8 sp=0xc0006b5298 pc=0x46a2b5
+labs-6.824/src/kvraft.(*KVServer).PutAppend(0xc000386a10, 0xc00092e3c0, 0xc000545460)
+	/home/linn/6.824/src/kvraft/server.go:137 +0x3a5 fp=0xc0006b5478 sp=0xc0006b52d8 pc=0x5d0685
+runtime.call32(0xc000156720, 0xc0000a8af0, 0x0, 0x0, 0x0, 0x18, 0xc0006b59b8)
+	/usr/local/go/src/runtime/asm_amd64.s:725 +0x49 fp=0xc0006b54a8 sp=0xc0006b5478 pc=0x46b809
+runtime.reflectcall(0x5ea6e0?, 0xc000545460?, 0x4?, 0x639ca7?, 0x0?, 0x12?, 0x5ea6e0?)
+	<autogenerated>:1 +0x3c fp=0xc0006b54e8 sp=0xc0006b54a8 pc=0x46fbfc
+reflect.Value.call({0xc0000aa300?, 0xc0000a8af0?, 0xc0006b5b10?}, {0x636221, 0x4}, {0xc0006b5c68, 0x3, 0xc0006b5b40?})
+	/usr/local/go/src/reflect/value.go:584 +0x8c5 fp=0xc0006b5ad8 sp=0xc0006b54e8 pc=0x4c8965
+reflect.Value.Call({0xc0000aa300?, 0xc0000a8af0?, 0xc000431920?}, {0xc0006b5c68?, 0x7fb629e5ad28?, 0x7fb630abdc08?})
+	/usr/local/go/src/reflect/value.go:368 +0xbc fp=0xc0006b5b50 sp=0xc0006b5ad8 pc=0x4c7e5c
+labs-6.824/src/labrpc.(*Service).dispatch(0xc00094c680, {0x639a28, 0x9}, {{0x5f2740, 0xc000277ba0}, {0x639a1f, 0x12}, {0x68f7c0, 0x5ea6a0}, {0xc0003c57c0, ...}, ...})
+	/home/linn/6.824/src/labrpc/labrpc.go:492 +0x38e fp=0xc0006b5dc0 sp=0xc0006b5b50 pc=0x5bbbae
+labs-6.824/src/labrpc.(*Server).dispatch(0xc0007c6678, {{0x5f2740, 0xc000277ba0}, {0x639a1f, 0x12}, {0x68f7c0, 0x5ea6a0}, {0xc0003c57c0, 0x74, 0xa0}, ...})
+	/home/linn/6.824/src/labrpc/labrpc.go:416 +0x1fe fp=0xc0006b5f50 sp=0xc0006b5dc0 pc=0x5bb1be
+labs-6.824/src/labrpc.(*Network).processReq.func1()
+	/home/linn/6.824/src/labrpc/labrpc.go:238 +0x58 fp=0xc0006b5fe0 sp=0xc0006b5f50 pc=0x5ba3d8
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0006b5fe8 sp=0xc0006b5fe0 pc=0x46d441
+created by labs-6.824/src/labrpc.(*Network).processReq
+	/home/linn/6.824/src/labrpc/labrpc.go:237 +0x1dd
+
+goroutine 122671 [GC assist marking, 1336 minutes]:
+runtime.systemstack_switch()
+	/usr/local/go/src/runtime/asm_amd64.s:459 fp=0xc000824588 sp=0xc000824580 pc=0x46b220
+runtime.gcAssistAlloc(0xc0002fb860)
+	/usr/local/go/src/runtime/mgcmark.go:473 +0x1a5 fp=0xc0008245e8 sp=0xc000824588 pc=0x420465
+runtime.mallocgc(0x203000, 0x10, 0x68)
+	/usr/local/go/src/runtime/malloc.go:906 +0x11f fp=0xc000824660 sp=0xc0008245e8 pc=0x40ed9f
+runtime.newobject(0xc0002ae3f0?)
+	/usr/local/go/src/runtime/malloc.go:1192 +0x27 fp=0xc000824688 sp=0xc000824660 pc=0x40f667
+labs-6.824/src/labrpc.(*Network).processReq(0xc0000c21e0, {{0x5f2740, 0xc0003a89b0}, {0x639a1f, 0x12}, {0x68f7c0, 0x5ea6a0}, {0xc000536000, 0x76, 0xa0}, ...})
+	/home/linn/6.824/src/labrpc/labrpc.go:255 +0x4c5 fp=0xc000824778 sp=0xc000824688 pc=0x5b9f85
+labs-6.824/src/labrpc.MakeNetwork.func1.1()
+	/home/linn/6.824/src/labrpc/labrpc.go:155 +0x45 fp=0xc0008247e0 sp=0xc000824778 pc=0x5b94a5
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0008247e8 sp=0xc0008247e0 pc=0x46d441
+created by labs-6.824/src/labrpc.MakeNetwork.func1
+	/home/linn/6.824/src/labrpc/labrpc.go:155 +0x39
+
+goroutine 122563 [chan send]:
+runtime.gopark(0x80?, 0x0?, 0x0?, 0x30?, 0x5?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc00066de98 sp=0xc00066de78 pc=0x43c3d6
+runtime.chansend(0xc000718240, 0xc00066dfb0, 0x1, 0x60c460?)
+	/usr/local/go/src/runtime/chan.go:259 +0x42c fp=0xc00066df20 sp=0xc00066de98 pc=0x407b0c
+runtime.chansend1(0x5f2740?, 0xc000277930?)
+	/usr/local/go/src/runtime/chan.go:145 +0x1d fp=0xc00066df50 sp=0xc00066df20 pc=0x4076bd
+labs-6.824/src/labrpc.(*Network).processReq.func1()
+	/home/linn/6.824/src/labrpc/labrpc.go:239 +0x7a fp=0xc00066dfe0 sp=0xc00066df50 pc=0x5ba3fa
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00066dfe8 sp=0xc00066dfe0 pc=0x46d441
+created by labs-6.824/src/labrpc.(*Network).processReq
+	/home/linn/6.824/src/labrpc/labrpc.go:237 +0x1dd
+
+goroutine 87518 [sleep]:
+runtime.gopark(0x9b131e609dc0?, 0x5ea5e0?, 0x0?, 0x91?, 0x4b?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0000ebc60 sp=0xc0000ebc40 pc=0x43c3d6
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:195 +0x135 fp=0xc0000ebca0 sp=0xc0000ebc60 pc=0x46a2b5
+labs-6.824/src/kvraft.(*Clerk).Get(0xc0000a5b60, {0x63feef, 0x1})
+	/home/linn/6.824/src/kvraft/client.go:65 +0x147 fp=0xc0000ebcf8 sp=0xc0000ebca0 pc=0x5ccf07
+labs-6.824/src/kvraft.Get(0xc00010e000, 0x2?, {0x63feef, 0x1}, 0xc0000ec6a0, 0x4)
+	/home/linn/6.824/src/kvraft/test_test.go:49 +0x95 fp=0xc0000ebde0 sp=0xc0000ebcf8 pc=0x5d2975
+labs-6.824/src/kvraft.GenericTest.func1(0x4, 0xc0000c7e30?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:290 +0x3e5 fp=0xc0000ebf38 sp=0xc0000ebde0 pc=0x5d5645
+labs-6.824/src/kvraft.run_client(0xc000668fc0?, 0xc00010e000, 0x5c5a6e?, 0xc0007182a0?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc0000ebfa8 sp=0xc0000ebf38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc0000ebfe0 sp=0xc0000ebfa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0000ebfe8 sp=0xc0000ebfe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 122903 [runnable]:
+labs-6.824/src/labrpc.(*Network).processReq.func4()
+	/home/linn/6.824/src/labrpc/labrpc.go:302 fp=0xc000054fe0 sp=0xc000054fd8 pc=0x5ba260
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000054fe8 sp=0xc000054fe0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 122882 [chan receive, 1336 minutes]:
+runtime.gopark(0x0?, 0x2?, 0xc0?, 0x95?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc00043bcc0 sp=0xc00043bca0 pc=0x43c3d6
+runtime.chanrecv(0xc0006680c0, 0xc000a3fe18, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc00043bd50 sp=0xc00043bcc0 pc=0x40891b
+runtime.chanrecv1(0xc000a3fdf8?, 0xc000a3fdb8?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc00043bd78 sp=0xc00043bd50 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc0002921e0, {0x63bfec?, 0x100c0003c20c0?}, {0x5eab60, 0xc0001695c0}, {0x5eaba0, 0xc0008fe140})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc00043bee8 sp=0xc00043bd78 pc=0x5b8f46
+labs-6.824/src/raft.(*Raft).SendAppendEntries(0xc0000f08c0, 0x1, 0xc0001695c0, 0xc0008fe140)
+	/home/linn/6.824/src/raft/raft.go:601 +0x92 fp=0xc00043bf78 sp=0xc00043bee8 pc=0x5c5c12
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func1(0xc000724b40?, 0xc0000c21e0?)
+	/home/linn/6.824/src/raft/raft.go:580 +0x4a fp=0xc00043bfc0 sp=0xc00043bf78 pc=0x5c5aea
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func4()
+	/home/linn/6.824/src/raft/raft.go:581 +0x2e fp=0xc00043bfe0 sp=0xc00043bfc0 pc=0x5c5a6e
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1595 +0x6 fp=0xc00043bfe8 sp=0xc00043bfe0 pc=0x46d446
+created by labs-6.824/src/raft.(*Raft).SendAllAppendEntries
+	/home/linn/6.824/src/raft/raft.go:578 +0x2f9
+
+goroutine 85854 [runnable]:
+runtime.gopark(0x5223a6960d66?, 0x5d1160?, 0x30?, 0x3b?, 0x5c1cc0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0006a2f70 sp=0xc0006a2f50 pc=0x43c3d6
+time.Sleep(0xbebc200)
+	/usr/local/go/src/runtime/time.go:195 +0x135 fp=0xc0006a2fb0 sp=0xc0006a2f70 pc=0x46a2b5
+labs-6.824/src/kvraft.(*KVServer).doSnapShotCheck(0xc0000df7a0)
+	/home/linn/6.824/src/kvraft/server.go:208 +0x2f fp=0xc0006a2fc8 sp=0xc0006a2fb0 pc=0x5d0e8f
+labs-6.824/src/kvraft.StartKVServer.func2()
+	/home/linn/6.824/src/kvraft/server.go:201 +0x26 fp=0xc0006a2fe0 sp=0xc0006a2fc8 pc=0x5d0dc6
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1595 +0x6 fp=0xc0006a2fe8 sp=0xc0006a2fe0 pc=0x46d446
+created by labs-6.824/src/kvraft.StartKVServer
+	/home/linn/6.824/src/kvraft/server.go:201 +0x245
+
+goroutine 87516 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x80?, 0xad?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc00059ba78 sp=0xc00059ba58 pc=0x43c3d6
+runtime.chanrecv(0xc0006da3c0, 0xc00059bbd0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc00059bb08 sp=0xc00059ba78 pc=0x40891b
+runtime.chanrecv1(0xc00059bbb0?, 0xc00059bb70?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc00059bb30 sp=0xc00059bb08 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000248dc0, {0x638001?, 0x0?}, {0x5ea5e0, 0xc00055ad80}, {0x5ea620, 0xc0004003c0})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc00059bca0 sp=0xc00059bb30 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).Get(0xc0000a5230, {0x63feed, 0x1})
+	/home/linn/6.824/src/kvraft/client.go:56 +0xe6 fp=0xc00059bcf8 sp=0xc00059bca0 pc=0x5ccea6
+labs-6.824/src/kvraft.Get(0xc00010e000, 0x2?, {0x63feed, 0x1}, 0xc0000ec6a0, 0x2)
+	/home/linn/6.824/src/kvraft/test_test.go:49 +0x95 fp=0xc00059bde0 sp=0xc00059bcf8 pc=0x5d2975
+labs-6.824/src/kvraft.GenericTest.func1(0x2, 0xc0000c7bf0?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:290 +0x3e5 fp=0xc00059bf38 sp=0xc00059bde0 pc=0x5d5645
+labs-6.824/src/kvraft.run_client(0xc00045ed00?, 0xc00010e000, 0x5c5a6e?, 0x2012492ff704f2e?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc00059bfa8 sp=0xc00059bf38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc00059bfe0 sp=0xc00059bfa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00059bfe8 sp=0xc00059bfe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 122864 [runnable]:
+labs-6.824/src/labrpc.(*Network).processReq.func4()
+	/home/linn/6.824/src/labrpc/labrpc.go:302 fp=0xc0004b57e0 sp=0xc0004b57d8 pc=0x5ba260
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0004b57e8 sp=0xc0004b57e0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 87520 [chan receive, 1336 minutes]:
+runtime.gopark(0x0?, 0x2?, 0xc0?, 0xab?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0006dda78 sp=0xc0006dda58 pc=0x43c3d6
+runtime.chanrecv(0xc00002a7e0, 0xc0006ddbd0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc0006ddb08 sp=0xc0006dda78 pc=0x40891b
+runtime.chanrecv1(0xc0006ddbb0?, 0xc0006ddb70?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc0006ddb30 sp=0xc0006ddb08 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc0002490c0, {0x638001?, 0x0?}, {0x5ea5e0, 0xc00055abc0}, {0x5ea620, 0xc000306460})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc0006ddca0 sp=0xc0006ddb30 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).Get(0xc000156060, {0x63fef1, 0x1})
+	/home/linn/6.824/src/kvraft/client.go:56 +0xe6 fp=0xc0006ddcf8 sp=0xc0006ddca0 pc=0x5ccea6
+labs-6.824/src/kvraft.Get(0xc00010e000, 0x2?, {0x63fef1, 0x1}, 0xc0000ec6a0, 0x6)
+	/home/linn/6.824/src/kvraft/test_test.go:49 +0x95 fp=0xc0006ddde0 sp=0xc0006ddcf8 pc=0x5d2975
+labs-6.824/src/kvraft.GenericTest.func1(0x6, 0xc000a02090?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:290 +0x3e5 fp=0xc0006ddf38 sp=0xc0006ddde0 pc=0x5d5645
+labs-6.824/src/kvraft.run_client(0xc000858420?, 0xc00010e000, 0x5c5a6e?, 0x2012492ff704f2e?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc0006ddfa8 sp=0xc0006ddf38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc0006ddfe0 sp=0xc0006ddfa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0006ddfe8 sp=0xc0006ddfe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 87515 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x0?, 0x27?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000755a78 sp=0xc000755a58 pc=0x43c3d6
+runtime.chanrecv(0xc0006da480, 0xc000755bd0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000755b08 sp=0xc000755a78 pc=0x40891b
+runtime.chanrecv1(0xc000755bb0?, 0xc000755b70?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc000755b30 sp=0xc000755b08 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000248cc0, {0x638001?, 0x0?}, {0x5ea5e0, 0xc000072700}, {0x5ea620, 0xc0004003e0})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc000755ca0 sp=0xc000755b30 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).Get(0xc0000a4750, {0x63feec, 0x1})
+	/home/linn/6.824/src/kvraft/client.go:56 +0xe6 fp=0xc000755cf8 sp=0xc000755ca0 pc=0x5ccea6
+labs-6.824/src/kvraft.Get(0xc00010e000, 0x2?, {0x63feec, 0x1}, 0xc0000ec6a0, 0x1)
+	/home/linn/6.824/src/kvraft/test_test.go:49 +0x95 fp=0xc000755de0 sp=0xc000755cf8 pc=0x5d2975
+labs-6.824/src/kvraft.GenericTest.func1(0x1, 0xc0000c7ad0?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:290 +0x3e5 fp=0xc000755f38 sp=0xc000755de0 pc=0x5d5645
+labs-6.824/src/kvraft.run_client(0xc000859920?, 0xc00010e000, 0x200?, 0xc0009ba4e0?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc000755fa8 sp=0xc000755f38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc000755fe0 sp=0xc000755fa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000755fe8 sp=0xc000755fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 122840 [chan receive, 1336 minutes]:
+runtime.gopark(0x0?, 0x2?, 0x40?, 0x83?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000685cc0 sp=0xc000685ca0 pc=0x43c3d6
+runtime.chanrecv(0xc0008584e0, 0xc000a43e18, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000685d50 sp=0xc000685cc0 pc=0x40891b
+runtime.chanrecv1(0xc000a43df8?, 0xc000a43db8?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc000685d78 sp=0xc000685d50 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000292200, {0x63bfec?, 0x1000000000004?}, {0x5eab60, 0xc000168340}, {0x5eaba0, 0xc000590400})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc000685ee8 sp=0xc000685d78 pc=0x5b8f46
+labs-6.824/src/raft.(*Raft).SendAppendEntries(0xc0000f08c0, 0x2, 0xc000168340, 0xc000590400)
+	/home/linn/6.824/src/raft/raft.go:601 +0x92 fp=0xc000685f78 sp=0xc000685ee8 pc=0x5c5c12
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func1(0x5c4d26?, 0xc0000f08c0?)
+	/home/linn/6.824/src/raft/raft.go:580 +0x4a fp=0xc000685fc0 sp=0xc000685f78 pc=0x5c5aea
+labs-6.824/src/raft.(*Raft).SendAllAppendEntries.func4()
+	/home/linn/6.824/src/raft/raft.go:581 +0x2e fp=0xc000685fe0 sp=0xc000685fc0 pc=0x5c5a6e
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000685fe8 sp=0xc000685fe0 pc=0x46d441
+created by labs-6.824/src/raft.(*Raft).SendAllAppendEntries
+	/home/linn/6.824/src/raft/raft.go:578 +0x2f9
+
+goroutine 87524 [chan receive, 1336 minutes]:
+runtime.gopark(0x0?, 0x2?, 0xc0?, 0x8f?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000751a88 sp=0xc000751a68 pc=0x43c3d6
+runtime.chanrecv(0xc000858240, 0xc000751be0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000751b18 sp=0xc000751a88 pc=0x40891b
+runtime.chanrecv1(0xc000751bc0?, 0xc000751b80?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc000751b40 sp=0xc000751b18 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000249400, {0x639a1f?, 0x0?}, {0x5ea6a0, 0xc0008a8fc0}, {0x5ea6e0, 0xc000446270})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc000751cb0 sp=0xc000751b40 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).PutAppend(0xc0001567e0, {0x646c93, 0x2}, {0xc00039e702, 0x9}, {0x63664b, 0x6})
+	/home/linn/6.824/src/kvraft/client.go:91 +0x152 fp=0xc000751d08 sp=0xc000751cb0 pc=0x5cd0d2
+labs-6.824/src/kvraft.(*Clerk).Append(...)
+	/home/linn/6.824/src/kvraft/client.go:109
+labs-6.824/src/kvraft.Append(0xc00010e000, 0x2?, {0x646c93, 0x2}, {0xc00039e702, 0x9}, 0xc0000ec6a0, 0xa)
+	/home/linn/6.824/src/kvraft/test_test.go:83 +0xc5 fp=0xc000751de0 sp=0xc000751d08 pc=0x5d2ee5
+labs-6.824/src/kvraft.GenericTest.func1(0xa, 0xc000a02570?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:278 +0x578 fp=0xc000751f38 sp=0xc000751de0 pc=0x5d57d8
+labs-6.824/src/kvraft.run_client(0xc000a4f040?, 0xc00010e000, 0xc000a4f380?, 0xc0002f4b60?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc000751fa8 sp=0xc000751f38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc000751fe0 sp=0xc000751fa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000751fe8 sp=0xc000751fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 122917 [GC assist wait]:
+runtime.gopark(0x625580?, 0xc00020a998?, 0x28?, 0xad?, 0x55?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc00020a9b0 sp=0xc00020a990 pc=0x43c3d6
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:369
+runtime.gcParkAssist()
+	/usr/local/go/src/runtime/mgcmark.go:651 +0xeb fp=0xc00020a9e8 sp=0xc00020a9b0 pc=0x420aeb
+runtime.gcAssistAlloc(0xc00017bba0)
+	/usr/local/go/src/runtime/mgcmark.go:507 +0x23e fp=0xc00020aa48 sp=0xc00020a9e8 pc=0x4204fe
+runtime.mallocgc(0x5, 0x0, 0x0)
+	/usr/local/go/src/runtime/malloc.go:906 +0x11f fp=0xc00020aac0 sp=0xc00020aa48 pc=0x40ed9f
+runtime.slicebytetostring(0xc0004f8480?, 0xc00020ab2b, 0x5)
+	/usr/local/go/src/runtime/string.go:114 +0x50 fp=0xc00020aaf8 sp=0xc00020aac0 pc=0x455610
+time.Duration.String(0xc0005823b0?)
+	/usr/local/go/src/time/time.go:693 +0x28d fp=0xc00020ab40 sp=0xc00020aaf8 pc=0x48aa4d
+time.(*Duration).String(0xc0005823b0?)
+	<autogenerated>:1 +0x2d fp=0xc00020ab58 sp=0xc00020ab40 pc=0x492fed
+fmt.(*pp).handleMethods(0xc000834000, 0x57800?)
+	/usr/local/go/src/fmt/print.go:657 +0x30b fp=0xc00020ada8 sp=0xc00020ab58 pc=0x4df74b
+fmt.(*pp).printArg(0xc000834000, {0x623540?, 0xc0005823b0}, 0x76)
+	/usr/local/go/src/fmt/print.go:740 +0x69b fp=0xc00020ae48 sp=0xc00020ada8 pc=0x4e031b
+fmt.(*pp).doPrintf(0xc000834000, {0x63ba20, 0x17}, {0xc00020afc0?, 0x1, 0x1})
+	/usr/local/go/src/fmt/print.go:1057 +0x288 fp=0xc00020af40 sp=0xc00020ae48 pc=0x4e2e08
+fmt.Sprintf({0x63ba20, 0x17}, {0xc00020afc0, 0x1, 0x1})
+	/usr/local/go/src/fmt/print.go:219 +0x59 fp=0xc00020af98 sp=0xc00020af40 pc=0x4dcf99
+testing.(*M).startAlarm.func1()
+	/usr/local/go/src/testing/testing.go:2036 +0x7a fp=0xc00020afe0 sp=0xc00020af98 pc=0x50403a
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00020afe8 sp=0xc00020afe0 pc=0x46d441
+created by time.goFunc
+	/usr/local/go/src/time/sleep.go:176 +0x32
+
+goroutine 87521 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x0?, 0x29?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc00059da78 sp=0xc00059da58 pc=0x43c3d6
+runtime.chanrecv(0xc000858960, 0xc00059dbd0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc00059db08 sp=0xc00059da78 pc=0x40891b
+runtime.chanrecv1(0xc00059dbb0?, 0xc00059db70?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc00059db30 sp=0xc00059db08 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc000249160, {0x638001?, 0x0?}, {0x5ea5e0, 0xc000072900}, {0x5ea620, 0xc0000ec8e0})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc00059dca0 sp=0xc00059db30 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).Get(0xc0001561e0, {0x63fef2, 0x1})
+	/home/linn/6.824/src/kvraft/client.go:56 +0xe6 fp=0xc00059dcf8 sp=0xc00059dca0 pc=0x5ccea6
+labs-6.824/src/kvraft.Get(0xc00010e000, 0x2?, {0x63fef2, 0x1}, 0xc0000ec6a0, 0x7)
+	/home/linn/6.824/src/kvraft/test_test.go:49 +0x95 fp=0xc00059dde0 sp=0xc00059dcf8 pc=0x5d2975
+labs-6.824/src/kvraft.GenericTest.func1(0x7, 0xc000a021b0?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:290 +0x3e5 fp=0xc00059df38 sp=0xc00059dde0 pc=0x5d5645
+labs-6.824/src/kvraft.run_client(0xc000016a80?, 0xc00010e000, 0x5c5a6e?, 0xc00002b1a0?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc00059dfa8 sp=0xc00059df38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc00059dfe0 sp=0xc00059dfa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc00059dfe8 sp=0xc00059dfe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 87532 [GC assist wait]:
+runtime.gopark(0xc0009b4340?, 0x1000000010000?, 0x28?, 0xed?, 0x55?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0007a9b78 sp=0xc0007a9b58 pc=0x43c3d6
+runtime.goparkunlock(...)
+	/usr/local/go/src/runtime/proc.go:369
+runtime.gcParkAssist()
+	/usr/local/go/src/runtime/mgcmark.go:651 +0xeb fp=0xc0007a9bb0 sp=0xc0007a9b78 pc=0x420aeb
+runtime.gcAssistAlloc(0xc0002fa4e0)
+	/usr/local/go/src/runtime/mgcmark.go:507 +0x23e fp=0xc0007a9c10 sp=0xc0007a9bb0 pc=0x4204fe
+runtime.mallocgc(0x10, 0x607aa0, 0x1)
+	/usr/local/go/src/runtime/malloc.go:906 +0x11f fp=0xc0007a9c88 sp=0xc0007a9c10 pc=0x40ed9f
+runtime.newobject(0xc000249ae0?)
+	/usr/local/go/src/runtime/malloc.go:1192 +0x27 fp=0xc0007a9cb0 sp=0xc0007a9c88 pc=0x40f667
+labs-6.824/src/kvraft.(*Clerk).PutAppend(0xc000157230, {0x646ca3, 0x2}, {0xc000171982, 0x9}, {0x63664b, 0x6})
+	/home/linn/6.824/src/kvraft/client.go:90 +0xff fp=0xc0007a9d08 sp=0xc0007a9cb0 pc=0x5cd07f
+labs-6.824/src/kvraft.(*Clerk).Append(...)
+	/home/linn/6.824/src/kvraft/client.go:109
+labs-6.824/src/kvraft.Append(0xc00010e000, 0x2?, {0x646ca3, 0x2}, {0xc000171982, 0x9}, 0xc0000ec6a0, 0x12)
+	/home/linn/6.824/src/kvraft/test_test.go:83 +0xc5 fp=0xc0007a9de0 sp=0xc0007a9d08 pc=0x5d2ee5
+labs-6.824/src/kvraft.GenericTest.func1(0x12, 0xc000a02e70?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:278 +0x578 fp=0xc0007a9f38 sp=0xc0007a9de0 pc=0x5d57d8
+labs-6.824/src/kvraft.run_client(0xc0003c46e0?, 0xc00010e000, 0xa0?, 0xc000858cc0?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc0007a9fa8 sp=0xc0007a9f38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc0007a9fe0 sp=0xc0007a9fa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0007a9fe8 sp=0xc0007a9fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 87528 [sleep]:
+runtime.gopark(0x9b132b48ded4?, 0x5ea5e0?, 0x80?, 0xcf?, 0x4c?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0000e5c60 sp=0xc0000e5c40 pc=0x43c3d6
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:195 +0x135 fp=0xc0000e5ca0 sp=0xc0000e5c60 pc=0x46a2b5
+labs-6.824/src/kvraft.(*Clerk).Get(0xc000156d50, {0x646c9b, 0x2})
+	/home/linn/6.824/src/kvraft/client.go:65 +0x147 fp=0xc0000e5cf8 sp=0xc0000e5ca0 pc=0x5ccf07
+labs-6.824/src/kvraft.Get(0xc00010e000, 0x2?, {0x646c9b, 0x2}, 0xc0000ec6a0, 0xe)
+	/home/linn/6.824/src/kvraft/test_test.go:49 +0x95 fp=0xc0000e5de0 sp=0xc0000e5cf8 pc=0x5d2975
+labs-6.824/src/kvraft.GenericTest.func1(0xe, 0xc000a029f0?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:290 +0x3e5 fp=0xc0000e5f38 sp=0xc0000e5de0 pc=0x5d5645
+labs-6.824/src/kvraft.run_client(0xc00040a6c0?, 0xc00010e000, 0x5c5a6e?, 0xc000359830?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc0000e5fa8 sp=0xc0000e5f38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc0000e5fe0 sp=0xc0000e5fa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0000e5fe8 sp=0xc0000e5fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 87522 [sleep]:
+runtime.gopark(0x9b132a6d6de0?, 0x5ea6a0?, 0x60?, 0xb3?, 0x74?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000757c70 sp=0xc000757c50 pc=0x43c3d6
+time.Sleep(0x5f5e100)
+	/usr/local/go/src/runtime/time.go:195 +0x135 fp=0xc000757cb0 sp=0xc000757c70 pc=0x46a2b5
+labs-6.824/src/kvraft.(*Clerk).PutAppend(0xc000156300, {0x63fef3, 0x1}, {0xc0000ba460, 0x8}, {0x63664b, 0x6})
+	/home/linn/6.824/src/kvraft/client.go:100 +0x1b3 fp=0xc000757d08 sp=0xc000757cb0 pc=0x5cd133
+labs-6.824/src/kvraft.(*Clerk).Append(...)
+	/home/linn/6.824/src/kvraft/client.go:109
+labs-6.824/src/kvraft.Append(0xc00010e000, 0x2?, {0x63fef3, 0x1}, {0xc0000ba460, 0x8}, 0xc0000ec6a0, 0x8)
+	/home/linn/6.824/src/kvraft/test_test.go:83 +0xc5 fp=0xc000757de0 sp=0xc000757d08 pc=0x5d2ee5
+labs-6.824/src/kvraft.GenericTest.func1(0x8, 0xc000a022d0?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:278 +0x578 fp=0xc000757f38 sp=0xc000757de0 pc=0x5d57d8
+labs-6.824/src/kvraft.run_client(0xc00028ca00?, 0xc00010e000, 0x200?, 0xc000668f60?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc000757fa8 sp=0xc000757f38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc000757fe0 sp=0xc000757fa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000757fe8 sp=0xc000757fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 87513 [chan receive, 1336 minutes]:
+runtime.gopark(0x7fe1a0?, 0xc000679f10?, 0x1f?, 0xf3?, 0x7fb658f12108?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000679e90 sp=0xc000679e70 pc=0x43c3d6
+runtime.chanrecv(0xc000097440, 0xc000679f7f, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000679f20 sp=0xc000679e90 pc=0x40891b
+runtime.chanrecv1(0xc000244f01?, 0x0?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc000679f48 sp=0xc000679f20 pc=0x408418
+labs-6.824/src/kvraft.spawn_clients_and_wait(0xc00008b6c0, 0xc00010e000, 0x14, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:123 +0x185 fp=0xc000679fb0 sp=0xc000679f48 pc=0x5d35c5
+labs-6.824/src/kvraft.GenericTest.func3()
+	/home/linn/6.824/src/kvraft/test_test.go:259 +0x32 fp=0xc000679fe0 sp=0xc000679fb0 pc=0x5d5232
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000679fe8 sp=0xc000679fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.GenericTest
+	/home/linn/6.824/src/kvraft/test_test.go:259 +0x6aa
+
+goroutine 87526 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x80?, 0x69?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000743a78 sp=0xc000743a58 pc=0x43c3d6
+runtime.chanrecv(0xc000858ba0, 0xc000743bd0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000743b08 sp=0xc000743a78 pc=0x40891b
+runtime.chanrecv1(0xc000743bb0?, 0xc000743b70?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc000743b30 sp=0xc000743b08 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc0002495a0, {0x638001?, 0x0?}, {0x5ea5e0, 0xc0001a6980}, {0x5ea620, 0xc0000ec900})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc000743ca0 sp=0xc000743b30 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).Get(0xc000156b10, {0x646c97, 0x2})
+	/home/linn/6.824/src/kvraft/client.go:56 +0xe6 fp=0xc000743cf8 sp=0xc000743ca0 pc=0x5ccea6
+labs-6.824/src/kvraft.Get(0xc00010e000, 0x2?, {0x646c97, 0x2}, 0xc0000ec6a0, 0xc)
+	/home/linn/6.824/src/kvraft/test_test.go:49 +0x95 fp=0xc000743de0 sp=0xc000743cf8 pc=0x5d2975
+labs-6.824/src/kvraft.GenericTest.func1(0xc, 0xc000a027b0?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:290 +0x3e5 fp=0xc000743f38 sp=0xc000743de0 pc=0x5d5645
+labs-6.824/src/kvraft.run_client(0xc00021f800?, 0xc00010e000, 0x200?, 0xc000668720?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc000743fa8 sp=0xc000743f38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc000743fe0 sp=0xc000743fa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000743fe8 sp=0xc000743fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 85835 [chan receive, 1336 minutes]:
+runtime.gopark(0x5d2360?, 0x5f1d80?, 0x48?, 0x9c?, 0x5f1d80?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc000139e08 sp=0xc000139de8 pc=0x43c3d6
+runtime.chanrecv(0xc000b8fce0, 0xc000139f68, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc000139e98 sp=0xc000139e08 pc=0x40891b
+runtime.chanrecv2(0x1?, 0x621940?)
+	/usr/local/go/src/runtime/chan.go:447 +0x18 fp=0xc000139ec0 sp=0xc000139e98 pc=0x408458
+labs-6.824/src/kvraft.(*KVServer).Run(0xc0004ac4d0)
+	/home/linn/6.824/src/kvraft/server.go:163 +0x66 fp=0xc000139fc8 sp=0xc000139ec0 pc=0x5d0a46
+labs-6.824/src/kvraft.StartKVServer.func1()
+	/home/linn/6.824/src/kvraft/server.go:200 +0x26 fp=0xc000139fe0 sp=0xc000139fc8 pc=0x5d0e26
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc000139fe8 sp=0xc000139fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.StartKVServer
+	/home/linn/6.824/src/kvraft/server.go:200 +0x205
+
+goroutine 87525 [chan receive]:
+runtime.gopark(0x0?, 0x2?, 0x0?, 0xb7?, 0x0?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0007f3a88 sp=0xc0007f3a68 pc=0x43c3d6
+runtime.chanrecv(0xc0006dac00, 0xc0007f3be0, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc0007f3b18 sp=0xc0007f3a88 pc=0x40891b
+runtime.chanrecv1(0xc0007f3bc0?, 0xc0007f3b80?)
+	/usr/local/go/src/runtime/chan.go:442 +0x18 fp=0xc0007f3b40 sp=0xc0007f3b18 pc=0x408418
+labs-6.824/src/labrpc.(*ClientEnd).Call(0xc0002494e0, {0x639a1f?, 0x0?}, {0x5ea6a0, 0xc00089b700}, {0x5ea6e0, 0xc0002ae710})
+	/home/linn/6.824/src/labrpc/labrpc.go:110 +0x246 fp=0xc0007f3cb0 sp=0xc0007f3b40 pc=0x5b8f46
+labs-6.824/src/kvraft.(*Clerk).PutAppend(0xc0001569c0, {0x646c95, 0x2}, {0xc000171770, 0x9}, {0x63664b, 0x6})
+	/home/linn/6.824/src/kvraft/client.go:91 +0x152 fp=0xc0007f3d08 sp=0xc0007f3cb0 pc=0x5cd0d2
+labs-6.824/src/kvraft.(*Clerk).Append(...)
+	/home/linn/6.824/src/kvraft/client.go:109
+labs-6.824/src/kvraft.Append(0xc00010e000, 0x2?, {0x646c95, 0x2}, {0xc000171770, 0x9}, 0xc0000ec6a0, 0xb)
+	/home/linn/6.824/src/kvraft/test_test.go:83 +0xc5 fp=0xc0007f3de0 sp=0xc0007f3d08 pc=0x5d2ee5
+labs-6.824/src/kvraft.GenericTest.func1(0xb, 0xc000a02690?, 0xc00008b6c0)
+	/home/linn/6.824/src/kvraft/test_test.go:278 +0x578 fp=0xc0007f3f38 sp=0xc0007f3de0 pc=0x5d57d8
+labs-6.824/src/kvraft.run_client(0xc0002281a0?, 0xc00010e000, 0xc000228680?, 0xc0002289c0?, 0xc00007f720)
+	/home/linn/6.824/src/kvraft/test_test.go:109 +0xe4 fp=0xc0007f3fa8 sp=0xc0007f3f38 pc=0x5d3364
+labs-6.824/src/kvraft.spawn_clients_and_wait.func1()
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x36 fp=0xc0007f3fe0 sp=0xc0007f3fa8 pc=0x5d3676
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0007f3fe8 sp=0xc0007f3fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.spawn_clients_and_wait
+	/home/linn/6.824/src/kvraft/test_test.go:119 +0x4c
+
+goroutine 85841 [chan receive, 1336 minutes]:
+runtime.gopark(0x5d2360?, 0x5f1d80?, 0x48?, 0x7c?, 0x5f1d80?)
+	/usr/local/go/src/runtime/proc.go:363 +0xd6 fp=0xc0003c7e08 sp=0xc0003c7de8 pc=0x43c3d6
+runtime.chanrecv(0xc00050dc20, 0xc0003c7f68, 0x1)
+	/usr/local/go/src/runtime/chan.go:583 +0x49b fp=0xc0003c7e98 sp=0xc0003c7e08 pc=0x40891b
+runtime.chanrecv2(0x1?, 0x621940?)
+	/usr/local/go/src/runtime/chan.go:447 +0x18 fp=0xc0003c7ec0 sp=0xc0003c7e98 pc=0x408458
+labs-6.824/src/kvraft.(*KVServer).Run(0xc0004ad490)
+	/home/linn/6.824/src/kvraft/server.go:163 +0x66 fp=0xc0003c7fc8 sp=0xc0003c7ec0 pc=0x5d0a46
+labs-6.824/src/kvraft.StartKVServer.func1()
+	/home/linn/6.824/src/kvraft/server.go:200 +0x26 fp=0xc0003c7fe0 sp=0xc0003c7fc8 pc=0x5d0e26
+runtime.goexit()
+	/usr/local/go/src/runtime/asm_amd64.s:1594 +0x1 fp=0xc0003c7fe8 sp=0xc0003c7fe0 pc=0x46d441
+created by labs-6.824/src/kvraft.StartKVServer
+	/home/linn/6.824/src/kvraft/server.go:200 +0x205
+
+rax    0xca
+rbx    0x0
+rcx    0x46f343
+rdx    0x0
+rdi    0x7cf0a8
+rsi    0x80
+rbp    0x7fffaade70f0
+rsp    0x7fffaade70a8
+r8     0x0
+r9     0x0
+r10    0x0
+r11    0x286
+r12    0x7fffaade7210
+r13    0x70
+r14    0x7ce9c0
+r15    0x7fb631c0be8f
+rip    0x46f341
+rflags 0x286
+cs     0x33
+fs     0x0
+gs     0x0
+*** Test killed with quit: ran too long (11m0s).
+exit status 2
+FAIL	labs-6.824/src/kvraft	80212.401s

@@ -113,9 +113,9 @@ func (cfg *config) crash1(i int) {
 	cfg.mu.Lock()
 	defer cfg.mu.Unlock()
 
-	// a fresh persister, in case old instance
+	// a fresh Persister, in case old instance
 	// continues to update the Persister.
-	// but copy old persister's content so that we always
+	// but copy old Persister's content so that we always
 	// pass Make() the last persisted state.
 	if cfg.saved[i] != nil {
 		cfg.saved[i] = cfg.saved[i].Copy()
@@ -268,7 +268,7 @@ func (cfg *config) applierSnap(i int, applyCh chan ApplyMsg) {
 // start or re-start a Raft.
 // if one already exists, "kill" it first.
 // allocate new outgoing port file names, and a new
-// state persister, to isolate previous instance of
+// state Persister, to isolate previous instance of
 // this server. since we cannot really kill it.
 func (cfg *config) start1(i int, applier func(int, chan ApplyMsg)) {
 	cfg.crash1(i)
@@ -291,9 +291,9 @@ func (cfg *config) start1(i int, applier func(int, chan ApplyMsg)) {
 
 	cfg.lastApplied[i] = 0
 
-	// a fresh persister, so old instance doesn't overwrite
+	// a fresh Persister, so old instance doesn't overwrite
 	// new instance's persisted state.
-	// but copy old persister's content so that we always
+	// but copy old Persister's content so that we always
 	// pass Make() the last persisted state.
 	if cfg.saved[i] != nil {
 		cfg.saved[i] = cfg.saved[i].Copy()

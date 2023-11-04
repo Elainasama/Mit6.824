@@ -1,102 +1,71 @@
-package shardkv
+package shardctrler
 
-
-// import "../shardmaster"
-import "../labrpc"
-import "../raft"
+import "labs-6.824/src/raft"
+import "labs-6.824/src/labrpc"
 import "sync"
-import "../labgob"
+import "labs-6.824/src/labgob"
 
+type ShardCtrler struct {
+	mu      sync.Mutex
+	me      int
+	rf      *raft.Raft
+	applyCh chan raft.ApplyMsg
 
+	// Your data here.
+
+	configs []Config // indexed by config num
+}
 
 type Op struct {
-	// Your definitions here.
-	// Field names must start with capital letters,
-	// otherwise RPC will break.
+	// Your data here.
 }
 
-type ShardKV struct {
-	mu           sync.Mutex
-	me           int
-	rf           *raft.Raft
-	applyCh      chan raft.ApplyMsg
-	make_end     func(string) *labrpc.ClientEnd
-	gid          int
-	masters      []*labrpc.ClientEnd
-	maxraftstate int // snapshot if log grows this big
-
-	// Your definitions here.
-}
-
-
-func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
+func (sc *ShardCtrler) Join(args *JoinArgs, reply *JoinReply) {
 	// Your code here.
 }
 
-func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
+func (sc *ShardCtrler) Leave(args *LeaveArgs, reply *LeaveReply) {
 	// Your code here.
 }
 
-//
-// the tester calls Kill() when a ShardKV instance won't
+func (sc *ShardCtrler) Move(args *MoveArgs, reply *MoveReply) {
+	// Your code here.
+}
+
+func (sc *ShardCtrler) Query(args *QueryArgs, reply *QueryReply) {
+	// Your code here.
+}
+
+// the tester calls Kill() when a ShardCtrler instance won't
 // be needed again. you are not required to do anything
 // in Kill(), but it might be convenient to (for example)
 // turn off debug output from this instance.
-//
-func (kv *ShardKV) Kill() {
-	kv.rf.Kill()
+func (sc *ShardCtrler) Kill() {
+	sc.rf.Kill()
 	// Your code here, if desired.
 }
 
+// needed by shardkv tester
+func (sc *ShardCtrler) Raft() *raft.Raft {
+	return sc.rf
+}
 
-//
-// servers[] contains the ports of the servers in this group.
-//
+// servers[] contains the ports of the set of
+// servers that will cooperate via Raft to
+// form the fault-tolerant shardctrler service.
 // me is the index of the current server in servers[].
-//
-// the k/v server should store snapshots through the underlying Raft
-// implementation, which should call persister.SaveStateAndSnapshot() to
-// atomically save the Raft state along with the snapshot.
-//
-// the k/v server should snapshot when Raft's saved state exceeds
-// maxraftstate bytes, in order to allow Raft to garbage-collect its
-// log. if maxraftstate is -1, you don't need to snapshot.
-//
-// gid is this group's GID, for interacting with the shardmaster.
-//
-// pass masters[] to shardmaster.MakeClerk() so you can send
-// RPCs to the shardmaster.
-//
-// make_end(servername) turns a server name from a
-// Config.Groups[gid][i] into a labrpc.ClientEnd on which you can
-// send RPCs. You'll need this to send RPCs to other groups.
-//
-// look at client.go for examples of how to use masters[]
-// and make_end() to send RPCs to the group owning a specific shard.
-//
-// StartServer() must return quickly, so it should start goroutines
-// for any long-running work.
-//
-func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister, maxraftstate int, gid int, masters []*labrpc.ClientEnd, make_end func(string) *labrpc.ClientEnd) *ShardKV {
-	// call labgob.Register on structures you want
-	// Go's RPC library to marshall/unmarshall.
+func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister) *ShardCtrler {
+	sc := new(ShardCtrler)
+	sc.me = me
+
+	sc.configs = make([]Config, 1)
+	sc.configs[0].Groups = map[int][]string{}
+
 	labgob.Register(Op{})
+	sc.applyCh = make(chan raft.ApplyMsg)
+	sc.rf = raft.Make(servers, me, persister, sc.applyCh)
 
-	kv := new(ShardKV)
-	kv.me = me
-	kv.maxraftstate = maxraftstate
-	kv.make_end = make_end
-	kv.gid = gid
-	kv.masters = masters
+	// Your code here.
 
-	// Your initialization code here.
-
-	// Use something like this to talk to the shardmaster:
-	// kv.mck = shardmaster.MakeClerk(kv.masters)
-
-	kv.applyCh = make(chan raft.ApplyMsg)
-	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
-
-
-	return kv
+	return sc
 }

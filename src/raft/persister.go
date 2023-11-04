@@ -4,7 +4,7 @@ package raft
 // support for Raft and kvraft to save persistent
 // Raft state (log &c) and k/v server snapshots.
 //
-// we will use the original persister.go to test your code for grading.
+// we will use the original Persister.go to test your code for grading.
 // so, while you can modify this code to help you debug, please
 // test with the original before submitting.
 //
@@ -62,6 +62,12 @@ func (ps *Persister) SaveRaftState(raftstate []byte) {
 	ps.mu.Lock()
 	defer ps.mu.Unlock()
 	ps.raftstate = clone(raftstate)
+}
+
+func (ps *Persister) SaveSnapshot(data []byte) {
+	ps.mu.Lock()
+	defer ps.mu.Unlock()
+	ps.snapshot = clone(data)
 }
 
 func (ps *Persister) ReadSnapshot() []byte {
