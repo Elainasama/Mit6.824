@@ -1,73 +1,105 @@
-package shardctrler
+package shardkv
+
+import "time"
 
 //
-// Shard controler: assigns shards to replication groups.
+// Sharded key/value server.
+// Lots of replica groups, each running Raft.
+// Shardctrler decides which group serves each shard.
+// Shardctrler may change shard assignment Gid time to time.
 //
-// RPC interface:
-// Join(servers) -- add a set of groups (gid -> server-list mapping).
-// Leave(gids) -- delete a set of groups.
-// Move(shard, gid) -- hand off one shard from current owner to gid.
-// Query(num) -> fetch Config # num, or latest config if num==-1.
+// You will have to modify these definitions.
 //
-// A Config (configuration) describes a set of replica groups, and the
-// replica group responsible for each shard. Configs are numbered. Config
-// #0 is the initial configuration, with no groups and all shards
-// assigned to group 0 (the invalid group).
-//
-// You will need to add fields to the RPC argument structs.
-//
-
-// The number of shards.
-const NShards = 10
-
-// A configuration -- an assignment of shards to groups.
-// Please don't change this.
-type Config struct {
-	Num    int              // config number
-	Shards [NShards]int     // shard -> gid
-	Groups map[int][]string // gid -> servers[]
-}
 
 const (
-	OK = "OK"
+	OK             = "OK"
+	ErrNoKey       = "ErrNoKey"
+	ErrWrongGroup  = "ErrWrongGroup"
+	ErrWrongLeader = "ErrWrongLeader"
+	ErrTimeOut     = "ErrTimeOut"
+)
+
+const (
+	Get    = "Get"
+	Put    = "Put"
+	Append = "Append"
+)
+
+type OpType int
+
+const (
+	KvOp OpType = iota
+	UpdateConfiguration
+	MoveShard
+	DeleteShard
+)
+
+type ShardStatus int
+
+const (
+	Serving ShardStatus = iota
+	Pulling
+	WaitingPushing
+	Pushing
+	Delete
 )
 
 type Err string
 
-type JoinArgs struct {
-	Servers map[int][]string // new GID -> servers mappings
+// Put or Append
+type PutAppendArgs struct {
+	// You'll have to add definitions here.
+	Key   string
+	Value string
+	Op    string // "Put" or "Append"
+	// You'll have to add definitions here.
+	// Field names must start with capital letters,
+	// otherwise RPC will break.
+	Shard     int
+	ClerkId   int64
+	CommandId int
 }
 
-type JoinReply struct {
-	WrongLeader bool
-	Err         Err
+type PutAppendReply struct {
+	Err Err
 }
 
-type LeaveArgs struct {
-	GIDs []int
+type GetArgs struct {
+	Key string
+	// You'll have to add definitions here.
+	Shard     int
+	ClerkId   int64
+	CommandId int
 }
 
-type LeaveReply struct {
-	WrongLeader bool
-	Err         Err
+type GetReply struct {
+	Err   Err
+	Value string
 }
 
-type MoveArgs struct {
-	Shard int
-	GID   int
+type sessionResult struct {
+	Err           Err
+	LastCommandId int
+	Value         string
 }
 
-type MoveReply struct {
-	WrongLeader bool
-	Err         Err
-}
+const TimeOut = 200 * time.Millisecond
+const QueryTime = 10 * time.Millisecond
 
-type QueryArgs struct {
-	Num int // desired config number
-}
+// CheckTime 定期的分片拉取时间
+const CheckTime = 100 * time.Millisecond
 
-type QueryReply struct {
-	WrongLeader bool
-	Err         Err
-	Config      Config
+// MoveShardTimeOut 分片迁移超时时间
+const MoveShardTimeOut = 400 * time.Millisecond
+
+type ShardArgs struct {
+	Gid       int
+	Shard     int
+	ConfigNum int
+}
+type ShardReply struct {
+	// for Move
+	Data      []byte
+	Err       Err
+	ConfigNum int
 }

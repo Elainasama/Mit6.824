@@ -73,7 +73,6 @@ func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
 		reply.Value = res.Value
 		return
 	}
-	//
 	op := Op{
 		Key:       args.Key,
 		Type:      "Get",
@@ -334,7 +333,6 @@ func (kv *KVServer) doApplyWork(msg raft.ApplyMsg) {
 			Err:           OK,
 		})
 	}
-
 }
 
 func (kv *KVServer) genSessionId(clerkId int64, commandId int) string {

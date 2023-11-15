@@ -3,7 +3,7 @@ package main
 //
 // start a diskvd server. it's a member of some replica
 // group, which has other members, and it needs to know
-// how to talk to the members of the shardmaster service.
+// how to talk to the members of the shardkv service.
 // used by ../diskv/test_test.go
 //
 // arguments:
