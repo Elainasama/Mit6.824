@@ -32,6 +32,7 @@ const (
 	UpdateConfiguration
 	MoveShard
 	DeleteShard
+	Nop
 )
 
 type ShardStatus int
@@ -39,7 +40,6 @@ type ShardStatus int
 const (
 	Serving ShardStatus = iota
 	Pulling
-	WaitingPushing
 	Pushing
 	Delete
 )
@@ -77,17 +77,25 @@ type GetReply struct {
 	Value string
 }
 
-type sessionResult struct {
-	Err           Err
-	LastCommandId int
-	Value         string
+type SessionResult struct {
+	Err       Err
+	Value     string
+	SessionId int64
 }
 
+const ChannelLen = 0
+
 const TimeOut = 200 * time.Millisecond
-const QueryTime = 10 * time.Millisecond
+const QueryTime = 20 * time.Millisecond
 
 // CheckTime 定期的分片拉取时间
 const CheckTime = 100 * time.Millisecond
+
+const MoveShardTime = 30 * time.Millisecond
+
+const DeleteShardTime = 50 * time.Millisecond
+
+const NopTime = 60 * time.Millisecond
 
 // MoveShardTimeOut 分片迁移超时时间
 const MoveShardTimeOut = 400 * time.Millisecond
