@@ -577,8 +577,10 @@ func (kv *ShardKV) MoveShardWorker() {
 						Shard:     i,
 						ConfigNum: kv.CurrentConfig.Num,
 					}
+					var groups []string
+					groups = append(groups, kv.PrevConfig.Groups[preGid]...)
 					go func() {
-						kv.SendMoveShardRpc(kv.PrevConfig.Groups[preGid], args)
+						kv.SendMoveShardRpc(groups, args)
 						wg.Done()
 					}()
 				}
@@ -665,8 +667,11 @@ func (kv *ShardKV) DeleteShardWorker() {
 						Shard:     i,
 						ConfigNum: kv.CurrentConfig.Num,
 					}
+					// 这里复制切片副本 防止DataRace
+					var groups []string
+					groups = append(groups, kv.CurrentConfig.Groups[curGid]...)
 					go func() {
-						kv.SendDeleteShardRpc(kv.CurrentConfig.Groups[curGid], args)
+						kv.SendDeleteShardRpc(groups, args)
 						wg.Done()
 					}()
 				}
