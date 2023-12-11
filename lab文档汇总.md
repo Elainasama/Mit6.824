@@ -341,6 +341,7 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 2C中还有一个值得探讨的点是figure8，figure8用一个特殊的case阐述了为什么**Leader不能直接提交小于当前Term的日志，只能通过提交当前Term的日志间接提交先前日志**。
 
 ![figure8](./picture/figure8.png)
+
 代码的实现很简单，只需要在commit的时候判断一下末尾日志是否与当前的任期Term匹配即可。
 
 合理的解法还应该增加一个 no-op 流程，具体表现为在 Leader 刚选举成功的时候，立即追加一条 no-op 日志，并立即复制到其它节点，该日志不包含任何命令，no-op 日志一经提交，Leader 前面那些未提交的日志全部间接提交。防止系统由于长期未有新日志输入导致一直卡死的情况。
